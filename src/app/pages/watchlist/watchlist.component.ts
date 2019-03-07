@@ -9,7 +9,6 @@ import {Class} from 'src/app/shared/fflogs/models/Class';
 import {WatchlistService} from './watchlist.service';
 import {AddEditCharacterComponent} from './add-edit-character/add-edit-character.component';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
-import {Utils} from 'src/app/shared/Utils';
 
 @Component({
   selector: 'app-watchlist',

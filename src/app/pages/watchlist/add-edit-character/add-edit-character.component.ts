@@ -24,7 +24,7 @@ export class AddEditCharacterComponent implements OnInit {
   isEdit = false;
   selectedCharacter: Character;
   existingCharacterIds: Record<number, boolean>;
-  classes = ['Bard']; // TODO get classes
+  classes = [];
   constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private ffLogApi: FFLogsApiService) { }
   ngOnInit() {
     // Populate the list of available classes
