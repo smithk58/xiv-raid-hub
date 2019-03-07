@@ -16,7 +16,6 @@ export class LoginService {
   constructor(private http: HttpClient, private modalService: NgbModal, private authService: AuthService) { }
   /**
    * Prompts the user for login credentials. Returns true if they successfully logged in, and false if they gave up.
-   * @returns {Observable<boolean>}
    */
   promptLogin() {
     // If this is the first prompt for login, create an observable over the result of the modal.

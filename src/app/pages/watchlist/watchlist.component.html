@@ -3,15 +3,15 @@
     <!--Toolbar-->
     <div>
       <button class="btn btn-secondary"
-        (click)="friendListCharacterModal()"
+        (click)="exportData()"
         aria-label="Download your saved data. Can be used to restore your data in this browser, or another browser."
         ngbTooltip="Download your saved data. Can be used to restore your data in this browser, or another browser."
         [openDelay]="300" placement="right"
       ><fa-icon [icon]="faExport" size="xl" class="mr-1"></fa-icon>Export
       </button>
       <button class="btn btn-secondary ml-3"
-        (click)="friendListCharacterModal()"
-        aria-label="Import data. Will overwrite all data currently saved on this page with whatever is imported."
+        (click)="importData()"
+        aria-label="Import data. Will overwrite all data currently saved on this page with whatever you provide."
         ngbTooltip="Import data. Will overwrite all data currently saved on this page with whatever you provide."
         [openDelay]="300" placement="right"
       ><fa-icon [icon]="faImport" size="xl" class="mr-1"></fa-icon>Import
@@ -41,7 +41,9 @@
           <p [hidden]="friends.length > 0">You haven't added any friends or rivals yet.</p>
           <ul class="list-group">
             <li *ngFor="let character of friends" class="list-group-item d-flex">
-              <img class="class-icon" [src]="'assets/class-icons/'+character.defaultClass+'.png'"/>
+              <img class="class-icon" [src]="'assets/class-icons/'+character.defaultClass+'.png'" aria-hidden="true"
+                   [ngbTooltip]="character.defaultClass" [openDelay]="500"
+              />
               <span>{{character.name}}</span>
               <fa-icon [icon]="faEdit" size="xl" class="ml-auto clickable" tabindex="0"
                        (click)="friendListCharacterModal(character.id)"
