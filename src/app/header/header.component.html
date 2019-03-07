@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <fa-icon [icon]="faWarn" size="lg" class="text-warning mr-3"
+           aria-label="Warning - all data you add is only stored in the browser at the moment. If you clear your cache you will lose it. Pages that allow saving have an import/export button to mitigate this annoyance for now."
+           ngbTooltip="Warning - all data you add is only stored in the browser at the moment. If you clear your cache you will lose it. Pages that allow saving have an import/export button to mitigate this annoyance for now."
+           placement="bottom-left"
+  ></fa-icon>
+  <a class="navbar-brand" href="#"><fa-icon [icon]="faAtom" size="lg" class="clickable"></fa-icon></a>
+  <div class="collapse navbar-collapse">
+    <!--Left aligned nav-->
+    <ul class="navbar-nav mr-auto text-uppercase">
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/home" aria-label="Navigate to home">
+          <fa-icon [icon]="faHome" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-sm-inline">Home</span>
+        </a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/analyze" aria-label="Navigate to analyze">
+          <fa-icon [icon]="faChartBar" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-sm-inline">Analyze</span>
+        </a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/watchlist" aria-label="Navigate to watchlist">
+          <fa-icon [icon]="faUsers" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-sm-inline">Watchlist</span>
+        </a>
+      </li>
+      <!--<li class="nav-item" [routerLinkActive]="['active']">
+        <span class="nav-link" aria-label="Navigate to analyze" ngbDropdown>
+          <span ngbDropdownToggle>
+            <fa-icon [icon]="faChartBar" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-sm-inline">Analyze</span>
+          </span>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item" routerLink="/analyze">Analyze Person</button>
+            <button class="dropdown-item">Analyze Static</button>
+          </div>
+        </span>
+      </li>-->
+    </ul>
+    <!--Right aligned nav-->
+    <ul class="navbar-nav ml-auto text-uppercase">
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/settings" aria-label="Navigate to settings">
+          <fa-icon [icon]="faUserCog" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-sm-inline">Settings</span>
+        </a>
+      </li>
+    </ul>
+    <!--<form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+    </form>-->
+  </div>
+</nav>
