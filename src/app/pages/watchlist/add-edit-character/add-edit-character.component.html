@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">{{isEdit ? 'Edit' : 'Add'}} Character</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form #form="ngForm" [formGroup]="characterForm" (ngSubmit)="saveCharacter()">
+    <div class="form-group">
+      <label>Character</label><!--todo-->
+      <app-search *ngIf="!isEdit" class="ml-2"
+                  clearOnSelect="true"
+                  (selected)="characterSelected($event)"
+      ></app-search>
+      <!--use a hidden input to validate the app-search result, because dynamic forms are balls-->
+      <input type="text" readonly class="form-control"
+        [class.d-none]="!isEdit"
+        formControlName="character"
+      >
+      <div *ngIf="f.character.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
+        <div *ngIf="f.character.errors.required">A character is required</div>
+        <div *ngIf="f.character.errors.notUnique">You can't add a character that you have already added</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label id="comparisonClass">Default Class</label>
+      <fa-icon [icon]="faInfoCircle" class="ml-1"
+               ngbTooltip="The class you want to analyze most often for this character. Can be overridden during analysis."
+               placement="right"
+      ></fa-icon>
+      <ng-select [items]="classes"
+                 [selectOnTab]="true"
+                 labelForId="comparisonClass"
+                 placeholder="Select default class"
+                 formControlName="comparisonClass"
+      ></ng-select>
+      <div *ngIf="f.comparisonClass.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
+        <div *ngIf="f.comparisonClass.errors.required">A default comparison class is required</div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+  <button type="button" class="btn btn-primary ml-3" ngbAutofocus (click)="form.ngSubmit.emit()">Save</button>
+</div>

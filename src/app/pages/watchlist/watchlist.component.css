@@ -1,0 +1,9 @@
+.static-container-col {
+  flex: 0 0 300px;
+}
+.friend-container-col {
+  flex: 0 0 300px;
+}
+.class-icon {
+  height: 25px;
+}
