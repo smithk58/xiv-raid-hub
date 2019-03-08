@@ -31,15 +31,19 @@ export class AddEditCharacterComponent implements OnInit {
       this.classes = classes;
     });
     // Prepopulate values from characterToEdit if provided
-    let characterName = '';
+    let character = null;
     let defaultClass = null;
     if (this.selectedCharacter) {
       this.isEdit = true;
-      characterName = this.selectedCharacter.name;
+      character = {
+        ID: this.selectedCharacter.id,
+        Name: this.selectedCharacter.name,
+        Server: this.selectedCharacter.server
+      };
       defaultClass = this.selectedCharacter.defaultClass;
     }
     // Build form (character control has to be separated so we can populate it from app-search on selection)
-    const characterControl = new FormControl(characterName,
+    const characterControl = new FormControl({value: character, disabled: this.isEdit},
       {validators: [Validators.required, this.characterIsUnique.bind(this)]}
     );
     this.characterForm = this.formBuilder.group({

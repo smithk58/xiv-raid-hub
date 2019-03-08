@@ -8,15 +8,11 @@
   <form #form="ngForm" [formGroup]="characterForm" (ngSubmit)="saveCharacter()">
     <div class="form-group">
       <label>Character</label>
-      <app-search *ngIf="!isEdit" class="ml-2"
+      <app-search class="ml-2"
                   clearOnSelect="true"
                   (selected)="characterSelected($event)"
+                  [fControl]="characterControl"
       ></app-search>
-      <!--use a hidden input to validate the app-search result, because dynamic forms are balls-->
-      <input type="text" readonly class="form-control"
-        [class.d-none]="!isEdit"
-        formControlName="character"
-      >
       <div *ngIf="f.character.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
         <div *ngIf="f.character.errors.required">A character is required</div>
         <div *ngIf="f.character.errors.notUnique">You can't add a character that you have already added</div>
