@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ClassSearchService} from './class-search.service';
 import {FormControl} from '@angular/forms';
-import {ClassToRole} from '../../Utils';
+
+import {ClassSearchService} from './class-search.service';
+import {ClassToRole} from 'src/app/shared/Utils';
 
 @Component({
   selector: 'app-class-search',
@@ -10,6 +11,7 @@ import {ClassToRole} from '../../Utils';
 })
 export class ClassSearchComponent implements OnInit {
   classToRole = ClassToRole;
+  @Input() labelForId: string;
   @Input() fControl: FormControl;
   classes = [];
   constructor(private clService: ClassSearchService) { }

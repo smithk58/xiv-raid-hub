@@ -7,9 +7,9 @@
 <div class="modal-body">
   <form #form="ngForm" [formGroup]="characterForm" (ngSubmit)="saveCharacter()">
     <div class="form-group">
-      <label>Character</label>
+      <label for="characterLabel">Character</label>
       <app-character-search class="ml-2"
-                  clearOnSelect="true"
+                  labelForId="characterLabel"
                   [fControl]="characterControl"
       ></app-character-search>
       <div *ngIf="f.character.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
@@ -18,12 +18,12 @@
       </div>
     </div>
     <div class="form-group">
-      <label id="comparisonClass">Default Class</label>
+      <label for="defaultClassLabel">Default Class</label>
       <fa-icon [icon]="faInfoCircle" class="ml-1"
                ngbTooltip="The class you want to analyze most often for this character. Can be overridden during analysis."
                placement="right"
       ></fa-icon>
-      <app-class-search [fControl]="f.comparisonClass"></app-class-search>
+      <app-class-search [fControl]="f.comparisonClass" labelForId="defaultClassLabel"></app-class-search>
       <div *ngIf="f.comparisonClass.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
         <div *ngIf="f.comparisonClass.errors.required">A default comparison class is required</div>
       </div>

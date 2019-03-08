@@ -16,6 +16,7 @@ import {Character} from 'src/app/shared/api/models/character';
 export class CharacterSearchComponent implements OnInit, OnDestroy {
   @Output() selected: EventEmitter<Character> = new EventEmitter();
   @Input() clearOnSelect = false;
+  @Input() labelForId: string;
   @Input() fControl: FormControl;
   selectedCharacter: CharacterSearchResultRow;
   searchCharacterInput$ = new Subject<string>();
