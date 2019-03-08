@@ -18,10 +18,4 @@ export class SearchService {
       catchError(err => this.notifyService.error({text: err.Message}))
     );
   }
-  getServers() {
-    return this.xivAPI.getServerList();
-  }
-  getServersDC() {
-    return this.xivAPI2.getServerListByDC();
-  }
 }

@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {FormControl} from '@angular/forms';
 
 import {CharacterSearchResult, CharacterSearchResultRow, Pagination} from '@xivapi/angular-client';
 import {Subject, of} from 'rxjs';
@@ -15,7 +16,7 @@ import {Character} from '../models/character';
 export class SearchComponent implements OnInit, OnDestroy {
   @Output() selected: EventEmitter<Character> = new EventEmitter();
   @Input() clearOnSelect = false;
-
+  @Input() fControl: FormControl;
   selectedCharacter: CharacterSearchResultRow;
   searchCharacterInput$ = new Subject<string>();
   lastInput: string;
@@ -77,11 +78,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     );
   }
   onChange() {
+    const selCharacter = this.fControl ? this.fControl.value : this.selectedCharacter;
     // Output a new character, then wipe the ng select
-    const character: Character = !this.selectedCharacter ? null : {
-      id: this.selectedCharacter.ID,
-      name: this.selectedCharacter.Name,
-      server: this.selectedCharacter.Server
+    const character: Character = !selCharacter? null : {
+      id: selCharacter.ID,
+      name: selCharacter.Name,
+      server: selCharacter.Server
   };
     this.selected.emit(character);
   }
