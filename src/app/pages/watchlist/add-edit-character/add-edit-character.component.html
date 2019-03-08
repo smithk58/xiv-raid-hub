@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-title">{{isEdit ? 'Edit' : 'Add'}} Character</h4>
+  <h4 class="modal-title">{{isEdit ? 'Edit' : 'Add'}} Character</h4>
   <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -7,7 +7,7 @@
 <div class="modal-body">
   <form #form="ngForm" [formGroup]="characterForm" (ngSubmit)="saveCharacter()">
     <div class="form-group">
-      <label>Character</label><!--todo-->
+      <label>Character</label>
       <app-search *ngIf="!isEdit" class="ml-2"
                   clearOnSelect="true"
                   (selected)="characterSelected($event)"

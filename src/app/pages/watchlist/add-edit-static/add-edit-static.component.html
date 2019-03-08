@@ -1,3 +1,50 @@
-<p>
-  add-edit-static works!
-</p>
+<div class="modal-header">
+  <h4 class="modal-title">{{isEdit ? 'Edit' : 'Add'}} Static</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form #form="ngForm" [formGroup]="staticForm" (ngSubmit)="saveStatic()">
+    <!--Static name-->
+    <div class="form-group">
+      <label>Static Name</label>
+      <input type="text" formControlName="name" class="form-control">
+      <div *ngIf="f.name.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
+        <div *ngIf="f.name.errors.required">A static name is required</div>
+      </div>
+    </div>
+    <div class="members-container rounded-left px-3 pt-1">
+      <!--Repeat the member fields-->
+      <div *ngFor="let ctrlGrp of f.characters.controls; let i = index;" class="form-group">
+        <span>Member {{i+1}}</span>
+        <div class="ml-4">
+          <label>Character</label>
+          <app-search class="ml-2"
+                      clearOnSelect="true"
+                      [fControl]="ctrlGrp.controls.character"
+                      (selected)="characterSelected(i, $event)"
+          ></app-search>
+          <div *ngIf="ctrlGrp.controls.character.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
+            <div *ngIf="ctrlGrp.controls.character.errors.required">A character is required</div>
+            <div *ngIf="ctrlGrp.controls.character.errors.notUnique">You can't add a character that you have already added</div>
+          </div>
+          <label [id]="'classInput'+i">Class</label>
+          <ng-select [items]="classes"
+                     [selectOnTab]="true"
+                     [labelForId]="'classInput'+i"
+                     placeholder="Select a class"
+                     [formControl]="ctrlGrp.controls.comparisonClass"
+          ></ng-select>
+          <div *ngIf="ctrlGrp.controls.comparisonClass.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
+            <div *ngIf="ctrlGrp.controls.comparisonClass.errors.required">A class is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+  <button type="button" class="btn btn-primary ml-3" ngbAutofocus (click)="form.ngSubmit.emit()">Save</button>
+</div>

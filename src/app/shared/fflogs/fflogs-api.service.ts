@@ -25,7 +25,7 @@ export class FFLogsApiService {
         // We want to return the list of specs off the class wrapper, since the concept of a "Global" class is useless to us.
         // We also don't care about their class IDs, so we'll grab name off of it
         if (wrapper.length > 0) {
-          return wrapper[0].specs.map(c => c.name);
+          return wrapper[0].specs.map(c => c.name).sort((a, b) => (a > b) ? 1 : ((b > a) ? -1 : 0));;
         } else {
           return [];
         }

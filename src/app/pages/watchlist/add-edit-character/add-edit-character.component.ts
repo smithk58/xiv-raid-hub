@@ -5,7 +5,6 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
 import {Character} from 'src/app/shared/models/character';
-import {XivapiService} from '@xivapi/angular-client';
 import {FFLogsApiService} from '../../../shared/fflogs/fflogs-api.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class AddEditCharacterComponent implements OnInit {
   faInfoCircle = faInfoCircle;
 
   @ViewChild('form') form: NgForm;
-  public characterForm: FormGroup;
+  characterForm: FormGroup;
   characterControl: FormControl;
   isSubmitted = false;
 

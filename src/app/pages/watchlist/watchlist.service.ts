@@ -7,6 +7,7 @@ import {FFLogsApiService} from 'src/app/shared/fflogs/fflogs-api.service';
 import {Character} from 'src/app/shared/models/character';
 import {StorageKeys} from 'src/app/shared/importExport/StorageKeys';
 import {CharacterGroup} from 'src/app/shared/models/character-group';
+import {Utils} from 'src/app/shared/Utils';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +77,10 @@ export class WatchlistService {
     }
     return foundMatch;
   }
+
+  /**
+   * Returns an observable of the list of statics for the current user.
+   */
   getStatics() {
     // Initialize the characters from storage, or default to []
     if (!this.statics) {
@@ -85,7 +90,14 @@ export class WatchlistService {
     }
     return this.statics;
   }
+
+  /**
+   * Adds the static to the existing list of statics.
+   * @param nStatic - The static to add.
+   */
   addStatic(nStatic: CharacterGroup) {
+    // Assign an ID to the new static
+    nStatic.id = Utils.newGuid();
     // Add this static to the existing array and save it to storage
     const existingStatics = this.statics.getValue();
     existingStatics.push(nStatic);
@@ -95,6 +107,11 @@ export class WatchlistService {
     // Update the character subject
     this.statics.next(existingStatics);
   }
+
+  /**
+   * Updates the specified static in the list of statics, if found (matches on id).
+   * @param uStatic - The updated static.
+   */
   updateStatic(uStatic: CharacterGroup) {
     // Update this character in the existing array and save it to storage
     const existingStatics = this.statics.getValue();
@@ -108,6 +125,11 @@ export class WatchlistService {
     }
     return foundMatch;
   }
+
+  /**
+   * Deletes the static with the specified id.
+   * @param staticId - The static id to delete.
+   */
   deleteStatic(staticId: string) {
     const existingStatics = this.statics.getValue();
     const existingStaticIndex = existingStatics.findIndex(c => c.id === staticId);

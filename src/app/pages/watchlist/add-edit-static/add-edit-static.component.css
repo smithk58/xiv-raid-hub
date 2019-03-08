@@ -1,0 +1,5 @@
+.members-container {
+  height: 500px;
+  overflow-y: scroll;
+  border: 1px solid lightgray;
+}
