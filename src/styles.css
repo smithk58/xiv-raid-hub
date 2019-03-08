@@ -32,13 +32,14 @@ my bootstrap being ahead of ngb-bootstrap's bootstrap at the moment*/
   background-color: #3A4DAA; /*blue*/
 }
 .healer-bg {
-  background-color: #695534; /*green*/
+  background-color: #457737; /*green*/
 }
 .dps-bg {
   background-color: #813B3C; /*red*/
 }
 .class-icon {
   height: 25px;
-  border:1px solid #E0C984; /*gold*/
-  border-radius: 3px
+  width: 25px;
+  border: 2px solid #E0C984; /*gold*/
+  border-radius: 5px
 }

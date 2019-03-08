@@ -9,6 +9,7 @@ import {WatchlistService} from './watchlist.service';
 import {AddEditCharacterComponent} from './add-edit-character/add-edit-character.component';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 import {AddEditStaticComponent} from './add-edit-static/add-edit-static.component';
+import {ClassToRole} from '../../shared/Utils';
 
 @Component({
   selector: 'app-watchlist',
@@ -18,6 +19,7 @@ import {AddEditStaticComponent} from './add-edit-static/add-edit-static.componen
 export class WatchlistComponent implements OnInit {
   // Icons
   faInfoCircle = faInfoCircle; faPlus = faPlus; faTrash = faTrashAlt; faEdit = faPen; faExport = faFileDownload; faImport = faFileUpload;
+  classToRole = ClassToRole;
 
   friends: Character[] = [];
   statics: CharacterGroup[] = [];

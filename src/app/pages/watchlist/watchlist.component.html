@@ -43,7 +43,8 @@
           <p [hidden]="friends.length > 0">You haven't added any friends or rivals yet.</p>
           <ul class="list-group">
             <li *ngFor="let character of friends" class="list-group-item d-flex">
-              <img class="class-icon" [src]="'assets/class-icons/'+character.defaultClass+'.png'" aria-hidden="true"
+              <img class="class-icon mr-1" [src]="'assets/class-icons/'+character.defaultClass+'.png'" aria-hidden="true"
+                   [ngClass]="classToRole[character.defaultClass] + '-bg'"
                    [ngbTooltip]="character.defaultClass" [openDelay]="500"
               />
               <span class="wrap-flex-overflow mr-3" [ngbTooltip]="character.name" [openDelay]="500">{{character.name}}</span>
