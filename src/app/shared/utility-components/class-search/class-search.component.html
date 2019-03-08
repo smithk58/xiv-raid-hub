@@ -1,3 +1,20 @@
-<p>
-  class-search works!
-</p>
+<ng-select [items]="classes"
+           [selectOnTab]="true"
+           placeholder="Select class"
+           [formControl]="fControl"
+>
+  <!--Custom option template-->
+  <ng-template ng-option-tmp let-item="item">
+    <img class="class-icon mr-1" [src]="'assets/class-icons/'+item+'.png'" aria-hidden="true"
+         [ngClass]="classToRole[item] + '-bg'"
+    />
+    <span class="ng-option-label">{{item}}</span>
+  </ng-template>
+  <!--Label when value selected-->
+  <ng-template ng-label-tmp let-item="item">
+    <img class="class-icon mr-1" [src]="'assets/class-icons/'+item+'.png'" aria-hidden="true"
+         [ngClass]="classToRole[item] + '-bg'"
+    />
+    <span class="ng-option-label">{{item}}</span>
+  </ng-template>
+</ng-select>

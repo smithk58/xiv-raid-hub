@@ -23,23 +23,7 @@
                ngbTooltip="The class you want to analyze most often for this character. Can be overridden during analysis."
                placement="right"
       ></fa-icon>
-      <ng-select [items]="classes"
-                 [selectOnTab]="true"
-                 labelForId="comparisonClass"
-                 placeholder="Select default class"
-                 formControlName="comparisonClass"
-      >
-        <!--Custom option template-->
-        <ng-template ng-option-tmp let-item="item">
-          <img class="class-icon" [src]="'assets/class-icons/'+item+'.png'" aria-hidden="true"/>
-          <span class="ng-option-label" [ngClass]="classToRole[item] + '-bg'">{{item}}</span>
-        </ng-template>
-        <!--Label when value selected-->
-        <ng-template ng-label-tmp let-item="item">
-          <img class="class-icon" [src]="'assets/class-icons/'+item+'.png'" aria-hidden="true"/>
-          <span class="ng-option-label">{{item}}</span>
-        </ng-template>
-      </ng-select>
+      <app-class-search [fControl]="f.comparisonClass"></app-class-search>
       <div *ngIf="f.comparisonClass.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
         <div *ngIf="f.comparisonClass.errors.required">A default comparison class is required</div>
       </div>

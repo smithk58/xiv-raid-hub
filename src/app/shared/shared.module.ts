@@ -27,7 +27,8 @@ import { ClassSearchComponent } from './utility-components/class-search/class-se
     NgbModule,
     NgSelectModule,
     FontAwesomeModule,
-    CharacterSearchComponent
+    CharacterSearchComponent,
+    ClassSearchComponent
   ]
 })
 export class SharedModule { }

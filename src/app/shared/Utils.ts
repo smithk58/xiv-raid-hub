@@ -22,6 +22,7 @@ export enum ClassToRole {
   'Machinist' = 'dps',
   'Dragoon' = 'dps',
   'Monk' = 'dps',
+  'Ninja' = 'dps',
   'Samurai' = 'dps',
   'Summoner' = 'dps',
   'Red Mage' = 'dps',

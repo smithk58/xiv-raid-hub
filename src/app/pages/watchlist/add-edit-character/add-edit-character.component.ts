@@ -5,8 +5,6 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
 import {Character} from 'src/app/shared/api/models/character';
-import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
-import {ClassToRole} from 'src/app/shared/Utils';
 import {CharacterSearchResultRow} from '@xivapi/angular-client';
 
 @Component({
@@ -16,7 +14,6 @@ import {CharacterSearchResultRow} from '@xivapi/angular-client';
 })
 export class AddEditCharacterComponent implements OnInit {
   faInfoCircle = faInfoCircle;
-  classToRole = ClassToRole;
 
   @ViewChild('form') form: NgForm;
   characterForm: FormGroup;
@@ -25,13 +22,8 @@ export class AddEditCharacterComponent implements OnInit {
   isEdit = false;
   characterToEdit: Character;
   existingCharacterIds: Record<number, boolean>;
-  classes = [];
-  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private ffLogApi: FFLogsApiService) { }
+  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder) { }
   ngOnInit() {
-    // Populate the list of available classes
-    this.ffLogApi.getClasses().subscribe((classes) => {
-      this.classes = classes;
-    });
     // Prepopulate values from characterToEdit if provided
     let character = null;
     let defaultClass = null;

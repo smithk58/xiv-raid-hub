@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators, FormArray} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, FormArray} from '@angular/forms';
 
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 
 import {Character} from 'src/app/shared/api/models/character';
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {CharacterSearchResultRow} from '@xivapi/angular-client';
-
 
 @Component({
   selector: 'app-add-edit-static',
@@ -24,15 +22,10 @@ export class AddEditStaticComponent implements OnInit {
   staticToEdit: CharacterGroup;
   existingCharacterIds: Record<number, number> = {}; /*id -> howManyTimesItsUsed*/
   indexToCharacterId: Record<number, number> = {}; /*index -> number*/
-  classes = [];
-  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private ffLogApi: FFLogsApiService) { }
+  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.isEdit = typeof(this.staticToEdit) !== 'undefined';
-    // Populate the list of available classes
-    this.ffLogApi.getClasses().subscribe((classes) => {
-      this.classes = classes;
-    });
     const staticName = this.isEdit ? this.staticToEdit.name : '';
     const characters = this.isEdit ? this.staticToEdit.characters : undefined;
     // Build form (character control has to be separated so we can trigger validate)

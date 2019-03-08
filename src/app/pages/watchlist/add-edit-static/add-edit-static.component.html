@@ -29,13 +29,8 @@
             <div *ngIf="ctrlGrp.controls.character.errors.required">A character is required</div>
             <div *ngIf="ctrlGrp.controls.character.errors.notUnique">You can't add a character that you have already added</div>
           </div>
-          <label [id]="'classInput'+i">Class</label>
-          <ng-select [items]="classes"
-                     [selectOnTab]="true"
-                     [labelForId]="'classInput'+i"
-                     placeholder="Select a class"
-                     [formControl]="ctrlGrp.controls.comparisonClass"
-          ></ng-select>
+          <label>Class</label>
+          <app-class-search [fControl]="ctrlGrp.controls.comparisonClass"></app-class-search>
           <div *ngIf="ctrlGrp.controls.comparisonClass.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
             <div *ngIf="ctrlGrp.controls.comparisonClass.errors.required">A class is required</div>
           </div>
