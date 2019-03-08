@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { faAtom, faChartBar, faHome, faUserCog, faUsers, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faAtom, faChartBar, faHome, faUserCog, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +8,7 @@ import { faAtom, faChartBar, faHome, faUserCog, faUsers, faExclamationTriangle }
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent implements OnInit {
-  faAtom = faAtom; faChartBar = faChartBar; faHome = faHome; faUserCog = faUserCog; faUsers = faUsers; faWarn = faExclamationTriangle;
+export class HeaderComponent {
+  faAtom = faAtom; faChartBar = faChartBar; faHome = faHome; faUserCog = faUserCog; faUsers = faUsers;
   constructor() { }
-  ngOnInit() {
-    // a
-  }
 }

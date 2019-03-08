@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-import {faInfoCircle, faPlus, faTrashAlt, faPen, faFileDownload, faFileUpload} from '@fortawesome/free-solid-svg-icons';
+import {
+  faInfoCircle,
+  faPlus,
+  faTrashAlt,
+  faPen,
+  faFileDownload,
+  faFileUpload,
+  faExclamationTriangle
+} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
@@ -19,6 +27,7 @@ import {ClassToRole} from '../../shared/Utils';
 export class WatchlistComponent implements OnInit {
   // Icons
   faInfoCircle = faInfoCircle; faPlus = faPlus; faTrash = faTrashAlt; faEdit = faPen; faExport = faFileDownload; faImport = faFileUpload;
+  faWarn = faExclamationTriangle;
   classToRole = ClassToRole;
 
   friends: Character[] = [];
