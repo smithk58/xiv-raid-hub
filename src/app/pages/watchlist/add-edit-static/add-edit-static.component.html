@@ -20,11 +20,11 @@
         <span>Member {{i+1}}</span>
         <div class="ml-4">
           <label>Character</label>
-          <app-search class="ml-2"
+          <app-character-search class="ml-2"
                       clearOnSelect="true"
                       [fControl]="ctrlGrp.controls.character"
                       (selected)="characterSelected(i, $event)"
-          ></app-search>
+          ></app-character-search>
           <div *ngIf="ctrlGrp.controls.character.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
             <div *ngIf="ctrlGrp.controls.character.errors.required">A character is required</div>
             <div *ngIf="ctrlGrp.controls.character.errors.notUnique">You can't add a character that you have already added</div>

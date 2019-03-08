@@ -77,7 +77,7 @@ export class AddEditStaticComponent implements OnInit {
     return null;
   }
   /**
-   * Triggered by the <app-search> when the user selects a character.
+   * Triggered by the <app-character-search> when the user selects a character.
    * @param index - The index of the control the character was selected at.
    * @param character - The character they selected.
    */

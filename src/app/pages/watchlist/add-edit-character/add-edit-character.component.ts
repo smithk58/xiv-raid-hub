@@ -43,7 +43,7 @@ export class AddEditCharacterComponent implements OnInit {
       };
       defaultClass = this.selectedCharacter.defaultClass;
     }
-    // Build form (character control has to be separated so we can populate it from app-search on selection)
+    // Build form (character control has to be separated so we can populate it from app-character-search on selection)
     const characterControl = new FormControl({value: character, disabled: this.isEdit},
       {validators: [Validators.required, this.characterIsUnique.bind(this)]}
     );
@@ -66,7 +66,7 @@ export class AddEditCharacterComponent implements OnInit {
     return null;
   }
   /**
-   * Triggered by the <app-search> when the user selects a character.
+   * Triggered by the <app-character-search> when the user selects a character.
    * @param character - The character they selected.
    */
   characterSelected(character: Character) {

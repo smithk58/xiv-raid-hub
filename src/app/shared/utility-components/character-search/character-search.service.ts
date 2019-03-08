@@ -10,7 +10,7 @@ import {XivapiService2} from 'src/app/shared/api/xivapi/xiv-api-service2.service
 @Injectable({
   providedIn: 'root'
 })
-export class SearchService {
+export class CharacterSearchService {
 
   constructor(private xivAPI: XivapiService, private xivAPI2: XivapiService2, private notifyService: PNotifyService) { }
   searchCharacter(searchTerm: string, server?: string, page?: number) {

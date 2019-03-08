@@ -5,15 +5,15 @@ import {CharacterSearchResult, CharacterSearchResultRow, Pagination} from '@xiva
 import {Subject, of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, finalize, map, switchMap} from 'rxjs/operators';
 
-import {SearchService} from './search.service';
+import {CharacterSearchService} from './character-search.service';
 import {Character} from 'src/app/shared/api/models/character';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  selector: 'app-character-search',
+  templateUrl: './character-search.component.html',
+  styleUrls: ['./character-search.component.css']
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class CharacterSearchComponent implements OnInit, OnDestroy {
   @Output() selected: EventEmitter<Character> = new EventEmitter();
   @Input() clearOnSelect = false;
   @Input() fControl: FormControl;
@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   characters: CharacterSearchResultRow[] = [];
   pagination: Pagination;
-  constructor(private searchService: SearchService) { }
+  constructor(private searchService: CharacterSearchService) { }
 
   ngOnInit() {
     // Setup auto search on change of search input
@@ -80,7 +80,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   onChange() {
     const selCharacter = this.fControl ? this.fControl.value : this.selectedCharacter;
     // Output a new character, then wipe the ng select
-    const character: Character = !selCharacter? null : {
+    const character: Character = !selCharacter ? null : {
       id: selCharacter.ID,
       name: selCharacter.Name,
       server: selCharacter.Server

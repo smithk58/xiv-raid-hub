@@ -6,7 +6,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import {SearchComponent} from './utility-components/search/search.component';
+import {CharacterSearchComponent} from './utility-components/character-search/character-search.component';
+import { ClassSearchComponent } from './utility-components/class-search/class-search.component';
 
 @NgModule({
   imports: [
@@ -18,14 +19,15 @@ import {SearchComponent} from './utility-components/search/search.component';
     FontAwesomeModule
   ],
   declarations: [
-    SearchComponent
+    CharacterSearchComponent,
+    ClassSearchComponent
   ],
   exports: [
     FormsModule,
     NgbModule,
     NgSelectModule,
     FontAwesomeModule,
-    SearchComponent
+    CharacterSearchComponent
   ]
 })
 export class SharedModule { }
