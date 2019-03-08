@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import {XivapiService} from '@xivapi/angular-client';
 import {catchError} from 'rxjs/operators';
 
-import {PNotifyService} from '../notifications/pnotify-service.service';
-import {XivapiService2} from '../xivapi/xiv-api-service2.service';
+import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
+import {XivapiService2} from 'src/app/shared/api/xivapi/xiv-api-service2.service';
 
 
 @Injectable({

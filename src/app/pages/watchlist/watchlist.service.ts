@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import {XivapiService} from '@xivapi/angular-client';
 import {BehaviorSubject} from 'rxjs';
 
-import {FFLogsApiService} from 'src/app/shared/fflogs/fflogs-api.service';
-import {Character} from 'src/app/shared/models/character';
+import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
+import {Character} from 'src/app/shared/api/models/character';
 import {StorageKeys} from 'src/app/shared/importExport/StorageKeys';
-import {CharacterGroup} from 'src/app/shared/models/character-group';
+import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {Utils} from 'src/app/shared/Utils';
 
 @Injectable({

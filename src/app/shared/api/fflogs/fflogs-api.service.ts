@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 
 import {ClassWrapper} from './models/Class';
-import {PNotifyService} from '../notifications/pnotify-service.service';
+import {PNotifyService} from '../../notifications/pnotify-service.service';
 import {throwError} from 'rxjs';
 
 @Injectable({

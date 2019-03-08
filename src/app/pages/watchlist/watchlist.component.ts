@@ -3,9 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import {faInfoCircle, faPlus, faTrashAlt, faPen, faFileDownload, faFileUpload} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {CharacterGroup} from 'src/app/shared/models/character-group';
-import {Character} from 'src/app/shared/models/character';
-import {Class} from 'src/app/shared/fflogs/models/Class';
+import {CharacterGroup} from 'src/app/shared/api/models/character-group';
+import {Character} from 'src/app/shared/api/models/character';
 import {WatchlistService} from './watchlist.service';
 import {AddEditCharacterComponent} from './add-edit-character/add-edit-character.component';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';

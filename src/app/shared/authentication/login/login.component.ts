@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService} from '../auth.service';
-import {PNotifyService} from '../../notifications/pnotify-service.service';
+import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 
 @Component({
   templateUrl: './login.component.html',

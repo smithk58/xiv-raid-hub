@@ -16,7 +16,7 @@ import {AnalyzeComponent} from './pages/analyze/analyze.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {CachingInterceptor} from './shared/caching/caching-interceptor';
 import { environment } from '../environments/environment';
-import {XIV_API_KEY} from './shared/xivapi/xiv-api-service2.service';
+import {XIV_API_KEY} from './shared/api/xivapi/xiv-api-service2.service';
 import {SharedModule} from './shared/shared.module';
 
 @NgModule({

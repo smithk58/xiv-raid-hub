@@ -6,7 +6,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import {SearchComponent} from './search/search.component';
+import {SearchComponent} from './utility-components/search/search.component';
 
 @NgModule({
   imports: [

@@ -6,7 +6,7 @@ import {Subject, of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, finalize, map, switchMap} from 'rxjs/operators';
 
 import {SearchService} from './search.service';
-import {Character} from '../models/character';
+import {Character} from 'src/app/shared/api/models/character';
 
 @Component({
   selector: 'app-search',

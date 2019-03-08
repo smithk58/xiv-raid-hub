@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators, FormArray} from '@angular/forms';
 
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FFLogsApiService} from 'src/app/shared/fflogs/fflogs-api.service';
+import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 
-import {Character} from 'src/app/shared/models/character';
-import {CharacterGroup} from 'src/app/shared/models/character-group';
+import {Character} from 'src/app/shared/api/models/character';
+import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {CharacterSearchResultRow} from '@xivapi/angular-client';
 
 

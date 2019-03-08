@@ -4,8 +4,9 @@ import {FormBuilder, FormControl, FormGroup, NgForm, ValidationErrors, Validator
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
-import {Character} from 'src/app/shared/models/character';
-import {FFLogsApiService} from '../../../shared/fflogs/fflogs-api.service';
+import {Character} from 'src/app/shared/api/models/character';
+import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
+import {ClassToRole} from 'src/app/shared/Utils';
 
 @Component({
   selector: 'app-add-edit-character',
@@ -14,12 +15,12 @@ import {FFLogsApiService} from '../../../shared/fflogs/fflogs-api.service';
 })
 export class AddEditCharacterComponent implements OnInit {
   faInfoCircle = faInfoCircle;
+  classToRole = ClassToRole;
 
   @ViewChild('form') form: NgForm;
   characterForm: FormGroup;
   characterControl: FormControl;
   isSubmitted = false;
-
   isEdit = false;
   selectedCharacter: Character;
   existingCharacterIds: Record<number, boolean>;
