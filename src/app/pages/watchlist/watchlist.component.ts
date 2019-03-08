@@ -41,15 +41,15 @@ export class WatchlistComponent implements OnInit {
     const isUpdate = typeof(characterId) !== 'undefined';
     // Populate the character on the modal if this is an edit attempt
     if (isUpdate) {
-      modal.componentInstance.selectedCharacter = this.friends.find((character) => character.id === characterId);
+      modal.componentInstance.characterToEdit = this.friends.find((character) => character.id === characterId);
     }
     modal.componentInstance.existingCharacterIds = this.friends.reduce((map, character) => {map[character.id] = true; return map; }, {});
     modal.result.then((character) => {
       // Add/update the result in the users friend list
       if (isUpdate) {
-        // this.wlService.updateFriend(character);
+        this.wlService.updateFriend(character);
       } else {
-        // this.wlService.addFriend(character);
+        this.wlService.addFriend(character);
       }
       this.notify.success({text: character.name + ' was successfully ' + (isUpdate ? 'updated!' : 'added!')});
       }, () => {}

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, NgForm, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, ValidationErrors, Validators} from '@angular/forms';
 
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,7 @@ import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import {Character} from 'src/app/shared/api/models/character';
 import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 import {ClassToRole} from 'src/app/shared/Utils';
+import {CharacterSearchResultRow} from '@xivapi/angular-client';
 
 @Component({
   selector: 'app-add-edit-character',
@@ -22,7 +23,7 @@ export class AddEditCharacterComponent implements OnInit {
   characterControl: FormControl;
   isSubmitted = false;
   isEdit = false;
-  selectedCharacter: Character;
+  characterToEdit: Character;
   existingCharacterIds: Record<number, boolean>;
   classes = [];
   constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private ffLogApi: FFLogsApiService) { }
@@ -34,14 +35,14 @@ export class AddEditCharacterComponent implements OnInit {
     // Prepopulate values from characterToEdit if provided
     let character = null;
     let defaultClass = null;
-    if (this.selectedCharacter) {
+    if (this.characterToEdit) {
       this.isEdit = true;
       character = {
-        ID: this.selectedCharacter.id,
-        Name: this.selectedCharacter.name,
-        Server: this.selectedCharacter.server
+        ID: this.characterToEdit.id,
+        Name: this.characterToEdit.name,
+        Server: this.characterToEdit.server
       };
-      defaultClass = this.selectedCharacter.defaultClass;
+      defaultClass = this.characterToEdit.defaultClass;
     }
     // Build form (character control has to be separated so we can populate it from app-character-search on selection)
     const characterControl = new FormControl({value: character, disabled: this.isEdit},
@@ -57,21 +58,13 @@ export class AddEditCharacterComponent implements OnInit {
   /**
    * Validates that a selected character hasn't already been added.
    */
-  characterIsUnique(): ValidationErrors | null {
-    const character = this.selectedCharacter;
+  characterIsUnique(control: AbstractControl): ValidationErrors | null {
+    const val: CharacterSearchResultRow = control.value;
     // Error if they've already added this person, only in add mode
-    if (!this.isEdit && character && this.existingCharacterIds[character.id]) {
+    if (!this.isEdit && val && this.existingCharacterIds[val.ID]) {
       return {notUnique: true};
     }
     return null;
-  }
-  /**
-   * Triggered by the <app-character-search> when the user selects a character.
-   * @param character - The character they selected.
-   */
-  characterSelected(character: Character) {
-    this.selectedCharacter = character;
-    this.characterControl.setValue(character.name);
   }
   /**
    * Triggered on form submit.
@@ -79,9 +72,14 @@ export class AddEditCharacterComponent implements OnInit {
   saveCharacter() {
     this.isSubmitted = true;
     if (this.characterForm.valid) {
-      const result = this.selectedCharacter;
-      result.defaultClass = this.characterForm.value.comparisonClass;
-      this.modal.close(result);
+      const selCharacter = this.characterControl.value as CharacterSearchResultRow;
+      const character: Character = {
+        id: selCharacter.ID,
+        name: selCharacter.Name,
+        server: selCharacter.Server,
+        defaultClass: this.characterForm.value.comparisonClass
+      };
+      this.modal.close(character);
     }
   }
   // convenience getter for easy access to form fields
