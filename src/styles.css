@@ -5,6 +5,11 @@ html, body{
 body {
   overflow: hidden;
 }
+/*Overwrite all the themes top/bottom padding, way too fat*/
+.btn {
+  padding-top: 0.375em !important;
+  padding-bottom: 0.375em !important;
+}
 /*Needed for responsive flex containers*/
 .min-flex {
   flex: 1 1 0px;
@@ -16,7 +21,7 @@ as well for accessibility*/
   cursor: pointer;
 }
 .clickable:hover {
-  color: #0072D7 !important;
+  color: var(--primary) !important;
 }
 /*Prevents flex content from wrapping and instead does ellipsis*/
 .wrap-flex-overflow {

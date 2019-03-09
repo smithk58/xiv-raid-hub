@@ -6,6 +6,10 @@
                ngbTooltip="Adding characters here will give you quick access to compare yourself against them."
                placement="right"
       ></fa-icon>
+      <!--Add character to comparisons-->
+      <button class="btn btn-primary ml-4 text-nowrap" (click)="comparisonTargetModal()">
+        <fa-icon [icon]="faPlus" class="mr-1" aria-hidden="true"></fa-icon>Add
+      </button>
     </div>
   </div>
   <div class="card-body p-2">

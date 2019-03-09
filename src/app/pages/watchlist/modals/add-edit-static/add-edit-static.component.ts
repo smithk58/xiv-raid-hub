@@ -19,15 +19,15 @@ export class AddEditStaticComponent implements OnInit {
   isSubmitted = false;
 
   isEdit = false;
-  staticToEdit: CharacterGroup;
+  groupToEdit: CharacterGroup;
   existingCharacterIds: Record<number, number> = {}; /*id -> howManyTimesItsUsed*/
   indexToCharacterId: Record<number, number> = {}; /*index -> number*/
   constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.isEdit = typeof(this.staticToEdit) !== 'undefined';
-    const staticName = this.isEdit ? this.staticToEdit.name : '';
-    const characters = this.isEdit ? this.staticToEdit.characters : undefined;
+    this.isEdit = typeof(this.groupToEdit) !== 'undefined';
+    const staticName = this.isEdit ? this.groupToEdit.name : '';
+    const characters = this.isEdit ? this.groupToEdit.characters : undefined;
     // Build form (character control has to be separated so we can trigger validate)
     this.characterControls = this.buildCharacterControlList(characters);
     this.staticForm = this.formBuilder.group({

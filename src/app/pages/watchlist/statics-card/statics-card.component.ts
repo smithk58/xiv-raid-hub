@@ -6,7 +6,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {WatchlistService} from '../watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
-import {AddEditStaticComponent} from './add-edit-static/add-edit-static.component';
+import {AddEditStaticComponent} from '../modals/add-edit-static/add-edit-static.component';
 
 @Component({
   selector: 'app-statics-card',
@@ -33,7 +33,7 @@ export class StaticsCardComponent implements OnInit {
     const isUpdate = typeof(staticId) !== 'undefined';
     // Populate the character on the modal if this is an edit attempt
     if (isUpdate) {
-      modal.componentInstance.staticToEdit = this.statics.find((s) => s.id === staticId);
+      modal.componentInstance.groupToEdit = this.statics.find((s) => s.id === staticId);
     }
     modal.result.then((nStatic) => {
         // Add/update the result in the users statics

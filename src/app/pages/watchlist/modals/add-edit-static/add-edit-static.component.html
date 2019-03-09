@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{isEdit ? 'Edit' : 'Add'}} Static</h4>
+  <h4 class="modal-title">{{isEdit ? 'Edit' : 'Add'}} Group</h4>
   <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -8,7 +8,7 @@
   <form #form="ngForm" [formGroup]="staticForm" (ngSubmit)="saveStatic()">
     <!--Static name-->
     <div class="form-group">
-      <label for="staticName">Static Name</label>
+      <label for="staticName">Group Name</label>
       <input id="staticName" type="text" formControlName="name" class="form-control">
       <div *ngIf="f.name.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
         <div *ngIf="f.name.errors.required">A static name is required</div>
