@@ -18,16 +18,6 @@ as well for accessibility*/
 .clickable:hover {
   color: #0072D7 !important;
 }
-/*Utility to cut down card body padding, it's excessive when displaying certain controls in a card*/
-.card-sm .card-body{
-  padding: 0.5rem;
-}
-/*Fixes issue with accordions that only have one element being cut off and having square corners. Most likely caused by
-my bootstrap being ahead of ngb-bootstrap's bootstrap at the moment*/
-.accordion:not(.multiple-panels) > .card {
-  border-radius: 0.25rem !important;
-  border-bottom: 1px solid rgba(0,0,0,.125);
-}
 /*Prevents flex content from wrapping and instead does ellipsis*/
 .wrap-flex-overflow {
   white-space: nowrap;

@@ -6,6 +6,16 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="/assets/atom-solid.png">
+  <!--Note that the default bootstrap path exists in the theme selector component as well, update both-->
+  <link id="bootstrap-theme" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script>
+    // Load users saved theme
+    const theme = localStorage.getItem('theme');
+    const themeLink = document.getElementById('bootstrap-theme');
+    if (theme && themeLink) {
+      themeLink.href = 'assets/themes/' + theme + '.min.css';
+    }
+  </script>
 </head>
 <body class="d-flex flex-column">
   <app-root></app-root>

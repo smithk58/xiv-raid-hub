@@ -1,0 +1,6 @@
+<select [attr.id]="labelForId" class="d-inline text-capitalize"
+  [(ngModel)]="selectedTheme"
+  (ngModelChange)="themeChange($event)"
+>
+  <option *ngFor="let theme of themes" [value]="theme">{{theme}}</option>
+</select>

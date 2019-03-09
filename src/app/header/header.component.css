@@ -1,8 +1,8 @@
 /*Add more space between nav items when displaying text navigation*/
 @media (min-width: 576px) { /* Should be done in bootstraps scss, but i'm too lazy to process that myself for now*/
-  .navbar-nav > .nav-item {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+  .navbar-expand .navbar-nav .nav-link {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 /* Make nav icons larger when we switch over to displaying just icons*/
