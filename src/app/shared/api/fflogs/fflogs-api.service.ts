@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import {catchError, map} from 'rxjs/operators';
+import {throwError} from 'rxjs';
 
 import {ClassWrapper} from './models/Class';
-import {PNotifyService} from '../../notifications/pnotify-service.service';
-import {throwError} from 'rxjs';
+import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 
 @Injectable({
   providedIn: 'root'

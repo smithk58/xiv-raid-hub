@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row m-2">
+  <div class="row mx-2 mt-2">
     <!--Toolbar-->
     <div class="d-flex align-items-start">
       <fa-icon [icon]="faWarn" size="2x" class="text-warning mr-3"
@@ -26,8 +26,8 @@
       things such as your static, friends you want to help improve, or players or groups you want to compare against.
     </p>
   </div>
-  <!--Cards for friends, static, comparison groups, etc.-->
-  <div class="row">
+  <h3>Players you want to help improve</h3>
+  <div class="row cards-container">
     <!--Friends-->
     <div class="col friend-container-col">
       <app-friends-card></app-friends-card>
@@ -35,6 +35,16 @@
     <!--Static-->
     <div class="col static-container-col">
       <app-statics-card></app-statics-card>
+    </div>
+  </div>
+  <h3 class="mt-4">Players you want to compare against</h3>
+  <div class="row cards-container mb-3">
+    <!--Comparison targets-->
+    <div class="col">
+      <app-comparisons-card></app-comparisons-card>
+    </div>
+    <div class="col">
+      <app-comparison-groups-card></app-comparison-groups-card>
     </div>
   </div>
 </div>

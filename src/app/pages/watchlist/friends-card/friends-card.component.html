@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center">
       <span>Friends/Rivals</span>
       <fa-icon [icon]="faInfoCircle" class="ml-1"
-               ngbTooltip="Adding your friends and rivals here will make it easier to see how they're doing over time."
+               ngbTooltip="Adding your friends and rivals here will make it easier to compare them against other players."
                placement="right"
       ></fa-icon>
       <!--Add character to friends/rivals-->
@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="card-body p-2">
-    <p [hidden]="friends.length > 0">You haven't added any friends or rivals yet.</p>
+    <p [hidden]="friends.length > 0" class="m-0 text-center">You haven't added any friends or rivals yet.</p>
     <ul class="list-group">
       <li *ngFor="let character of friends" class="list-group-item d-flex">
         <img class="class-icon mr-1" aria-hidden="true"

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+
 import {faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
-import {WatchlistService} from '../watchlist.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {PNotifyService} from '../../../shared/notifications/pnotify-service.service';
-import {CharacterGroup} from '../../../shared/api/models/character-group';
+
+import {WatchlistService} from '../watchlist.service';
+import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
+import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {AddEditStaticComponent} from './add-edit-static/add-edit-static.component';
 
 @Component({

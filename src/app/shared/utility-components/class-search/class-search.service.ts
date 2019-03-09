@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import {FFLogsApiService} from '../../api/fflogs/fflogs-api.service';
+import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 
 @Injectable({
   providedIn: 'root'

@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="card-body p-2">
-    <p [hidden]="statics.length > 0">You haven't added any statics yet.</p>
+    <p [hidden]="statics.length > 0" class="m-0 text-center">You haven't added any statics yet.</p>
     <ul class="list-group">
       <li *ngFor="let static of statics" class="list-group-item d-flex">
         <span class="wrap-flex-overflow mr-3" [ngbTooltip]="static.name" [openDelay]="500">{{static.name}}</span>

@@ -28,6 +28,13 @@ my bootstrap being ahead of ngb-bootstrap's bootstrap at the moment*/
   border-radius: 0.25rem !important;
   border-bottom: 1px solid rgba(0,0,0,.125);
 }
+/*Prevents flex content from wrapping and instead does ellipsis*/
+.wrap-flex-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;;
+  min-width: 0px;
+}
 .tank-bg {
   background-color: #3A4DAA; /*blue*/
 }

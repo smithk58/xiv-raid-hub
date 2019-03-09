@@ -11,6 +11,8 @@ import {SharedModule} from 'src/app/shared/shared.module';
 import {WatchlistRoutingModule} from './watchlist-routing.module';
 import { FriendsCardComponent } from './friends-card/friends-card.component';
 import { StaticsCardComponent } from './statics-card/statics-card.component';
+import { ComparisonsCardComponent } from './comparisons-card/comparisons-card.component';
+import { ComparisonGroupsCardComponent } from './comparison-groups-card/comparison-groups-card.component';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import { StaticsCardComponent } from './statics-card/statics-card.component';
     AddEditCharacterComponent,
     AddEditStaticComponent,
     FriendsCardComponent,
-    StaticsCardComponent
+    StaticsCardComponent,
+    ComparisonsCardComponent,
+    ComparisonGroupsCardComponent
   ],
   entryComponents: [AddEditCharacterComponent, AddEditStaticComponent]
 })

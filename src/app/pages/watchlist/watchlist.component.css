@@ -4,9 +4,7 @@
 .static-container-col {
   min-width: 230px; /*Any smaller than this and the card starts looking real fucky*/
 }
-.wrap-flex-overflow {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;;
-  min-width: 0px;
+/*Add vertical space between cards*/
+.cards-container > * {
+  margin-top: 0.5rem;
 }
