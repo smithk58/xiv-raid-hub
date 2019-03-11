@@ -1,0 +1,24 @@
+<ng-select [items]="characters"
+           [labelForId]="labelForId"
+           placeholder="Select character"
+           (change)="onChange($event)"
+           [(ngModel)]="selectedValue"
+           bindValue="id"
+>
+  <!--Custom option template-->
+  <ng-template ng-option-tmp let-item="item">
+    <img class="class-icon mr-1" aria-hidden="true"
+         [alt]="item.defaultClass" [src]="'assets/class-icons/'+item.defaultClass+'.png'"
+         [ngClass]="classToRole[item.defaultClass] + '-bg'"
+    />
+    <span [title]="item.name+' ('+item.server+')'" class="ng-option-label">{{item.name}} ({{item.server}})</span>
+  </ng-template>
+  <!--Label when value selected-->
+  <ng-template ng-label-tmp let-item="item">
+    <img class="class-icon mr-1" aria-hidden="true"
+         [alt]="item.defaultClass"[src]="'assets/class-icons/'+item.defaultClass+'.png'"
+         [ngClass]="classToRole[item.defaultClass] + '-bg'"
+    />
+    <span class="ng-option-label">{{item.name}} ({{item.server}})</span>
+  </ng-template>
+</ng-select>
