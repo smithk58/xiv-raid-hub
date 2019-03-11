@@ -8,6 +8,7 @@ import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.servi
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {AddEditStaticComponent} from '../modals/add-edit-static/add-edit-static.component';
 import {Router} from '@angular/router';
+import {YesNoModalComponent} from '../../../shared/utility-components/yes-no-modal/yes-no-modal.component';
 
 @Component({
   selector: 'app-statics-card',
@@ -55,11 +56,18 @@ export class StaticsCardComponent implements OnInit, OnDestroy {
    * @param staticId - The id of the static to delete.
    */
   deleteStatic(staticId: string) {
-    const res = this.wlService.deleteStatic(staticId);
-    // TODO confirm prompt
-    if (res) {
-      this.notify.success({text: 'Static was successfully deleted'});
-    }
+    const modal = this.modalService.open(YesNoModalComponent);
+    const fStatic = this.statics.find((group) => group.id === staticId);
+    modal.componentInstance.modalTitle = 'Delete?';
+    modal.componentInstance.modalText = 'Are you sure you want to delete ' + fStatic.name + ' from your statics?';
+    modal.result.then(doDelete => {
+      if (doDelete) {
+        const res = this.wlService.deleteStatic(staticId);
+        if (res) {
+          this.notify.success({text: 'Static was successfully deleted'});
+        }
+      }
+    }, () => {});
   }
 
   /**

@@ -7,6 +7,7 @@ import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {AddEditStaticComponent} from '../modals/add-edit-static/add-edit-static.component';
 import {WatchlistService} from '../watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
+import {YesNoModalComponent} from '../../../shared/utility-components/yes-no-modal/yes-no-modal.component';
 
 @Component({
   selector: 'app-comparison-groups-card',
@@ -54,11 +55,18 @@ export class ComparisonGroupsCardComponent implements OnInit, OnDestroy {
    * @param groupId - The group id to delete.
    */
   deleteComparisonGroup(groupId: string) {
-    const res = this.wlService.deleteComparisonGroup(groupId);
-    // TODO confirm prompt
-    if (res) {
-      this.notify.success({text: 'Comparison group was successfully deleted'});
-    }
+    const modal = this.modalService.open(YesNoModalComponent);
+    const cGroup = this.comparisonGroups.find((group) => group.id === groupId);
+    modal.componentInstance.modalTitle = 'Delete?';
+    modal.componentInstance.modalText = 'Are you sure you want to delete ' + cGroup.name + ' from your comparison groups?';
+    modal.result.then(doDelete => {
+      if (doDelete) {
+        const res = this.wlService.deleteComparisonGroup(groupId);
+        if (res) {
+          this.notify.success({text: 'Comparison group was successfully deleted'});
+        }
+      }
+    }, () => {});
   }
   ngOnDestroy() {
     if (this.comparisonGroups$) {

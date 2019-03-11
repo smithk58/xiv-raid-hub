@@ -9,6 +9,7 @@ import {WatchlistService} from '../watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 import {Character} from 'src/app/shared/api/models/character';
 import {Router} from '@angular/router';
+import {YesNoModalComponent} from '../../../shared/utility-components/yes-no-modal/yes-no-modal.component';
 
 @Component({
   selector: 'app-friends-card',
@@ -57,11 +58,18 @@ export class FriendsCardComponent implements OnInit, OnDestroy {
    * @param characterId - The character id to delete.
    */
   deleteFriend(characterId: number) {
-    const res = this.wlService.deleteFriend(characterId);
-    // TODO confirm prompt
-    if (res) {
-      this.notify.success({text: 'Character was successfully deleted!'});
-    }
+    const modal = this.modalService.open(YesNoModalComponent);
+    const friend = this.friends.find((character) => character.id === characterId);
+    modal.componentInstance.modalTitle = 'Delete?';
+    modal.componentInstance.modalText = 'Are you sure you want to delete ' + friend.name + ' from your character list?';
+    modal.result.then(doDelete => {
+      if (doDelete) {
+        const res = this.wlService.deleteFriend(characterId);
+        if (res) {
+          this.notify.success({text: 'Character was successfully deleted!'});
+        }
+      }
+    }, () => {});
   }
 
   /**

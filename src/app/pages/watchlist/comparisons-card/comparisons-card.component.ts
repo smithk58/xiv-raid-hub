@@ -8,6 +8,7 @@ import {ClassToRole} from 'src/app/shared/Utils';
 import {AddEditCharacterComponent} from '../modals/add-edit-character/add-edit-character.component';
 import {WatchlistService} from '../watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
+import {YesNoModalComponent} from '../../../shared/utility-components/yes-no-modal/yes-no-modal.component';
 
 @Component({
   selector: 'app-comparisons-card',
@@ -58,11 +59,18 @@ export class ComparisonsCardComponent implements OnInit, OnDestroy {
    * @param characterId - The character id to delete.
    */
   deleteComparisonTarget(characterId: number) {
-    // TODO prompt yes/no
-    const res = this.wlService.deleteComparisonTarget(characterId);
-    if (res) {
-      this.notify.success({text: 'Comparison target was successfully deleted'});
-    }
+    const modal = this.modalService.open(YesNoModalComponent);
+    const cTarget = this.comparisonTargets.find((character) => character.id === characterId);
+    modal.componentInstance.modalTitle = 'Delete?';
+    modal.componentInstance.modalText = 'Are you sure you want to delete ' + cTarget.name + ' from your comparison targets?';
+    modal.result.then(doDelete => {
+      if (doDelete) {
+        const res = this.wlService.deleteComparisonTarget(characterId);
+        if (res) {
+          this.notify.success({text: 'Comparison target was successfully deleted'});
+        }
+      }
+    }, () => {});
   }
   ngOnDestroy() {
     if (this.comparisonTargets$) {

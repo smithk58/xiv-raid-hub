@@ -17,6 +17,7 @@ import {CachingInterceptor} from './shared/caching/caching-interceptor';
 import { environment } from '../environments/environment';
 import {XIV_API_KEY} from './shared/api/xivapi/xiv-api-service2.service';
 import {SharedModule} from './shared/shared.module';
+import {YesNoModalComponent} from './shared/utility-components/yes-no-modal/yes-no-modal.component';
 
 @NgModule({
   imports: [
@@ -33,9 +34,10 @@ import {SharedModule} from './shared/shared.module';
     NotFoundComponent,
     LoginComponent,
     SettingsComponent,
-    AboutComponent
+    AboutComponent,
+    YesNoModalComponent
   ],
-  entryComponents: [LoginComponent],
+  entryComponents: [LoginComponent, YesNoModalComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
     { provide: XIV_API_KEY, useValue: environment.xivAPIKey}
