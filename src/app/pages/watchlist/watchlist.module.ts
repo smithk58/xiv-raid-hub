@@ -17,9 +17,7 @@ import { ComparisonGroupsCardComponent } from './comparison-groups-card/comparis
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     SharedModule,
-    FontAwesomeModule,
     WatchlistRoutingModule
   ],
   declarations: [

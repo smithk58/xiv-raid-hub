@@ -1,9 +1,50 @@
 <div class="container-fluid">
-  <!--Toolbar-->
-  <div class="row">
-    TODO
+  <div class="row mx-2 mt-2">
+    <!--Toolbar-->
+    <div class="d-flex align-items-start">
+    </div>
   </div>
-  <div class="row">
-    TODO
+  <h3 class="mt-3">Select a target you want to analyze</h3>
+  <p class="lead ml-4"></p>
+  <div class="row align-items-center">
+    <!--Select a character-->
+    <div class="form-group col-12 col-sm-5 col-lg-3">
+      <label for="myFriendsSelect">Character</label>
+      <fa-icon [icon]="faInfoCircle" class="ml-1"
+               ngbTooltip="Go to Watchlist to add characters that you want to do analysis on often."
+               placement="right"
+      ></fa-icon>
+      <app-character-select [characters]="friends"
+        labelForId="myFriendsSelect"
+        (selected)="characterSelected($event)"
+      ></app-character-select>
+    </div>
+    <h3 class="text-center col-12 col-sm-2 col-lg-1">or</h3>
+    <!--Select a static/group-->
+    <div class="form-group col-12 col-sm-5 col-lg-3">
+      <label for="myStaticsInput">Static</label>
+      <fa-icon [icon]="faInfoCircle" class="ml-1"
+               ngbTooltip="Go to Watchlist to add statics that you want to do analysis on often."
+               placement="right"
+      ></fa-icon>
+      <ng-select [items]="statics"
+                 bindLabel="name"
+                 [labelForId]="myStaticsInput"
+                 (change)="staticSelected($event)"
+                 placeholder="Select static"
+      ></ng-select>
+    </div>
+    <h3 class="text-center col-12 col-sm-12 col-lg-1">or</h3>
+    <!--Select a log-->
+    <div class="form-group col-12 col-sm-12 col-lg-4">
+      <label for="logURLInput">Log URL</label>
+      <fa-icon [icon]="faInfoCircle" class="ml-1"
+               ngbTooltip="Paste a URL to a parse from FFlogs to analyze a person from that fight or the entire group."
+               placement="right"
+      ></fa-icon>
+      <input id="logURLInput" type="text" class="form-control"
+             placeholder="https://www.fflogs.com/reports/..."
+      >
+    </div>
   </div>
 </div>

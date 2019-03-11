@@ -12,7 +12,6 @@ import {NotFoundComponent} from './pages/not-found/not-found.component';
 import {LoginComponent} from './shared/authentication/login/login.component';
 import {SettingsComponent} from './pages/settings/settings.component';
 import {AboutComponent} from './pages/about/about.component';
-import {AnalyzeComponent} from './pages/analyze/analyze.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {CachingInterceptor} from './shared/caching/caching-interceptor';
 import { environment } from '../environments/environment';
@@ -34,8 +33,7 @@ import {SharedModule} from './shared/shared.module';
     NotFoundComponent,
     LoginComponent,
     SettingsComponent,
-    AboutComponent,
-    AnalyzeComponent
+    AboutComponent
   ],
   entryComponents: [LoginComponent],
   providers: [

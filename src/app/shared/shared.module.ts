@@ -9,6 +9,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {CharacterSearchComponent} from './utility-components/character-search/character-search.component';
 import { ClassSearchComponent } from './utility-components/class-search/class-search.component';
 import { ThemeSelectorComponent } from './utility-components/theme-selector/theme-selector.component';
+import { CharacterSelectComponent } from './utility-components/character-select/character-select.component';
+import { GroupSelectComponent } from './utility-components/group-select/group-select.component';
 
 @NgModule({
   imports: [
@@ -22,16 +24,20 @@ import { ThemeSelectorComponent } from './utility-components/theme-selector/them
   declarations: [
     CharacterSearchComponent,
     ClassSearchComponent,
-    ThemeSelectorComponent
+    ThemeSelectorComponent,
+    CharacterSelectComponent,
+    GroupSelectComponent
   ],
   exports: [
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     NgSelectModule,
     FontAwesomeModule,
     CharacterSearchComponent,
     ClassSearchComponent,
-    ThemeSelectorComponent
+    ThemeSelectorComponent,
+    CharacterSelectComponent
   ]
 })
 export class SharedModule { }
