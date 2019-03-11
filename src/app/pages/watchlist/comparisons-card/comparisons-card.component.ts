@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -14,17 +14,24 @@ import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.servi
   templateUrl: './comparisons-card.component.html',
   styleUrls: ['./comparisons-card.component.css']
 })
-export class ComparisonsCardComponent implements OnInit {
+export class ComparisonsCardComponent implements OnInit, OnDestroy {
   faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt;
   classToRole = ClassToRole;
+
+  comparisonTargets$;
   comparisonTargets: Character[] = [];
   constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService) { }
 
   ngOnInit() {
-    this.wlService.getComparisonTargets().subscribe(comparisonTargets => {
+    this.comparisonTargets$ = this.wlService.getComparisonTargets().subscribe(comparisonTargets => {
       this.comparisonTargets = comparisonTargets;
     });
   }
+
+  /**
+   * Launches a modal for adding/editing a comparison target.
+   * @param characterId - The character ID to load in the modal, otherwise assumes you want to add a new comparison target.
+   */
   comparisonTargetModal(characterId?: number) {
     const modal = this.modalService.open(AddEditCharacterComponent);
     const isUpdate = typeof(characterId) !== 'undefined';
@@ -45,11 +52,21 @@ export class ComparisonsCardComponent implements OnInit {
       }, () => {}
     );
   }
+
+  /**
+   * Deletes the character with the specified id from the comparison targets list, if found.
+   * @param characterId - The character id to delete.
+   */
   deleteComparisonTarget(characterId: number) {
     // TODO prompt yes/no
     const res = this.wlService.deleteComparisonTarget(characterId);
     if (res) {
       this.notify.success({text: 'Comparison target was successfully deleted'});
+    }
+  }
+  ngOnDestroy() {
+    if (this.comparisonTargets$) {
+      this.comparisonTargets$.unsubscribe();
     }
   }
 }

@@ -17,7 +17,12 @@
     <ul class="list-group">
       <li *ngFor="let static of statics" class="list-group-item d-flex">
         <span class="wrap-flex-overflow mr-3" [ngbTooltip]="static.name" [openDelay]="500">{{static.name}}</span>
-        <fa-icon [icon]="faEdit" size="xl" class="ml-auto clickable" tabindex="0"
+        <fa-icon [icon]="faChartBar" size="xl" class="ml-auto clickable" tabindex="0"
+                 (click)="analyzeStatic(static.id)"
+                 aria-label="Analyze this static"
+                 ngbTooltip="Analyze this static" [openDelay]="300"
+        ></fa-icon>
+        <fa-icon [icon]="faEdit" size="xl" class="ml-3 clickable" tabindex="0"
                  (click)="staticModal(static.id)"
                  aria-label="Edits the current static"
                  ngbTooltip="Edit this static" [openDelay]="300"

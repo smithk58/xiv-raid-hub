@@ -1,26 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
-import {faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {faChartBar, faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {WatchlistService} from '../watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {AddEditStaticComponent} from '../modals/add-edit-static/add-edit-static.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-statics-card',
   templateUrl: './statics-card.component.html',
   styleUrls: ['./statics-card.component.css']
 })
-export class StaticsCardComponent implements OnInit {
-  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt;
+export class StaticsCardComponent implements OnInit, OnDestroy {
+  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faChartBar = faChartBar;
 
+  statics$;
   statics: CharacterGroup[] = [];
-  constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService) { }
+  constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService,
+              private router: Router
+  ) { }
 
   ngOnInit() {
-    this.wlService.getStatics().subscribe(statics => {
+    this.statics$ = this.wlService.getStatics().subscribe(statics => {
       this.statics = statics;
     });
   }
@@ -46,11 +50,31 @@ export class StaticsCardComponent implements OnInit {
       }, () => {}
     );
   }
+  /**
+   * Deletes the static with the specified id from the static list, if found.
+   * @param staticId - The id of the static to delete.
+   */
   deleteStatic(staticId: string) {
     const res = this.wlService.deleteStatic(staticId);
     // TODO confirm prompt
     if (res) {
       this.notify.success({text: 'Static was successfully deleted'});
+    }
+  }
+
+  /**
+   * Navigates to the analyze page with this static preselected for analysis.
+   * @param staticId - The static id to preselect.
+   */
+  analyzeStatic(staticId: string) {
+    this.router.navigate(['analyze/group/', staticId]).catch( err => {
+      this.notify.error({text: 'There was an error while trying to send you to group analysis. ' + err});
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.statics$) {
+      this.statics$.unsubscribe();
     }
   }
 }

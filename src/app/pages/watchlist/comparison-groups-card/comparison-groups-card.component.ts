@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {ClassToRole} from 'src/app/shared/Utils';
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {AddEditStaticComponent} from '../modals/add-edit-static/add-edit-static.component';
 import {WatchlistService} from '../watchlist.service';
@@ -14,18 +13,23 @@ import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.servi
   templateUrl: './comparison-groups-card.component.html',
   styleUrls: ['./comparison-groups-card.component.css']
 })
-export class ComparisonGroupsCardComponent implements OnInit {
+export class ComparisonGroupsCardComponent implements OnInit, OnDestroy {
   faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt;
-  classToRole = ClassToRole;
+  comparisonGroups$;
 
   comparisonGroups: CharacterGroup[] = [];
   constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService) { }
 
   ngOnInit() {
-    this.wlService.getComparisonGroups().subscribe(comparisonGroups => {
+    this.comparisonGroups$ = this.wlService.getComparisonGroups().subscribe(comparisonGroups => {
       this.comparisonGroups = comparisonGroups;
     });
   }
+
+  /**
+   * Launches a modal for adding/editing a comparison group.
+   * @param groupId - The id of the group to load in the modal, otherwise assumes you want to add a new comparison group.
+   */
   comparisonGroupModal(groupId: string) {
     const modal = this.modalService.open(AddEditStaticComponent, {backdrop: 'static'});
     const isUpdate = typeof(groupId) !== 'undefined';
@@ -44,11 +48,21 @@ export class ComparisonGroupsCardComponent implements OnInit {
       }, () => {}
     );
   }
-  deleteComparisonGroup(groupid: string) {
-    const res = this.wlService.deleteComparisonGroup(groupid);
+
+  /**
+   * Deletes the comparison group with the specified id from the comparison groups list, if found.
+   * @param groupId - The group id to delete.
+   */
+  deleteComparisonGroup(groupId: string) {
+    const res = this.wlService.deleteComparisonGroup(groupId);
     // TODO confirm prompt
     if (res) {
       this.notify.success({text: 'Comparison group was successfully deleted'});
+    }
+  }
+  ngOnDestroy() {
+    if (this.comparisonGroups$) {
+      this.comparisonGroups$.unsubscribe();
     }
   }
 }

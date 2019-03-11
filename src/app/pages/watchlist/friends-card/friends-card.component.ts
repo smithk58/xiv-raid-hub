@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
-import {faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {faChartBar, faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {AddEditCharacterComponent} from '../modals/add-edit-character/add-edit-character.component';
@@ -8,20 +8,24 @@ import {ClassToRole} from 'src/app/shared/Utils';
 import {WatchlistService} from '../watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 import {Character} from 'src/app/shared/api/models/character';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-friends-card',
   templateUrl: './friends-card.component.html',
   styleUrls: ['./friends-card.component.css']
 })
-export class FriendsCardComponent implements OnInit {
-  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt;
+export class FriendsCardComponent implements OnInit, OnDestroy {
+  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faChartBar = faChartBar;
   classToRole = ClassToRole;
+  friends$;
   friends: Character[] = [];
-  constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService) { }
+  constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService,
+              private router: Router
+  ) { }
 
   ngOnInit() {
-    this.wlService.getFriends().subscribe(characters => {
+    this.friends$ = this.wlService.getFriends().subscribe(characters => {
       this.friends = characters;
     });
   }
@@ -57,6 +61,21 @@ export class FriendsCardComponent implements OnInit {
     // TODO confirm prompt
     if (res) {
       this.notify.success({text: 'Character was successfully deleted!'});
+    }
+  }
+
+  /**
+   * Navigates to the analyze page with this character preselected for analysis.
+   * @param characterId - The character id to preselect.
+   */
+  analyzeCharacter(characterId: number) {
+    this.router.navigate(['analyze/character/', characterId]).catch( err => {
+      this.notify.error({text: 'There was an error while trying to send you to character analysis. ' + err});
+    });
+  }
+  ngOnDestroy() {
+    if (this.friends$) {
+      this.friends$.unsubscribe();
     }
   }
 }
