@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FflogsApiService } from './fflogs-api.service';
+import { FFLogsApiService } from './fflogs-api.service';
 
-describe('FflogsApiService', () => {
+describe('FFLogsApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FflogsApiService = TestBed.get(FflogsApiService);
+    const service: FFLogsApiService = TestBed.get(FFLogsApiService);
     expect(service).toBeTruthy();
   });
 });

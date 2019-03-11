@@ -6,6 +6,8 @@ import {throwError} from 'rxjs';
 
 import {ClassWrapper} from './models/Class';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
+import {RankingPagesWrapper} from './models/Ranking';
+import {Zone} from './models/Zone';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,10 @@ export class FFLogsApiService {
   baseUrl = 'https://www.fflogs.com/v1/';
   apiKey = '8c71f14062c29d33ac7f247580b1c903';
   constructor(private http: HttpClient, private notify: PNotifyService) { }
+
+  /**
+   * Returns a list of the available classes in FF14.
+   */
   getClasses() {
     const config = {
       params: {
@@ -35,5 +41,35 @@ export class FFLogsApiService {
         return throwError(error);
       })
     );
+  }
+  getReport(reportId: string) {
+    const config = {
+      params: {
+        api_key : this.apiKey,
+      } as any
+    };
+    return this.http.get<Zone[]>(this.baseUrl + 'report/fights/' + reportId, config);
+  }
+  getZones() {
+    const config = {
+      params: {
+        api_key : this.apiKey,
+      } as any
+    };
+    return this.http.get<Zone[]>(this.baseUrl + 'zones', config);
+  }
+  getEncounterRankings(encounterId: number, pageNumber?: number) {
+    const config = {
+      params: {
+        api_key : this.apiKey,
+      } as any
+    };
+    if (typeof(pageNumber) !== 'undefined') {
+      config.params.page = pageNumber;
+    }
+    return this.http.get<RankingPagesWrapper>(this.baseUrl + 'rankings/encounter/' + encounterId, config);
+  }
+  getCharacterRankings() {
+
   }
 }
