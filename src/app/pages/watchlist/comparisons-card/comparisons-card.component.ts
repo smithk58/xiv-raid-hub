@@ -8,7 +8,7 @@ import {ClassToRole} from 'src/app/shared/Utils';
 import {AddEditCharacterComponent} from '../modals/add-edit-character/add-edit-character.component';
 import {WatchlistService} from '../watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
-import {YesNoModalComponent} from '../../../shared/utility-components/yes-no-modal/yes-no-modal.component';
+import {YesNoModalComponent} from 'src/app/shared/utility-components/yes-no-modal/yes-no-modal.component';
 
 @Component({
   selector: 'app-comparisons-card',

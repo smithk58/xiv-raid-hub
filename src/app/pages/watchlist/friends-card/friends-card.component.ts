@@ -9,7 +9,7 @@ import {WatchlistService} from '../watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 import {Character} from 'src/app/shared/api/models/character';
 import {Router} from '@angular/router';
-import {YesNoModalComponent} from '../../../shared/utility-components/yes-no-modal/yes-no-modal.component';
+import {YesNoModalComponent} from 'src/app/shared/utility-components/yes-no-modal/yes-no-modal.component';
 
 @Component({
   selector: 'app-friends-card',

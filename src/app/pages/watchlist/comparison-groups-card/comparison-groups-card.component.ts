@@ -7,7 +7,7 @@ import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {AddEditStaticComponent} from '../modals/add-edit-static/add-edit-static.component';
 import {WatchlistService} from '../watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
-import {YesNoModalComponent} from '../../../shared/utility-components/yes-no-modal/yes-no-modal.component';
+import {YesNoModalComponent} from 'src/app/shared/utility-components/yes-no-modal/yes-no-modal.component';
 
 @Component({
   selector: 'app-comparison-groups-card',
