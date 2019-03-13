@@ -22,7 +22,12 @@
              [ngbTooltip]="character.defaultClass" [openDelay]="500"
         />
         <span class="wrap-flex-overflow mr-3" [ngbTooltip]="character.name" [openDelay]="500">{{character.name}}</span>
-        <fa-icon [icon]="faEdit" size="xl" class="ml-auto clickable" tabindex="0"
+        <img src="assets/fflogs.png" class="ml-auto fflogs-img" tabindex="0"
+             (click)="goToFFlogs(character)"
+             aria-label="Open this characters FF logs profile"
+             ngbTooltip="Open this characters FF logs profile" [openDelay]="300"
+        />
+        <fa-icon [icon]="faEdit" size="xl" class="ml-2 clickable" tabindex="0"
                  (click)="comparisonTargetModal(character.id)"
                  aria-label="Edits the current comparison target"
                  ngbTooltip="Edit this comparison target" [openDelay]="300"

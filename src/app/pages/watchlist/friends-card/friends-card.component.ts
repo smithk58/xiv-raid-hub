@@ -10,6 +10,7 @@ import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.servi
 import {Character} from 'src/app/shared/api/models/character';
 import {Router} from '@angular/router';
 import {YesNoModalComponent} from 'src/app/shared/utility-components/yes-no-modal/yes-no-modal.component';
+import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 
 @Component({
   selector: 'app-friends-card',
@@ -22,7 +23,7 @@ export class FriendsCardComponent implements OnInit, OnDestroy {
   friends$;
   friends: Character[] = [];
   constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService,
-              private router: Router
+              private router: Router, private ffLogsAPi: FFLogsApiService
   ) { }
 
   ngOnInit() {
@@ -72,6 +73,13 @@ export class FriendsCardComponent implements OnInit, OnDestroy {
     }, () => {});
   }
 
+  /**
+   * Opens FFlogs profile for the specified character.
+   * @param character - The character to open fflogs for.
+   */
+  goToFFlogs(character: Character) {
+    this.ffLogsAPi.openFFlogsForCharacter(character);
+  }
   /**
    * Navigates to the analyze page with this character preselected for analysis.
    * @param characterId - The character id to preselect.

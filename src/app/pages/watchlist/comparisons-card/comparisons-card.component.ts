@@ -9,6 +9,8 @@ import {AddEditCharacterComponent} from '../modals/add-edit-character/add-edit-c
 import {WatchlistService} from '../watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 import {YesNoModalComponent} from 'src/app/shared/utility-components/yes-no-modal/yes-no-modal.component';
+import {Router} from '@angular/router';
+import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 
 @Component({
   selector: 'app-comparisons-card',
@@ -21,7 +23,9 @@ export class ComparisonsCardComponent implements OnInit, OnDestroy {
 
   comparisonTargets$;
   comparisonTargets: Character[] = [];
-  constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService) { }
+  constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService,
+              private ffLogsAPi: FFLogsApiService
+  ) { }
 
   ngOnInit() {
     this.comparisonTargets$ = this.wlService.getComparisonTargets().subscribe(comparisonTargets => {
@@ -71,6 +75,13 @@ export class ComparisonsCardComponent implements OnInit, OnDestroy {
         }
       }
     }, () => {});
+  }
+  /**
+   * Opens FFlogs profile for the specified character.
+   * @param character - The character to open fflogs for.
+   */
+  goToFFlogs(character: Character) {
+    this.ffLogsAPi.openFFlogsForCharacter(character);
   }
   ngOnDestroy() {
     if (this.comparisonTargets$) {
