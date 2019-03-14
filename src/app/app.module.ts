@@ -15,9 +15,9 @@ import {AboutComponent} from './pages/about/about.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {CachingInterceptor} from './shared/caching/caching-interceptor';
 import { environment } from '../environments/environment';
-import {XIV_API_KEY} from './shared/api/xivapi/xiv-api-service2.service';
 import {SharedModule} from './shared/shared.module';
 import {YesNoModalComponent} from './shared/utility-components/yes-no-modal/yes-no-modal.component';
+import {XIV_API_KEY} from 'src/app/shared/api/xivapi/xiv-api-2.service';
 
 @NgModule({
   imports: [

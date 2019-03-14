@@ -1,3 +1,48 @@
-<p>
-  analyze-character works!
-</p>
+<div class="container-fluid">
+  <div class="row mx-2 mt-2">
+    <!--Toolbar-->
+    <div class="d-flex align-items-start">
+      <!--Expansion-->
+      <div class="d-flex align-items-center">
+        <label for="bracketInput" class="m-0 mr-2 font-weight-bold">Expansion: </label>
+        <ng-select [items]="expansions" class="bracket-input"
+                   [(ngModel)]="selectedExpansion"
+                   (ngModelChange)="setExpansion(selectedExpansion)"
+                   [clearable]="false"
+                   labelForId="bracketInput"
+                   placeholder="Select a bracket"
+        >
+        </ng-select>
+      </div>
+      <!--Zone-->
+      <div class="d-flex align-items-center ml-3">
+        <label for="zoneInput" class="m-0 mr-2 font-weight-bold">Zone: </label>
+        <ng-select [items]="filteredZones" class="zone-input"
+                   [(ngModel)]="selectedZone"
+                   (change)="setEncounters(selectedZone)"
+                   labelForId="zoneInput"
+                   bindLabel="name"
+                   placeholder="All zones"
+        >
+          <ng-template ng-option-tmp let-item="item">
+            <span [title]="item.name" class="ng-option-label">{{item.name}}</span>
+          </ng-template>
+        </ng-select>
+      </div>
+      <!--Encounter-->
+      <div class="d-flex align-items-center ml-3">
+        <label for="encounterInput" class="m-0 mr-2 font-weight-bold">Encounter: </label>
+        <ng-select [items]="encounters" class="zone-input"
+                   [(ngModel)]="selectedEncounter"
+                   labelForId="encounterInput"
+                   bindLabel="name"
+                   placeholder="All encounters"
+        >
+          <ng-template ng-option-tmp let-item="item">
+            <span [title]="item.name" class="ng-option-label">{{item.name}}</span>
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+  </div>
+</div>

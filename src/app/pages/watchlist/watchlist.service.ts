@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import {XivapiService} from '@xivapi/angular-client';
 import {BehaviorSubject} from 'rxjs';
+import {map, take} from 'rxjs/operators';
 
-import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 import {Character} from 'src/app/shared/api/models/character';
 import {StorageKeys} from 'src/app/shared/importExport/StorageKeys';
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
@@ -17,8 +16,18 @@ export class WatchlistService {
   statics: BehaviorSubject<CharacterGroup[]>;
   comparisonTargets: BehaviorSubject<Character[]>;
   comparisonGroups: BehaviorSubject<CharacterGroup[]>;
-  constructor(private ffLogApi: FFLogsApiService) { }
+  constructor() { }
 
+  /**
+   * Returns a particular character from your friends, otherwise
+   * @param characterId - The character id of the friend to return.
+   */
+  getFriend(characterId: number) {
+    return this.getFriends().pipe(
+      take(1),
+      map( friends => friends.find(friend => friend.id === characterId))
+    );
+  }
   /**
    * Returns an observable of the list of friends for the current user.
    */

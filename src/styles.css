@@ -45,3 +45,13 @@ as well for accessibility*/
   border: 2px solid #E0C984; /*gold*/
   border-radius: 5px
 }
+/*For display FFlogs logo for linking to the site*/
+.fflogs-img {
+  height: 25px;
+  opacity: 0.7;
+}
+.fflogs-img:hover {
+  opacity: 0.4;
+  cursor: pointer;
+}
+

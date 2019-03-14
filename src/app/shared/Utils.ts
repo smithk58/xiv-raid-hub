@@ -9,6 +9,9 @@ export class Utils {
       return v.toString(16);
     });
   }
+  static enumToArray(enumObj) {
+    return Object.keys(enumObj).filter(key => isNaN(Number(key)));
+  }
 }
 /*APIs y you no have this >:(?*/
 export enum ClassToRole {
@@ -28,7 +31,7 @@ export enum ClassToRole {
   'Red Mage' = 'dps',
   'Black Mage' = 'dps'
 }
-/*APIs y you no have this either >:(?? Maps XIVApis DC list to FFlogs expected region*/
+/*APIs y you no have this either >:(?? Maps XIVApis DC list to region*/
 export enum DCToRegion {
   Aether = 'na',
   Chaos = 'eu',
@@ -37,3 +40,13 @@ export enum DCToRegion {
   Mana = 'jp',
   Primal = 'na',
 }
+
+export enum ExpansionToBracketMin {
+  'Heavensward' = 3,
+  'Stormblood',
+}
+
+export enum ExpansionToDefaultZone {
+  'Stormblood' = 25 /*zone id of omega alphascape*/
+}
+
