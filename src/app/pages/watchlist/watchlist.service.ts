@@ -88,7 +88,12 @@ export class WatchlistService {
     }
     return foundMatch;
   }
-
+  getStatic(groupId: string) {
+    return this.getStatics().pipe(
+      take(1),
+      map( statics => statics.find(sStatic => sStatic.id === groupId))
+    );
+  }
   /**
    * Returns an observable of the list of statics for the current user.
    */
