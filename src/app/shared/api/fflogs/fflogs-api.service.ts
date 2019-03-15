@@ -87,23 +87,22 @@ export class FFLogsApiService {
     }
     return this.http.get<RankingPagesWrapper>(this.apiURL + 'rankings/encounter/' + encounterId, config);
   }
-  getCharacterRankings() {
-
-  }
-
   /**
    * Returns the available parses for the specified character.
    * @param characterName - The name of the character to get parses for.
    * @param serverName - The server the specified character belongs to.
-   * @param serverRegion - THe region the specified server belongs to.
+   * @param serverRegion - The region the specified server belongs to.
+   * @param zoneId - The zone ID to get reports for.
+   * @param encounterId - The encounter id to get reports for.
    */
-  getCharacterParses(characterName: string, serverName: string, serverRegion: string) {
+  getCharacterParses(characterName: string, serverName: string, serverRegion: string, zoneId: number, encounterId: number) {
     const config = {
       params: {
         api_key : this.apiKey,
+        zone: zoneId,
+        encounter: encounterId
       } as any
     };
-    /*TODO encounter, zone,  metric params*/
     return this.http.get<Parse[]>(this.apiURL + 'parses/character/' + characterName + '/' + serverName + '/' + serverRegion, config);
   }
 
