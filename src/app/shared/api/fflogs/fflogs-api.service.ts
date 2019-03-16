@@ -107,6 +107,18 @@ export class FFLogsApiService {
   }
 
   /**
+   * Opens the FFlogs page for the specified report and fight number.
+   * @param reportId - The report to open.
+   * @param fightNumber - The fight number in the report to open.
+   */
+  openFFlogsReport(reportId: string, fightNumber?: number) {
+    let reportUrl = this.baseURL + '/reports/' + reportId;
+    if (typeof(fightNumber) !== 'undefined') {
+      reportUrl += '#fight=' + fightNumber;
+    }
+    window.open(reportUrl, '_blank');
+  }
+  /**
    * Opens fflogs page for the specified character.
    * @param character - The character to open the page .
    */

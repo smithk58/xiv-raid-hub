@@ -26,17 +26,17 @@ export class XivApiService2 {
    * Returns a server to DC map.
    */
   getServerToDCMap() {
-      return this.serverToDC ? of(this.serverToDC) : this.getServerListByDC().pipe(
-        map(dcToServer => {
-          const serverToDC = {};
-          for (const dc of Object.keys(dcToServer)) {
-            for (const server of dcToServer[dc]) {
-              serverToDC[server] = dc;
-            }
+    return this.serverToDC ? of(this.serverToDC) : this.getServerListByDC().pipe(
+      map(dcToServer => {
+        const serverToDC = {};
+        for (const dc of Object.keys(dcToServer)) {
+          for (const server of dcToServer[dc]) {
+            serverToDC[server] = dc;
           }
-          this.serverToDC = serverToDC;
-          return serverToDC;
-        })
-      );
+        }
+        this.serverToDC = serverToDC;
+        return serverToDC;
+      })
+    );
   }
 }

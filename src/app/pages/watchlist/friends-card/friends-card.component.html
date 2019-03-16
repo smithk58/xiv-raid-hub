@@ -22,10 +22,10 @@
              [ngbTooltip]="character.defaultClass" [openDelay]="500"
         />
         <span class="wrap-flex-overflow mr-3" [ngbTooltip]="character.name" [openDelay]="500">{{character.name}}</span>
-        <img src="assets/fflogs.png" class="ml-auto fflogs-img" tabindex="0"
+        <img src="assets/fflogs.png" class="ml-auto logo-img" tabindex="0"
                 (click)="goToFFlogs(character)"
-                 aria-label="Open this characters FF logs profile"
-                 ngbTooltip="Open this characters FF logs profile" [openDelay]="300"
+                 aria-label="Open this character's FF logs profile"
+                 ngbTooltip="Open this character's FF logs profile" [openDelay]="300"
         />
         <fa-icon [icon]="faChartBar" size="xl" class="ml-2 clickable" tabindex="0"
                  (click)="analyzeCharacter(character.id)"

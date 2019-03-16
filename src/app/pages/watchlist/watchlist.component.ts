@@ -5,6 +5,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {WatchlistService} from './watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
+import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 
 @Component({
   selector: 'app-watchlist',
@@ -15,10 +16,20 @@ export class WatchlistComponent implements OnInit {
   // Icons
   faExport = faFileDownload; faImport = faFileUpload;
   faWarn = faExclamationTriangle;
-  constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService) { }
+  constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService,
+              private fflogs: FFLogsApiService) { }
 
   ngOnInit() {
-    // a
+    const reportId = 'PYGaA2zfrnMNJHBq';
+    this.fflogs.getEncounterRankings(25).subscribe(rankings => {
+      console.log('rankings', rankings);
+    });
+    this.fflogs.getZones().subscribe(zones => {
+      console.log('zones', zones);
+    });
+    this.fflogs.getReport(reportId).subscribe(report => {
+      console.log('report', report);
+    });
   }
   importData() {
     // TODO

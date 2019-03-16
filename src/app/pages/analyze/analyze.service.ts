@@ -17,16 +17,22 @@ export class AnalyzeService {
   /**
    * Returns the available reports for the specified character.
    * @param character - The character to get reports for.
+   * @param zoneId - The zone ID to get reports for.
+   * @param encounterId - The encounter id to get reports for.
    */
-  getCharacterReports(character: Character) {
+  getCharacterReports(character: Character, zoneId: number, encounterId?: number) {
     return this.xivApi2.getServerToDCMap().pipe(
       concatMap( serverToDC => {
         const dc = serverToDC[character.server];
         const region = DCToRegion[dc];
-        return this.fflogsApi.getCharacterParses(character.name, character.server, region);
+        return this.fflogsApi.getCharacterParses(character.name, character.server, region, zoneId, encounterId);
       })
     );
   }
+
+  /**
+   * Returns a list of expansion that have raids.
+   */
   getRaidableExpansions() {
     return Utils.enumToArray(ExpansionToBracketMin).reverse();
   }
@@ -42,5 +48,15 @@ export class AnalyzeService {
       zone = zones.find(fZone => fZone.id === defaultZoneId);
     }
     return zone;
+  }
+
+  /**
+   * Opens XIV analysis page for the specified report, fight, and character.
+   * @param reportId - An FF logs report ID to analyze.
+   * @param fightNumber - A particular fight number from the report to analyze.
+   */
+  openXIVAnalysis(reportId: string, fightNumber: number) {
+    const profileURL = 'https://xivanalysis.com/find/' + reportId + '/' + fightNumber;
+    window.open(profileURL, '_blank');
   }
 }

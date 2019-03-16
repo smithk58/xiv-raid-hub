@@ -1,48 +1,41 @@
 <div class="container-fluid">
-  <div class="row mx-2 mt-2">
+  <h3 class="mt-3">1. Select an encounter</h3>
+  <div class="row mx-2 mt-3">
     <!--Toolbar-->
-    <div class="d-flex align-items-start">
-      <!--Expansion-->
-      <div class="d-flex align-items-center">
-        <label for="bracketInput" class="m-0 mr-2 font-weight-bold">Expansion: </label>
-        <ng-select [items]="expansions" class="bracket-input"
-                   [(ngModel)]="selectedExpansion"
-                   (ngModelChange)="setExpansion(selectedExpansion)"
-                   [clearable]="false"
-                   labelForId="bracketInput"
-                   placeholder="Select a bracket"
-        >
-        </ng-select>
+    <app-encounter-toolbar (selected)="getParsesByZone($event)"></app-encounter-toolbar>
+  </div>
+  <div class="row mt-4">
+    <h3 class="col-6">2. Select a report to analyze</h3>
+    <h3 class="col-6">3. and a report to analyze against</h3>
+  </div>
+  <div class="row">
+    <!--Parses of character being analyzed-->
+    <div class="col-6">
+      <div class="d-flex align-items-center mb-1">
+        <p *ngIf="atCharacter" class="m-0 lead">{{atCharacter.name}} as</p>
+        <app-class-search *ngIf="atClassFilter" [fControl]="atClassFilter" class="classFilter d-inline-block ml-2">
+        </app-class-search>
       </div>
-      <!--Zone-->
-      <div class="d-flex align-items-center ml-3">
-        <label for="zoneInput" class="m-0 mr-2 font-weight-bold">Zone: </label>
-        <ng-select [items]="filteredZones" class="zone-input"
-                   [(ngModel)]="selectedZone"
-                   (change)="setEncounters(selectedZone)"
-                   labelForId="zoneInput"
+      <app-report-list [parses]="atFilteredParses"
+                       [encounter]="zoneEncounter ? zoneEncounter.encounter : undefined"
+      ></app-report-list>
+    </div>
+    <!--Parses of analysis target-->
+    <div class="col-6">
+      <div class="d-flex align-items-center mb-1">
+        <ng-select [items]="ctAvailableCharacters" class="mr-1"
+                   (change)="comparisonTargetSelected($event)"
                    bindLabel="name"
-                   placeholder="All zones"
+                   placeholder="Select character"
         >
-          <ng-template ng-option-tmp let-item="item">
-            <span [title]="item.name" class="ng-option-label">{{item.name}}</span>
-          </ng-template>
         </ng-select>
+        <p class="m-0 ml-1 lead">as {{lastSelectedClass}}</p>
       </div>
-      <!--Encounter-->
-      <div class="d-flex align-items-center ml-3">
-        <label for="encounterInput" class="m-0 mr-2 font-weight-bold">Encounter: </label>
-        <ng-select [items]="encounters" class="zone-input"
-                   [(ngModel)]="selectedEncounter"
-                   labelForId="encounterInput"
-                   bindLabel="name"
-                   placeholder="All encounters"
-        >
-          <ng-template ng-option-tmp let-item="item">
-            <span [title]="item.name" class="ng-option-label">{{item.name}}</span>
-          </ng-template>
-        </ng-select>
-      </div>
+
+      <app-report-list [parses]="ctFilteredParses"
+                       [encounter]="zoneEncounter ? zoneEncounter.encounter : undefined"
+                       sortField="total"
+      ></app-report-list>
     </div>
   </div>
 </div>

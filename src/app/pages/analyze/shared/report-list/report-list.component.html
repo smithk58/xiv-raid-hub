@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="card-header py-2">
+    <div class="d-flex align-items-center">
+      <span>Parses</span>
+    </div>
+  </div>
+  <div class="card-body p-2">
+    <p *ngIf="!encounter" class="m-0 text-center text-warning">
+      <fa-icon [icon]="faExclamation"></fa-icon>
+      Must select zone and encounter to get parses.
+    </p>
+    <ag-grid-angular
+       style="width: 100%; height:400px;"
+       class="ag-theme-balham"
+       [gridOptions]="gridOptions"
+       (gridReady)="onGridReady($event)"
+       [frameworkComponents]="agComponents"
+       [context]="componentContext"
+    >
+    </ag-grid-angular>
+  </div>
+</div>

@@ -1,3 +1,6 @@
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+
 html, body{
   height: 100%;
   margin: 0;
@@ -30,6 +33,14 @@ as well for accessibility*/
   text-overflow: ellipsis;;
   min-width: 0px;
 }
+/*Allows ag-grid cell text to be highlighted*/
+.ag-cell-value {
+  user-select: initial;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -webkit-user-select: text;
+}
+/*Utility classes for FF classes/roles*/
 .tank-bg {
   background-color: #3A4DAA; /*blue*/
 }
@@ -45,13 +56,19 @@ as well for accessibility*/
   border: 2px solid #E0C984; /*gold*/
   border-radius: 5px
 }
-/*For display FFlogs logo for linking to the site*/
-.fflogs-img {
-  height: 25px;
+/*Make icon look disabled in a disabled ng-select control*/
+.ng-select-disabled .class-icon {
   opacity: 0.7;
 }
-.fflogs-img:hover {
-  opacity: 0.4;
+/*For display FFlogs logo for linking to the site*/
+.logo-img {
+  height: 25px;
+}
+.logo-img-sm {
+  height: 20px;
+}
+.logo-img:hover, .logo-img-sm:hover {
+  opacity: 0.6;
   cursor: pointer;
 }
 

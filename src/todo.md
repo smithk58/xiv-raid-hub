@@ -16,3 +16,4 @@ xivapi instead. Also offer to add it to their list in a non intrusive way. Allow
 more effectively than requiring the character to exist on their watchlist like it does now.
 * Figure out an effective way to resolve FFlogs characters into lodestone ones. or get the server
  for a FFlogs character. Probably not possible without the user doing things, but being able to would be very useful.
+* On table ctrl + c throws exception: https://github.com/ag-grid/ag-grid/issues/2975
