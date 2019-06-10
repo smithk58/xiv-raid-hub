@@ -65,9 +65,6 @@ export class EncounterToolbarComponent implements OnInit {
   setEncounters(zone: Zone) {
     this.selectedEncounter = null;
     this.encounters = zone.encounters;
-    // TODO remove
-    this.selectedEncounter = this.encounters[0];
-    this.setEncounter(this.selectedEncounter);
   }
   /**
    * Sets the current encounter to the specified one.

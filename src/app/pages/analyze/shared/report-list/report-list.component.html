@@ -5,11 +5,15 @@
     </div>
   </div>
   <div class="card-body p-2">
-    <p *ngIf="!encounter" class="m-0 text-center text-warning">
+    <p *ngIf="!zoneEncounter" class="m-0 text-center text-warning">
       <fa-icon [icon]="faExclamation"></fa-icon>
-      Must select zone and encounter to get parses.
+      Must select an encounter to get parses.
     </p>
-    <ag-grid-angular
+    <p *ngIf="!character" class="m-0 text-center text-warning">
+      <fa-icon [icon]="faExclamation"></fa-icon>
+      Must select a character to get parses.
+    </p>
+    <ag-grid-angular [hidden]="!zoneEncounter || !character"
        style="width: 100%; height:400px;"
        class="ag-theme-balham"
        [gridOptions]="gridOptions"

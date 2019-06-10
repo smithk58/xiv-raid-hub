@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormControl} from '@angular/forms';
 
-import {Subject} from 'rxjs';
+import {faCheck, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
 import {WatchlistService} from 'src/app/pages/watchlist/watchlist.service';
 import {AnalyzeService} from 'src/app/pages/analyze/analyze.service';
@@ -16,20 +16,17 @@ import {ZoneEncounter} from 'src/app/pages/analyze/shared/encounter-toolbar/Zone
   styleUrls: ['./analyze-character.component.css']
 })
 export class AnalyzeCharacterComponent implements OnInit, OnDestroy {
+  faCheckmark = faCheck; faInfoCircle = faInfoCircle;
   zoneEncounter: ZoneEncounter;
   /*Analysis target*/
   atCharacter: Character;
   atClassFilter: FormControl; atClassFilter$;
-  atParses: Parse[]; // All parses for character
-  atFilteredParses: Parse[]; // Filtered by class
-  atReports$ = new Subject<{character: Character, zoneEncounter: ZoneEncounter}>();
+  atSelectedParse: Parse;
   /*Comparison target*/
   ctAvailableCharacters: Character[];
   ctCharacter: Character;
   lastSelectedClass: string;
-  ctParses: Parse[]; // All parses for character
-  ctFilteredParses: Parse[]; // Filtered by class
-  ctReports$ = new Subject<{character: Character, zoneEncounter: ZoneEncounter}>();
+  ctSelectedParse: Parse;
   constructor(private route: ActivatedRoute, private wlService: WatchlistService, private analyzeService: AnalyzeService) { }
   ngOnInit() {
     // TODO Preserve selected zone/encounter for page refresh via params
@@ -45,50 +42,13 @@ export class AnalyzeCharacterComponent implements OnInit, OnDestroy {
       this.wlService.getComparisonTargets().subscribe(comparisonTargets => {
         this.ctAvailableCharacters = comparisonTargets.filter(ct => ct.defaultClass === value);
       });
-      // Retrigger filtering for both analysis target and comparison target
-      this.atReports$.next({character: this.atCharacter, zoneEncounter: this.zoneEncounter});
-      this.ctReports$.next({character: this.ctCharacter, zoneEncounter: this.zoneEncounter});
-    });
-
-    // Watch for analysis target character/encounter changes to get parses for the combination
-    this.atReports$.subscribe(() => {
-      // Requires both a character and a zone/encounter, otherwise set filtered to nothing
-      if (this.atCharacter && this.zoneEncounter) {
-        const eId = this.zoneEncounter.encounter.id;
-        this.analyzeService.getCharacterReports(this.atCharacter, this.zoneEncounter.zone.id, eId).subscribe( parses => {
-          this.atParses = parses;
-          // Filter parses by default class, if it's available
-          const filter = this.lastSelectedClass !== null;
-          this.atFilteredParses = filter ? this.atParses.filter(parse => parse.spec === this.lastSelectedClass) : this.atParses;
-        });
-      } else {
-        this.atParses = [];
-        this.atFilteredParses = [];
-      }
-    });
-    // Watch for comparison target/encounter changes to get parses for the combination
-    this.ctReports$.subscribe(() => {
-      // Requires both a character and a zone/encounter, otherwise set filtered to nothing
-      if (this.ctCharacter && this.zoneEncounter) {
-        const eId = this.zoneEncounter.encounter.id;
-        this.analyzeService.getCharacterReports(this.ctCharacter, this.zoneEncounter.zone.id, eId).subscribe( parses => {
-          this.ctParses = parses;
-          // We filter ct parses off of analysis targets class, we supply parses if a class is selected (to prevent cross class comparison)
-          const filter = this.lastSelectedClass !== null;
-          this.ctFilteredParses = filter ? this.ctParses.filter(parse => parse.spec === this.lastSelectedClass) : [];
-        });
-      } else {
-        this.ctParses = [];
-        this.ctFilteredParses = [];
-      }
     });
     // Attempt to lookup the character ID in the url
     const characterId = parseInt(this.route.snapshot.params.characterId, 10);
     this.wlService.getFriend(characterId).subscribe(character => {
       this.atCharacter = character;
-      // Update the class filter to the current characters and trigger get reports
+      // Update the class filter to the current characters default class
       this.atClassFilter.setValue(this.atCharacter.defaultClass);
-      this.atReports$.next({character, zoneEncounter: this.zoneEncounter});
     });
   }
   /**
@@ -97,9 +57,6 @@ export class AnalyzeCharacterComponent implements OnInit, OnDestroy {
    */
   getParsesByZone(zoneEncounter: ZoneEncounter) {
     this.zoneEncounter = zoneEncounter;
-    // Update both get report subscriptions with the new zone
-    this.atReports$.next({character: this.atCharacter, zoneEncounter});
-    this.ctReports$.next({character: this.ctCharacter, zoneEncounter});
   }
 
   /**
@@ -108,16 +65,24 @@ export class AnalyzeCharacterComponent implements OnInit, OnDestroy {
    */
   comparisonTargetSelected(character: Character) {
     this.ctCharacter = character;
-    // Trigger get comparison target reports
-    this.ctReports$.next({character: this.ctCharacter, zoneEncounter: this.zoneEncounter});
+  }
+
+  /**
+   * Triggered when a report from the analysis target table is selected.
+   * @param parse -
+   */
+  atParseSelected(parse: Parse) {
+    this.atSelectedParse = parse;
+  }
+
+  /**
+   * Triggered when a report from the comparison target table is selected.
+   * @param parse -
+   */
+  ctParseSelected(parse: Parse) {
+    this.ctSelectedParse = parse;
   }
   ngOnDestroy() {
-    if (this.atReports$) {
-      this.atReports$.unsubscribe();
-    }
-    if (this.ctReports$) {
-      this.ctReports$.unsubscribe();
-    }
     if (this.atClassFilter$) {
       this.atClassFilter$.unsubscribe();
     }

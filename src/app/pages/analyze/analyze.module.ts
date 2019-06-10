@@ -25,7 +25,7 @@ import { ReportLinksComponent } from './shared/ag-grid-columns/report-links/repo
     AnalyzeGroupComponent,
     EncounterToolbarComponent,
     ReportListComponent,
-    ReportLinksComponent,
+    ReportLinksComponent
   ]
 })
 export class AnalyzeModule { }

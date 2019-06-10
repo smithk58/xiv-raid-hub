@@ -1,3 +1,6 @@
 .classFilter {
   min-width: 150px;
 }
+.steps-icon.done {
+  color: green;
+}
