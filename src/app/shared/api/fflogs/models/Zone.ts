@@ -20,4 +20,5 @@ export interface Partition {
   compact: string;
   area?: number;
   default?: boolean; /*Returned on one partition as true, otherwise undefined*/
+  index?: number; /*position of a partition in the array of partitions it was pulled from*/
 }

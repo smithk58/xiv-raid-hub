@@ -16,7 +16,7 @@
     <label for="zoneInput" class="m-0 mr-2 font-weight-bold">Zone: </label>
     <ng-select [items]="filteredZones" class="zone-ng-select"
                [(ngModel)]="selectedZone"
-               (change)="setEncounters(selectedZone)"
+               (change)="setZone(selectedZone)"
                [clearable]="false"
                labelForId="zoneInput"
                bindLabel="name"
@@ -37,6 +37,22 @@
                labelForId="encounterInput"
                bindLabel="name"
                placeholder="Select an encounter"
+    >
+      <ng-template ng-option-tmp let-item="item">
+        <span [title]="item.name" class="ng-option-label">{{item.name}}</span>
+      </ng-template>
+    </ng-select>
+  </div>
+  <!--Partitions, only if there's more than one-->
+  <div *ngIf="partitions && partitions.length > 1" class="d-flex align-items-center ml-3">
+    <label for="partitionInput" class="m-0 mr-2 font-weight-bold">Partition: </label>
+    <ng-select [items]="partitions" class="encounter-ng-select"
+               [(ngModel)]="selectedPartition"
+               (change)="setPartition(selectedPartition)"
+               [clearable]="true"
+               labelForId="partitionInput"
+               bindLabel="name"
+               placeholder="Select a partition"
     >
       <ng-template ng-option-tmp let-item="item">
         <span [title]="item.name" class="ng-option-label">{{item.name}}</span>
