@@ -12,12 +12,11 @@ import {NotFoundComponent} from './pages/not-found/not-found.component';
 import {LoginComponent} from './shared/authentication/login/login.component';
 import {SettingsComponent} from './pages/settings/settings.component';
 import {AboutComponent} from './pages/about/about.component';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {CachingInterceptor} from './shared/caching/caching-interceptor';
 import { environment } from '../environments/environment';
 import {SharedModule} from './shared/shared.module';
 import {YesNoModalComponent} from './shared/utility-components/yes-no-modal/yes-no-modal.component';
 import {XIV_API_KEY} from 'src/app/shared/api/xivapi/xiv-api-2.service';
+import {httpInterceptorProviders} from 'src/app/shared/interceptors';
 
 @NgModule({
   imports: [
@@ -39,7 +38,7 @@ import {XIV_API_KEY} from 'src/app/shared/api/xivapi/xiv-api-2.service';
   ],
   entryComponents: [LoginComponent, YesNoModalComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
+    httpInterceptorProviders,
     { provide: XIV_API_KEY, useValue: environment.xivAPIKey}
   ],
   bootstrap: [AppComponent]

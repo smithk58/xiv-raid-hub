@@ -4,7 +4,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from
 import {Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
-import {RequestCacheService} from './request-cache.service';
+import {RequestCacheService} from 'src/app/shared/caching/request-cache.service';
 
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
