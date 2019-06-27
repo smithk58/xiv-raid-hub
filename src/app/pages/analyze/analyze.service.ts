@@ -19,13 +19,14 @@ export class AnalyzeService {
    * @param character - The character to get reports for.
    * @param zoneId - The zone ID to get reports for.
    * @param encounterId - The encounter id to get reports for.
+   * @param partition - The partition position (NOT INDEX) of the zone to get parses for.
    */
-  getCharacterReports(character: Character, zoneId: number, encounterId?: number) {
+  getCharacterReports(character: Character, zoneId: number, encounterId?: number, partition?: number) {
     return this.xivApi2.getServerToDCMap().pipe(
       concatMap( serverToDC => {
         const dc = serverToDC[character.server];
         const region = DCToRegion[dc];
-        return this.fflogsApi.getCharacterParses(character.name, character.server, region, zoneId, encounterId);
+        return this.fflogsApi.getCharacterParses(character.name, character.server, region, zoneId, encounterId, partition);
       })
     );
   }

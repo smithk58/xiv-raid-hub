@@ -94,8 +94,11 @@ export class FFLogsApiService {
    * @param serverRegion - The region the specified server belongs to.
    * @param zoneId - The zone ID to get reports for.
    * @param encounterId - The encounter id to get reports for.
+   * @param partition - The partition position (NOT INDEX) of the zone to get parses for.
    */
-  getCharacterParses(characterName: string, serverName: string, serverRegion: string, zoneId: number, encounterId: number) {
+  getCharacterParses(characterName: string, serverName: string, serverRegion: string, zoneId: number, encounterId: number,
+                     partition?: number
+  ) {
     const config = {
       params: {
         api_key : this.apiKey,
@@ -103,6 +106,9 @@ export class FFLogsApiService {
         encounter: encounterId
       } as any
     };
+    if (typeof(partition) !== 'undefined') {
+      config.params.partition = partition;
+    }
     return this.http.get<Parse[]>(this.apiURL + 'parses/character/' + characterName + '/' + serverName + '/' + serverRegion, config);
   }
 

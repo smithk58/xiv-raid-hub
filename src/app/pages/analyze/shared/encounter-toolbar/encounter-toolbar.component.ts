@@ -84,18 +84,14 @@ export class EncounterToolbarComponent implements OnInit {
    * @param partitions - The partitions to set to.
    */
   setPartitions(partitions: Partition[]) {
-    // TODO Set default partition if default is true on one of them
     // Assign indexes to the partitions (need index for the api, ng-select doesn't have a convenient way to get it, and I don't trust these
     // weird partition objects to be unique)
-    partitions.forEach((partition, index) => partition.index = index);
-    // TODO Wtf does Partition.area do?
+    partitions.forEach((partition, index) => partition.position = index + 1); // API wants 1 based index
+    // TODO Wtf does Partition.area do? Seems like you only ever want area = 1...yet other ones exist
     // Filter partitions down to the first partitions area if it has one for now, otherwise show all partitions
     const firstAreaValue = (partitions.length > 0 && typeof(partitions[0].area) !== 'undefined') ? partitions[0].area : undefined;
     if (firstAreaValue) {
-      this.partitions = partitions.filter((partition, index) => {
-        partition.index = index;
-        return partition.area === firstAreaValue;
-      });
+      this.partitions = partitions.filter((partition) => partition.area === firstAreaValue);
     } else {
       this.partitions = partitions;
     }

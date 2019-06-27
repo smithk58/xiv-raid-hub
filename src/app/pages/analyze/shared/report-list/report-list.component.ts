@@ -3,6 +3,7 @@ import {Component, OnInit, Input, HostListener, Output, EventEmitter, OnChanges,
 import {faExclamationTriangle, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import {GridOptions, RowSelectedEvent} from 'ag-grid-community';
 import {Subject} from 'rxjs';
+import { debounceTime} from 'rxjs/operators';
 
 import {Parse} from 'src/app/shared/api/fflogs/models/Parse';
 import {ReportLinksComponent} from 'src/app/pages/analyze/shared/ag-grid-columns/report-links/report-links.component';
@@ -46,11 +47,12 @@ export class ReportListComponent implements OnInit, OnChanges, OnDestroy {
     // Initialize the parses table
     this.initializeGrid();
     // Watch for pushes to getReports$ and regrab/filter parses
-    this.getParses$.subscribe(() => {
+    this.getParses$.pipe(debounceTime(100)).subscribe(() => {
       // Requires both a character and a zone/encounter, otherwise set parses to nothing
       if (this.character && this.zoneEncounter) {
         const eId = this.zoneEncounter.encounter.id;
-        this.analyzeService.getCharacterReports(this.character, this.zoneEncounter.zone.id, eId).subscribe(parses => {
+        const pIdx = this.zoneEncounter.partition.position;
+        this.analyzeService.getCharacterReports(this.character, this.zoneEncounter.zone.id, eId, pIdx).subscribe(parses => {
           // Filter parses by class, if it's available
           const nParses = this.filterByClass ? parses.filter(parse => parse.spec === this.filterByClass) : parses;
           this.updateParses(nParses);
