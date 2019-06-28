@@ -21,7 +21,9 @@ export enum ClassToRole {
   'Warrior' = 'tank',
   'Paladin' = 'tank',
   'Dark Knight' = 'tank',
+  'Gunbreaker' = 'tank',
   'Bard' = 'dps',
+  'Dancer' = 'dps',
   'Machinist' = 'dps',
   'Dragoon' = 'dps',
   'Monk' = 'dps',
@@ -43,7 +45,8 @@ export enum DCToRegion {
 
 export enum ExpansionToBracketMin {
   'Heavensward' = 3,
-  'Stormblood',
+  'Stormblood' = 4,
+  'Shadowbringers' = 5
 }
 
 export enum ExpansionToDefaultZone {
