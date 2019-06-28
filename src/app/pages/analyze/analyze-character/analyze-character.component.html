@@ -43,7 +43,8 @@
                    placeholder="Select character"
         >
         </ng-select>
-        <p class="m-0 ml-1 lead">as {{lastSelectedClass}}</p>
+        <p class="m-0 ml-1 lead">as
+          <span *ngIf="lastSelectedClass">{{lastSelectedClass}}</span><span *ngIf="!lastSelectedClass"> any class</span></p>
       </div>
       <app-report-list [character]="ctCharacter"
                        [zoneEncounter]="zoneEncounter"

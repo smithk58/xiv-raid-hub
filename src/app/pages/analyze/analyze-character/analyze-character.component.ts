@@ -40,7 +40,7 @@ export class AnalyzeCharacterComponent implements OnInit, OnDestroy {
       this.lastSelectedClass = value;
       // Recalculate comparison targets for the new class
       this.wlService.getComparisonTargets().subscribe(comparisonTargets => {
-        this.ctAvailableCharacters = comparisonTargets.filter(ct => ct.defaultClass === value);
+        this.ctAvailableCharacters = comparisonTargets.filter(ct => value === null || value === ct.defaultClass);
       });
     });
     // Attempt to lookup the character ID in the url
