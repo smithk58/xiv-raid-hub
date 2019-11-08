@@ -11,6 +11,8 @@ import { ClassSearchComponent } from './utility-components/class-search/class-se
 import { ThemeSelectorComponent } from './utility-components/theme-selector/theme-selector.component';
 import { CharacterSelectComponent } from './utility-components/character-select/character-select.component';
 import { GroupSelectComponent } from './utility-components/group-select/group-select.component';
+import {ModalHeaderComponent} from 'src/app/shared/utility-components/modals/modal-header/modal-header.component';
+import {ModalFooterComponent} from 'src/app/shared/utility-components/modals/modal-footer/modal-footer.component';
 
 @NgModule({
   imports: [
@@ -26,7 +28,9 @@ import { GroupSelectComponent } from './utility-components/group-select/group-se
     ClassSearchComponent,
     ThemeSelectorComponent,
     CharacterSelectComponent,
-    GroupSelectComponent
+    GroupSelectComponent,
+    ModalHeaderComponent,
+    ModalFooterComponent
   ],
   exports: [
     FormsModule,
@@ -37,7 +41,9 @@ import { GroupSelectComponent } from './utility-components/group-select/group-se
     CharacterSearchComponent,
     ClassSearchComponent,
     ThemeSelectorComponent,
-    CharacterSelectComponent
+    CharacterSelectComponent,
+    ModalHeaderComponent,
+    ModalFooterComponent
   ]
 })
 export class SharedModule { }

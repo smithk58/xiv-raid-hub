@@ -1,0 +1,17 @@
+<div class="modal-footer">
+  <ng-container *ngIf="mode === 'save'">
+    <button type="button" [disabled]="disabled" (click)="onCancel($event)" class="btn btn-link mr-3">Cancel</button>
+    <button type="button" [disabled]="disabled" (click)="onSave($event)" class="btn btn-primary">Save</button>
+  </ng-container>
+  <ng-container *ngIf="mode === 'delete'">
+    <button type="button" [disabled]="disabled" (click)="onCancel($event)" class="btn btn-link mr-3">Cancel</button>
+    <button type="button" [disabled]="disabled" (click)="onDelete($event)" class="btn btn-primary">Delete</button>
+  </ng-container>
+  <ng-container *ngIf="mode === 'confirm'">
+    <button type="button" [disabled]="disabled" (click)="onConfirm(false, $event)" class="btn btn-secondary">No</button>
+    <button type="button" [disabled]="disabled" (click)="onConfirm(true, $event)" class="btn btn-primary">Yes</button>
+  </ng-container>
+  <ng-container *ngIf="mode === 'close'">
+    <button type="button" [disabled]="disabled" (click)="onClose($event)" class="btn btn-primary">Close</button>
+  </ng-container>
+</div>

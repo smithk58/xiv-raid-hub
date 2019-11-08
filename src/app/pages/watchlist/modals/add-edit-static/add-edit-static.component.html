@@ -1,9 +1,4 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{isEdit ? 'Edit' : 'Add'}} Group</h4>
-  <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+<app-modal-header [title]="isEdit ? 'Edit Group' : 'Add Group'"></app-modal-header>
 <div class="modal-body">
   <form #form="ngForm" [formGroup]="staticForm" (ngSubmit)="saveStatic()">
     <!--Static name-->
@@ -39,7 +34,4 @@
     </div>
   </form>
 </div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
-  <button type="button" class="btn btn-primary ml-3" ngbAutofocus (click)="form.ngSubmit.emit()">Save</button>
-</div>
+<app-modal-footer mode="save" (save)="form.ngSubmit.emit()"></app-modal-footer>
