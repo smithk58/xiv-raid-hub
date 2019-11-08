@@ -1,0 +1,29 @@
+.nav-link {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  white-space: nowrap;
+}
+.nav-icon {
+  font-size: 1.5rem;
+  line-height: 2rem; /*Keeps large icons from stretching smaller nav items*/
+}
+@media (min-width: 576px) { /* Should use bootstrap variable, but too lazy atm */
+  /*When width is above sm we include the padding on sm-collapsed nav items*/
+  .nav-item.sm-collapse {
+    .nav-icon {
+      font-size: inherit;
+    }
+  }
+}
+/*Nav items that collapse a medium size*/
+@media (min-width: 768px) { /* Should use bootstrap variable, but too lazy atm */
+  .nav-item.md-collapse {
+    .nav-icon {
+      font-size: inherit;
+    }
+  }
+}
+
+.nav-link[ngbdropdown] {
+  cursor: pointer;
+}

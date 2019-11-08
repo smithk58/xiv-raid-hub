@@ -3,29 +3,34 @@
   <div class="collapse navbar-collapse">
     <!--Left aligned nav-->
     <ul class="navbar-nav mr-auto text-uppercase">
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <li class="nav-item md-collapse" [routerLinkActive]="['active']">
         <a class="nav-link" routerLink="/home" aria-label="Navigate to home">
-          <fa-icon [icon]="faHome" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-sm-inline">Home</span>
+          <fa-icon [icon]="faHome" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-md-inline">Home</span>
         </a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <li class="nav-item sm-collapse" [routerLinkActive]="['active']">
         <a class="nav-link" routerLink="/analyze" aria-label="Navigate to analyze">
           <fa-icon [icon]="faChartBar" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-sm-inline">Analyze</span>
         </a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <li class="nav-item sm-collapse" [routerLinkActive]="['active']">
         <a class="nav-link" routerLink="/watchlist" aria-label="Navigate to watchlist">
-          <fa-icon [icon]="faUsers" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-sm-inline">Watchlist</span>
+          <fa-icon [icon]="faSecret" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-sm-inline">Watchlist</span>
+        </a>
+      </li>
+      <li class="nav-item sm-collapse" [routerLinkActive]="['active']">
+        <a class="nav-link" routerLink="/my-statics" aria-label="Navigate to my statics">
+          <fa-icon [icon]="faUsers" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-sm-inline">My Statics</span>
         </a>
       </li>
     </ul>
     <!--Right aligned nav-->
-    <!--<ul class="navbar-nav ml-auto text-uppercase">
-      <li class="nav-item" [routerLinkActive]="['active']">
+    <ul class="navbar-nav ml-auto text-uppercase">
+      <li class="nav-item md-collapse" [routerLinkActive]="['active']">
         <a class="nav-link" routerLink="/settings" aria-label="Navigate to settings">
-          <fa-icon [icon]="faUserCog" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-sm-inline">Settings</span>
+          <fa-icon [icon]="faSignIn" class="mr-1 nav-icon" aria-hidden="true"></fa-icon><span class="d-none d-md-inline">Sign In</span>
         </a>
       </li>
-    </ul>-->
+    </ul>
   </div>
 </nav>

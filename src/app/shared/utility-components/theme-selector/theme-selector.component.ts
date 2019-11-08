@@ -6,7 +6,7 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./theme-selector.component.css']
 })
 export class ThemeSelectorComponent implements OnInit {
-  themes = ['default', 'lux', 'slate', 'spacelab'];
+  themes = ['default', 'slate', 'spacelab'];
   selectedTheme = 'default';
   @Input() labelForId: string;
   constructor() { }

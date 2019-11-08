@@ -11,6 +11,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'analyze', loadChildren: './pages/analyze/analyze.module#AnalyzeModule'},
   {path: 'watchlist', loadChildren: './pages/watchlist/watchlist.module#WatchlistModule'},
+  {path: 'my-statics', loadChildren: './pages/my-statics/my-statics.module#MyStaticsModule'},
   {path: 'settings', component: SettingsComponent},
   {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent}

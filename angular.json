@@ -137,5 +137,10 @@
       }
     }
   },
-  "defaultProject": "xiv-raid-hub"
+  "defaultProject": "xiv-raid-hub",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
