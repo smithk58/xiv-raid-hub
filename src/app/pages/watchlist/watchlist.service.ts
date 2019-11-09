@@ -19,12 +19,35 @@ export class WatchlistService {
   comparisonTargets: BehaviorSubject<Character[]>;
   comparisonStatics: BehaviorSubject<CharacterGroup[]>;
   constructor() { }
-
+  getUsersCharacters() {
+    return this.usersCharacters = this.getHelper(this.usersCharacters, StorageKeys.usersCharacters);
+  }
+  addUserCharacter(character: Character) {
+    this.addHelper(character, this.usersCharacters, StorageKeys.usersCharacters, true);
+  }
+  updateUserCharacter(character: Character) {
+    return this.updateHelper(character, this.usersCharacters, StorageKeys.usersCharacters);
+  }
+  deleteUserCharacter(characterId: number) {
+    return this.deleteHelper(characterId, this.usersCharacters, StorageKeys.usersCharacters);
+  }
+  getUsersStatics() {
+    return this.usersStatics = this.getHelper(this.usersStatics, StorageKeys.usersStatics);
+  }
+  addUserStatic(group: CharacterGroup) {
+    this.addHelper(group, this.usersStatics, StorageKeys.usersStatics, false);
+  }
+  updateUserStatic(group: CharacterGroup) {
+    return this.updateHelper(group, this.usersStatics, StorageKeys.usersStatics);
+  }
+  deleteUsersStatic(staticId: number) {
+    return this.deleteHelper(staticId, this.usersStatics, StorageKeys.usersStatics);
+  }
   /**
    * Returns a particular character from your friends, otherwise
    * @param characterId - The character id of the friend to return.
    */
-  getFriend(characterId: number) {
+  getFriend(characterId: number) { // TODO Should be moved to analyzer service and check friends + users chars
     return this.getFriends().pipe(
       take(1),
       map( friends => friends.find(friend => friend.id === characterId))
@@ -34,13 +57,7 @@ export class WatchlistService {
    * Returns an observable of the list of friends for the current user.
    */
   getFriends() {
-    // Initialize the characters from storage, or default to []
-    if (!this.friends) {
-      const storedCharacters = localStorage.getItem(StorageKeys.friends);
-      const characters = storedCharacters ? JSON.parse(storedCharacters) : [];
-      this.friends = new BehaviorSubject<Character[]>(characters);
-    }
-    return this.friends;
+    return this.friends = this.getHelper(this.friends, StorageKeys.friends);
   }
   /**
    * Adds the character to the current users friends.
@@ -64,7 +81,7 @@ export class WatchlistService {
   deleteFriend(characterId: number) {
     return this.deleteHelper(characterId, this.friends, StorageKeys.friends);
   }
-  getStatic(groupId: string) {
+  getStatic(groupId: string) { // TODO Should be moved to analyzer service and check friends statics  + users statics
     return this.getStatics().pipe(
       take(1),
       map( statics => statics.find(sStatic => sStatic.id === groupId))
@@ -74,13 +91,7 @@ export class WatchlistService {
    * Returns an observable of the list of statics for the current user.
    */
   getStatics() {
-    // Initialize the characters from storage, or default to []
-    if (!this.friendStatics) {
-      const storedStatics = localStorage.getItem(StorageKeys.statics);
-      const statics = storedStatics ? JSON.parse(storedStatics) : [];
-      this.friendStatics = new BehaviorSubject<CharacterGroup[]>(statics);
-    }
-    return this.friendStatics;
+    return this.friendStatics = this.getHelper(this.friendStatics, StorageKeys.statics);
   }
 
   /**
@@ -110,13 +121,7 @@ export class WatchlistService {
    * Returns an observable of the list of comparison targets for the current user.
    */
   getComparisonTargets() {
-    // Initialize the comparison targets from storage, or default to []
-    if (!this.comparisonTargets) {
-      const storedCharacters = localStorage.getItem(StorageKeys.comparisonTargets);
-      const characters = storedCharacters ? JSON.parse(storedCharacters) : [];
-      this.comparisonTargets = new BehaviorSubject<Character[]>(characters);
-    }
-    return this.comparisonTargets;
+    return this.comparisonTargets = this.getHelper(this.comparisonTargets, StorageKeys.comparisonTargets);
   }
   /**
    * Adds the character to the current users comparison targets.
@@ -144,13 +149,7 @@ export class WatchlistService {
    * Returns an observable of the list of comparison statics for the current user.
    */
   getComparisonStatics() {
-    // Initialize the comparison statics from storage, or default to []
-    if (!this.comparisonStatics) {
-      const storedCharacters = localStorage.getItem(StorageKeys.comparisonStatics);
-      const characters = storedCharacters ? JSON.parse(storedCharacters) : [];
-      this.comparisonStatics = new BehaviorSubject<CharacterGroup[]>(characters);
-    }
-    return this.comparisonStatics;
+    return this.comparisonStatics = this.getHelper(this.comparisonStatics, StorageKeys.comparisonStatics);
   }
   /**
    * Adds the group to the current users comparison statics.
@@ -173,6 +172,15 @@ export class WatchlistService {
    */
   deleteComparisonStatic(groupId: string) {
     return this.deleteHelper(groupId, this.comparisonStatics, StorageKeys.comparisonStatics);
+  }
+  private getHelper(targetList: BehaviorSubject<any>, storageKey: StorageKeys) {
+    // Initialize from storage, or default to []
+    if (!targetList) {
+      const storedList = localStorage.getItem(storageKey);
+      const list = storedList ? JSON.parse(storedList) : [];
+      targetList = new BehaviorSubject<[]>(list);
+    }
+    return targetList;
   }
   private addHelper(item: Partial<{id: number | string, name: string}>, targetList: BehaviorSubject<any>, storageKey: StorageKeys,
                     generateId: boolean

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FriendsCardComponent } from 'src/app/pages/watchlist/help-improve/friends-card/friends-card.component';
+import { UsersStaticsComponent } from './users-statics.component';
 
-describe('FriendsCardComponent', () => {
-  let component: FriendsCardComponent;
-  let fixture: ComponentFixture<FriendsCardComponent>;
+describe('UsersStaticsComponent', () => {
+  let component: UsersStaticsComponent;
+  let fixture: ComponentFixture<UsersStaticsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FriendsCardComponent ]
+      declarations: [ UsersStaticsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FriendsCardComponent);
+    fixture = TestBed.createComponent(UsersStaticsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Subscription} from 'rxjs';
 
 import {Character} from 'src/app/shared/api/models/character';
 import {ClassToRole} from 'src/app/shared/Utils';
@@ -9,7 +10,6 @@ import {AddEditCharacterComponent} from 'src/app/pages/watchlist/modals/add-edit
 import {WatchlistService} from 'src/app/pages/watchlist/watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 import {YesNoModalComponent} from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
-import {Router} from '@angular/router';
 import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class ComparisonsCardComponent implements OnInit, OnDestroy {
   faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt;
   classToRole = ClassToRole;
 
-  comparisonTargets$;
+  comparisonTargets$: Subscription;
   comparisonTargets: Character[] = [];
   constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService,
               private ffLogsAPi: FFLogsApiService

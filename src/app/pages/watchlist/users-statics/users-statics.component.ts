@@ -1,31 +1,32 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 import {faChartBar, faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {Subscription} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
+import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {WatchlistService} from 'src/app/pages/watchlist/watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
-import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {AddEditStaticComponent} from 'src/app/pages/watchlist/modals/add-edit-static/add-edit-static.component';
-import {Router} from '@angular/router';
 import {YesNoModalComponent} from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
 
 @Component({
-  selector: 'app-friend-statics-card',
-  templateUrl: './friend-statics-card.component.html',
-  styleUrls: ['./friend-statics-card.component.css']
+  selector: 'app-users-statics',
+  templateUrl: './users-statics.component.html',
+  styleUrls: ['./users-statics.component.scss']
 })
-export class FriendStaticsCardComponent implements OnInit, OnDestroy {
+export class UsersStaticsComponent implements OnInit, OnDestroy {
   faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faChartBar = faChartBar;
 
-  statics$;
+  statics$: Subscription;
   statics: CharacterGroup[] = [];
   constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService,
               private router: Router
   ) { }
 
   ngOnInit() {
-    this.statics$ = this.wlService.getStatics().subscribe(statics => {
+    this.statics$ = this.wlService.getUsersStatics().subscribe(statics => {
       this.statics = statics;
     });
   }
@@ -79,7 +80,6 @@ export class FriendStaticsCardComponent implements OnInit, OnDestroy {
       this.notify.error({text: 'There was an error while trying to send you to group analysis. ' + err});
     });
   }
-
   ngOnDestroy() {
     if (this.statics$) {
       this.statics$.unsubscribe();

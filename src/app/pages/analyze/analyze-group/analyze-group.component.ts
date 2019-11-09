@@ -18,7 +18,7 @@ export class AnalyzeGroupComponent implements OnInit {
   constructor(private route: ActivatedRoute, private wlService: WatchlistService) { }
 
   ngOnInit() {
-    // Attempt to lookup the character ID in the url
+    // Attempt to lookup the static ID in the url
     const groupId = this.route.snapshot.params.groupId;
     this.wlService.getStatic(groupId).subscribe(sStatic => {
       this.group = sStatic;
