@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header py-2">
     <div class="d-flex align-items-center">
-      <span>You/Friends/Rivals</span>
+      <span>Friends/Rivals</span>
       <fa-icon [icon]="faInfoCircle" class="ml-1"
                ngbTooltip="Adding characters here will make it easier to compare them against other players."
                placement="right"
@@ -12,7 +12,7 @@
       </button>
     </div>
   </div>
-  <div class="card-body p-2">
+  <div class="card-body">
     <p [hidden]="friends.length > 0" class="m-0 text-center">You haven't added any friends or rivals yet.</p>
     <ul class="list-group">
       <li *ngFor="let character of friends" class="list-group-item d-flex">

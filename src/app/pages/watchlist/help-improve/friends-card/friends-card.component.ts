@@ -3,9 +3,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {faChartBar, faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {AddEditCharacterComponent} from '../modals/add-edit-character/add-edit-character.component';
+import {AddEditCharacterComponent} from 'src/app/pages/watchlist/modals/add-edit-character/add-edit-character.component';
 import {ClassToRole} from 'src/app/shared/Utils';
-import {WatchlistService} from '../watchlist.service';
+import {WatchlistService} from 'src/app/pages/watchlist/watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 import {Character} from 'src/app/shared/api/models/character';
 import {Router} from '@angular/router';

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ComparisonsCardComponent } from './comparisons-card.component';
+import { ComparisonsCardComponent } from 'src/app/pages/watchlist/comparisons-card/comparisons-card.component';
 
 describe('ComparisonsCardComponent', () => {
   let component: ComparisonsCardComponent;

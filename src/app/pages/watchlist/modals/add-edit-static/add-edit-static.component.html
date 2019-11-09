@@ -1,18 +1,18 @@
-<app-modal-header [title]="isEdit ? 'Edit Group' : 'Add Group'"></app-modal-header>
+<app-modal-header [title]="isEdit ? 'Edit Static' : 'Add Static'"></app-modal-header>
 <div class="modal-body">
   <form #form="ngForm" [formGroup]="staticForm" (ngSubmit)="saveStatic()">
     <!--Static name-->
     <div class="form-group">
-      <label for="staticName">Group Name</label>
+      <label for="staticName">Static Name</label>
       <input id="staticName" type="text" formControlName="name" class="form-control">
       <div *ngIf="f.name.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
         <div *ngIf="f.name.errors.required">A static name is required</div>
       </div>
     </div>
-    <div class="members-container rounded-left px-3 pt-1">
+    <div class="members-container rounded-left row px-3 pt-1">
       <!--Repeat the member fields-->
-      <div *ngFor="let ctrlGrp of f.characters.controls; let i = index;" class="form-group">
-        <span>Member {{i+1}}</span>
+      <div *ngFor="let ctrlGrp of f.characters.controls; let i = index;" class="form-group col-6">
+        <h5>Member {{i+1}}</h5>
         <div class="ml-4">
           <label [for]="'character_'+i">Character</label>
           <app-character-search class="ml-2"
@@ -24,7 +24,7 @@
             <div *ngIf="ctrlGrp.controls.character.errors.required">A character is required</div>
             <div *ngIf="ctrlGrp.controls.character.errors.notUnique">You can't add a character that you have already added</div>
           </div>
-          <label [for]="'class_'+i">Class</label>
+          <label [for]="'class_'+i" class="mt-3">Class</label>
           <app-class-search [fControl]="ctrlGrp.controls.comparisonClass" [labelForId]="'class_'+i"></app-class-search>
           <div *ngIf="ctrlGrp.controls.comparisonClass.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
             <div *ngIf="ctrlGrp.controls.comparisonClass.errors.required">A class is required</div>

@@ -3,19 +3,19 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {faChartBar, faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {WatchlistService} from '../watchlist.service';
+import {WatchlistService} from 'src/app/pages/watchlist/watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
-import {AddEditStaticComponent} from '../modals/add-edit-static/add-edit-static.component';
+import {AddEditStaticComponent} from 'src/app/pages/watchlist/modals/add-edit-static/add-edit-static.component';
 import {Router} from '@angular/router';
 import {YesNoModalComponent} from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
 
 @Component({
-  selector: 'app-statics-card',
-  templateUrl: './statics-card.component.html',
-  styleUrls: ['./statics-card.component.css']
+  selector: 'app-friend-statics-card',
+  templateUrl: './friend-statics-card.component.html',
+  styleUrls: ['./friend-statics-card.component.css']
 })
-export class StaticsCardComponent implements OnInit, OnDestroy {
+export class FriendStaticsCardComponent implements OnInit, OnDestroy {
   faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faChartBar = faChartBar;
 
   statics$;
@@ -34,7 +34,7 @@ export class StaticsCardComponent implements OnInit, OnDestroy {
    * @param staticId - The static ID to load in the modal, otherwise assumes you want to add a new static.
    */
   staticModal(staticId?: string) {
-    const modal = this.modalService.open(AddEditStaticComponent, {backdrop: 'static'});
+    const modal = this.modalService.open(AddEditStaticComponent, {backdrop: 'static', size: 'lg'});
     const isUpdate = typeof(staticId) !== 'undefined';
     // Populate the character on the modal if this is an edit attempt
     if (isUpdate) {

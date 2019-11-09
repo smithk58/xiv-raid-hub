@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FriendsCardComponent } from './friends-card.component';
+import { FriendsCardComponent } from 'src/app/pages/watchlist/help-improve/friends-card/friends-card.component';
 
 describe('FriendsCardComponent', () => {
   let component: FriendsCardComponent;

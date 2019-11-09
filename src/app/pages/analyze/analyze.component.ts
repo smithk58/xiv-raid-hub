@@ -20,7 +20,7 @@ export class AnalyzeComponent implements OnInit, OnDestroy {
   ) { }
   faInfoCircle = faInfoCircle;
 
-  /*Available characters/groups*/
+  /*Available characters/statics*/
   friends$; statics$;
   friends: Character[] = [];
   statics: CharacterGroup[] = [];

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
 import {map, take} from 'rxjs/operators';
@@ -12,10 +12,12 @@ import {Utils} from 'src/app/shared/Utils';
   providedIn: 'root'
 })
 export class WatchlistService {
-  characters: BehaviorSubject<Character[]>;
-  statics: BehaviorSubject<CharacterGroup[]>;
+  usersCharacters: BehaviorSubject<Character[]>;
+  usersStatics: BehaviorSubject<CharacterGroup[]>;
+  friends: BehaviorSubject<Character[]>;
+  friendStatics: BehaviorSubject<CharacterGroup[]>;
   comparisonTargets: BehaviorSubject<Character[]>;
-  comparisonGroups: BehaviorSubject<CharacterGroup[]>;
+  comparisonStatics: BehaviorSubject<CharacterGroup[]>;
   constructor() { }
 
   /**
@@ -33,26 +35,19 @@ export class WatchlistService {
    */
   getFriends() {
     // Initialize the characters from storage, or default to []
-    if (!this.characters) {
+    if (!this.friends) {
       const storedCharacters = localStorage.getItem(StorageKeys.friends);
       const characters = storedCharacters ? JSON.parse(storedCharacters) : [];
-      this.characters = new BehaviorSubject<Character[]>(characters);
+      this.friends = new BehaviorSubject<Character[]>(characters);
     }
-    return this.characters;
+    return this.friends;
   }
   /**
    * Adds the character to the current users friends.
    * @param character - The character to add.
    */
   addFriend(character: Character) {
-    // Add this character to the existing array and save it to storage
-    const existingCharacters = this.characters.getValue();
-    existingCharacters.push(character);
-    // Keep characters sorted by name
-    existingCharacters.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-    localStorage.setItem(StorageKeys.friends, JSON.stringify(existingCharacters));
-    // Update the character subject
-    this.characters.next(existingCharacters);
+    this.addHelper(character, this.friends, StorageKeys.friends, false);
   }
 
   /**
@@ -60,33 +55,14 @@ export class WatchlistService {
    * @param character - The character to update.
    */
   updateFriend(character: Character) {
-    // Update this character in the existing array and save it to storage
-    const existingCharacters = this.characters.getValue();
-    const existingCharacterIndex = existingCharacters.findIndex(c => c.id === character.id);
-    const foundMatch = existingCharacterIndex >= 0;
-    if (foundMatch) {
-      existingCharacters.splice(existingCharacterIndex, 1, character);
-      localStorage.setItem(StorageKeys.friends, JSON.stringify(existingCharacters));
-      // Update the character subject
-      this.characters.next(existingCharacters);
-    }
-    return foundMatch;
+    return this.updateHelper(character, this.friends, StorageKeys.friends);
   }
   /**
    * Deletes the character with the specified id from the friend list, if found.
    * @param characterId - The character id to delete.
    */
   deleteFriend(characterId: number) {
-    const existingCharacters = this.characters.getValue();
-    const existingCharacterIndex = existingCharacters.findIndex(c => c.id === characterId);
-    const foundMatch = existingCharacterIndex >= 0;
-    if (foundMatch) {
-      existingCharacters.splice(existingCharacterIndex, 1);
-      localStorage.setItem(StorageKeys.friends, JSON.stringify(existingCharacters));
-      // Update the character subject
-      this.characters.next(existingCharacters);
-    }
-    return foundMatch;
+    return this.deleteHelper(characterId, this.friends, StorageKeys.friends);
   }
   getStatic(groupId: string) {
     return this.getStatics().pipe(
@@ -99,12 +75,12 @@ export class WatchlistService {
    */
   getStatics() {
     // Initialize the characters from storage, or default to []
-    if (!this.statics) {
+    if (!this.friendStatics) {
       const storedStatics = localStorage.getItem(StorageKeys.statics);
       const statics = storedStatics ? JSON.parse(storedStatics) : [];
-      this.statics = new BehaviorSubject<CharacterGroup[]>(statics);
+      this.friendStatics = new BehaviorSubject<CharacterGroup[]>(statics);
     }
-    return this.statics;
+    return this.friendStatics;
   }
 
   /**
@@ -112,16 +88,7 @@ export class WatchlistService {
    * @param nStatic - The static to add.
    */
   addStatic(nStatic: CharacterGroup) {
-    // Assign an ID to the new static
-    nStatic.id = Utils.newGuid();
-    // Add this static to the existing array and save it to storage
-    const existingStatics = this.statics.getValue();
-    existingStatics.push(nStatic);
-    // Keep statics sorted by name
-    existingStatics.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-    localStorage.setItem(StorageKeys.statics, JSON.stringify(existingStatics));
-    // Update the character subject
-    this.statics.next(existingStatics);
+    this.addHelper(nStatic, this.friendStatics, StorageKeys.statics, true);
   }
 
   /**
@@ -129,17 +96,7 @@ export class WatchlistService {
    * @param uStatic - The updated static.
    */
   updateStatic(uStatic: CharacterGroup) {
-    // Update this character in the existing array and save it to storage
-    const existingStatics = this.statics.getValue();
-    const existingStaticIndex = existingStatics.findIndex(c => c.id === uStatic.id);
-    const foundMatch = existingStaticIndex >= 0;
-    if (foundMatch) {
-      existingStatics.splice(existingStaticIndex, 1, uStatic);
-      localStorage.setItem(StorageKeys.statics, JSON.stringify(existingStatics));
-      // Update the character subject
-      this.statics.next(existingStatics);
-    }
-    return foundMatch;
+    return this.updateHelper(uStatic, this.friendStatics, StorageKeys.statics);
   }
 
   /**
@@ -147,16 +104,7 @@ export class WatchlistService {
    * @param staticId - The static id to delete.
    */
   deleteStatic(staticId: string) {
-    const existingStatics = this.statics.getValue();
-    const existingStaticIndex = existingStatics.findIndex(c => c.id === staticId);
-    const foundMatch = existingStaticIndex >= 0;
-    if (foundMatch) {
-      existingStatics.splice(existingStaticIndex, 1);
-      localStorage.setItem(StorageKeys.statics, JSON.stringify(existingStatics));
-      // Update the character subject
-      this.statics.next(existingStatics);
-    }
-    return foundMatch;
+    return this.deleteHelper(staticId, this.friendStatics, StorageKeys.statics);
   }
   /**
    * Returns an observable of the list of comparison targets for the current user.
@@ -175,14 +123,7 @@ export class WatchlistService {
    * @param character - The character to add.
    */
   addComparisonTarget(character: Character) {
-    // Add this character to the existing array and save it to storage
-    const existingCharacters = this.comparisonTargets.getValue();
-    existingCharacters.push(character);
-    // Keep characters sorted by name
-    existingCharacters.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-    localStorage.setItem(StorageKeys.comparisonTargets, JSON.stringify(existingCharacters));
-    // Update the character subject
-    this.comparisonTargets.next(existingCharacters);
+    this.addHelper(character, this.comparisonTargets, StorageKeys.comparisonTargets, false);
   }
 
   /**
@@ -190,93 +131,85 @@ export class WatchlistService {
    * @param character - The character to update.
    */
   updateComparisonTarget(character: Character) {
-    // Update this character in the existing array and save it to storage
-    const existingCharacters = this.comparisonTargets.getValue();
-    const existingCharacterIndex = existingCharacters.findIndex(c => c.id === character.id);
-    const foundMatch = existingCharacterIndex >= 0;
-    if (foundMatch) {
-      existingCharacters.splice(existingCharacterIndex, 1, character);
-      localStorage.setItem(StorageKeys.comparisonTargets, JSON.stringify(existingCharacters));
-      // Update the character subject
-      this.comparisonTargets.next(existingCharacters);
-    }
-    return foundMatch;
+    return this.updateHelper(character, this.comparisonTargets, StorageKeys.comparisonTargets);
   }
   /**
    * Deletes the character with the specified id from the comparison target list, if found.
    * @param characterId - The character id to delete.
    */
   deleteComparisonTarget(characterId: number) {
-    const existingCharacters = this.comparisonTargets.getValue();
-    const existingCharacterIndex = existingCharacters.findIndex(c => c.id === characterId);
-    const foundMatch = existingCharacterIndex >= 0;
-    if (foundMatch) {
-      existingCharacters.splice(existingCharacterIndex, 1);
-      localStorage.setItem(StorageKeys.comparisonTargets, JSON.stringify(existingCharacters));
-      // Update the character subject
-      this.comparisonTargets.next(existingCharacters);
-    }
-    return foundMatch;
+    return this.deleteHelper(characterId, this.comparisonTargets, StorageKeys.comparisonTargets);
   }
   /**
-   * Returns an observable of the list of comparison groups for the current user.
+   * Returns an observable of the list of comparison statics for the current user.
    */
-  getComparisonGroups() {
-    // Initialize the comparison groups from storage, or default to []
-    if (!this.comparisonGroups) {
-      const storedCharacters = localStorage.getItem(StorageKeys.comparisonGroups);
+  getComparisonStatics() {
+    // Initialize the comparison statics from storage, or default to []
+    if (!this.comparisonStatics) {
+      const storedCharacters = localStorage.getItem(StorageKeys.comparisonStatics);
       const characters = storedCharacters ? JSON.parse(storedCharacters) : [];
-      this.comparisonGroups = new BehaviorSubject<CharacterGroup[]>(characters);
+      this.comparisonStatics = new BehaviorSubject<CharacterGroup[]>(characters);
     }
-    return this.comparisonGroups;
+    return this.comparisonStatics;
   }
   /**
-   * Adds the group to the current users comparison groups.
-   * @param group - The group to add.
+   * Adds the group to the current users comparison statics.
+   * @param group - The static to add.
    */
-  addComparisonGroup(group: CharacterGroup) {
-    // Assign an ID to the new group
-    group.id = Utils.newGuid();
-    // Add this group to the existing array and save it to storage
-    const existingGroups = this.comparisonGroups.getValue();
-    existingGroups.push(group);
-    // Keep groups sorted by name
-    existingGroups.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-    localStorage.setItem(StorageKeys.comparisonGroups, JSON.stringify(existingGroups));
-    // Update the character subject
-    this.comparisonGroups.next(existingGroups);
+  addComparisonStatic(group: CharacterGroup) {
+    this.addHelper(group, this.comparisonStatics, StorageKeys.comparisonStatics, true);
   }
 
   /**
-   * Updates the specified group in the comparison groups list, if found (matches on id).
+   * Updates the specified static in the comparison statics list, if found (matches on id).
    * @param group - The group to update.
    */
-  updateComparisonGroup(group: CharacterGroup) {
+  updateComparisonStatic(group: CharacterGroup) {
+    return this.updateHelper(group, this.comparisonStatics, StorageKeys.comparisonStatics);
+  }
+  /**
+   * Deletes the group with the specified id from the comparison staics list, if found.
+   * @param groupId - The group id to delete.
+   */
+  deleteComparisonStatic(groupId: string) {
+    return this.deleteHelper(groupId, this.comparisonStatics, StorageKeys.comparisonStatics);
+  }
+  private addHelper(item: Partial<{id: number | string, name: string}>, targetList: BehaviorSubject<any>, storageKey: StorageKeys,
+                    generateId: boolean
+  ) {
+    // Assign an ID to the new item
+    if (generateId) {
+      item.id = Utils.newGuid();
+    }
+    // Add this item to the existing array and save it to storage
+    const existing = targetList.getValue();
+    existing.push(item);
+    // Keep sorted by name
+    existing.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+    localStorage.setItem(storageKey, JSON.stringify(existing));
+    targetList.next(existing);
+  }
+  private updateHelper(updatedItem: Partial<{id: string | number, name: string}>, targetList: BehaviorSubject<any>, storageKey: StorageKeys
+  ) {
     // Update this group in the existing array and save it to storage
-    const existingGroups = this.comparisonGroups.getValue();
-    const existingGroupIndex = existingGroups.findIndex(c => c.id === group.id);
-    const foundMatch = existingGroupIndex >= 0;
+    const existing = targetList.getValue();
+    const existingIndex = existing.findIndex(c => c.id === updatedItem.id);
+    const foundMatch = existingIndex >= 0;
     if (foundMatch) {
-      existingGroups.splice(existingGroupIndex, 1, group);
-      localStorage.setItem(StorageKeys.comparisonGroups, JSON.stringify(existingGroups));
-      // Update the character subject
-      this.comparisonGroups.next(existingGroups);
+      existing.splice(existingIndex, 1, updatedItem);
+      localStorage.setItem(storageKey, JSON.stringify(existing));
+      targetList.next(existing);
     }
     return foundMatch;
   }
-  /**
-   * Deletes the group with the specified id from the comparison groups list, if found.
-   * @param groupId - The group id to delete.
-   */
-  deleteComparisonGroup(groupId: string) {
-    const existingGroups = this.comparisonGroups.getValue();
-    const existingGroupIndex = existingGroups.findIndex(c => c.id === groupId);
-    const foundMatch = existingGroupIndex >= 0;
+  private deleteHelper(idToDelete: string | number, targetList: BehaviorSubject<any>, storageKey: StorageKeys) {
+    const existing = targetList.getValue();
+    const existingIndex = existing.findIndex(c => c.id === idToDelete);
+    const foundMatch = existingIndex >= 0;
     if (foundMatch) {
-      existingGroups.splice(existingGroupIndex, 1);
-      localStorage.setItem(StorageKeys.comparisonGroups, JSON.stringify(existingGroups));
-      // Update the character subject
-      this.comparisonGroups.next(existingGroups);
+      existing.splice(existingIndex, 1);
+      localStorage.setItem(storageKey, JSON.stringify(existing));
+      targetList.next(existing);
     }
     return foundMatch;
   }

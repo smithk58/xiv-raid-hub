@@ -10,7 +10,6 @@ import {CharacterSearchComponent} from './utility-components/character-search/ch
 import { ClassSearchComponent } from './utility-components/class-search/class-search.component';
 import { ThemeSelectorComponent } from './utility-components/theme-selector/theme-selector.component';
 import { CharacterSelectComponent } from './utility-components/character-select/character-select.component';
-import { GroupSelectComponent } from './utility-components/group-select/group-select.component';
 import {ModalHeaderComponent} from 'src/app/shared/utility-components/modals/modal-header/modal-header.component';
 import {ModalFooterComponent} from 'src/app/shared/utility-components/modals/modal-footer/modal-footer.component';
 
@@ -28,7 +27,6 @@ import {ModalFooterComponent} from 'src/app/shared/utility-components/modals/mod
     ClassSearchComponent,
     ThemeSelectorComponent,
     CharacterSelectComponent,
-    GroupSelectComponent,
     ModalHeaderComponent,
     ModalFooterComponent
   ],

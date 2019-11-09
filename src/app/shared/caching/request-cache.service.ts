@@ -22,6 +22,10 @@ export class RequestCacheService {
     });
   }
 
+  /**
+   * Used to retrieve a saved HTTP response from the cache. Will return undefined if there isn't one that matches, or it's exipired.
+   * @param req -
+   */
   get(req: HttpRequest<any>): HttpResponse<any> | undefined {
     const uniqueKey = req.urlWithParams;
     const cachedItem = this.cache.get(uniqueKey);
@@ -39,6 +43,11 @@ export class RequestCacheService {
     return cachedItem.value;
   }
 
+  /**
+   * Used to save a HTTP response in the cache.
+   * @param req -
+   * @param response -
+   */
   put(req: HttpRequest<any>, response: HttpResponse<any>): void {
     const uniqueKey = req.urlWithParams;
     const entry: CachedItem = { value: response, lastRead: Date.now() };
@@ -48,7 +57,7 @@ export class RequestCacheService {
   /**
    * Adds an item to the memory cache and session storage cache.
    * @param key - The unique key to store the entry under.
-   * @param entry - The data to storage. Will be stringified, so only raw data will be preserved (i.e. functions will be lost).
+   * @param entry - The data to store. Will be stringified, so only raw data will be preserved (i.e. functions will be lost).
    */
   private addCachedItem(key: string, entry: CachedItem) {
     this.cache.set(key, entry);
