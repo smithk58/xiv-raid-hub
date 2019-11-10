@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyStaticsComponent } from './my-statics.component';
+import { MyRaidComponent } from './my-raid.component';
 
-describe('MyStaticsComponent', () => {
-  let component: MyStaticsComponent;
-  let fixture: ComponentFixture<MyStaticsComponent>;
+describe('MyRaidComponent', () => {
+  let component: MyRaidComponent;
+  let fixture: ComponentFixture<MyRaidComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MyStaticsComponent ]
+      declarations: [ MyRaidComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MyStaticsComponent);
+    fixture = TestBed.createComponent(MyRaidComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

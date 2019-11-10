@@ -1,4 +1,4 @@
-export interface MyStaticTab {
+export interface MyRaidTab {
   route: string;
   title: string;
   header: string;

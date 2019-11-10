@@ -10,7 +10,6 @@ import {RoutingModule} from './routing.module';
 import {HomeComponent} from './pages/home/home.component';
 import {NotFoundComponent} from './pages/not-found/not-found.component';
 import {LoginComponent} from './shared/authentication/login/login.component';
-import {SettingsComponent} from './pages/settings/settings.component';
 import {AboutComponent} from './pages/about/about.component';
 import { environment } from '../environments/environment';
 import {SharedModule} from './shared/shared.module';
@@ -32,7 +31,6 @@ import {httpInterceptorProviders} from 'src/app/shared/interceptors';
     HomeComponent,
     NotFoundComponent,
     LoginComponent,
-    SettingsComponent,
     AboutComponent,
     YesNoModalComponent
   ],

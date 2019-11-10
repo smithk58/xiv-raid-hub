@@ -4,7 +4,7 @@ import {Encounter} from 'src/app/shared/api/fflogs/models/Zone';
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {Character} from 'src/app/shared/api/models/character';
 import {ActivatedRoute} from '@angular/router';
-import {WatchlistService} from 'src/app/pages/watchlist/watchlist.service';
+import {WatchlistService} from 'src/app/pages/configuration/watchlist.service';
 
 @Component({
   selector: 'app-analyze-group',

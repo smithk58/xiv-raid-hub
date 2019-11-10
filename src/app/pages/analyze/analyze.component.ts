@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
 import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
-import {WatchlistService} from '../watchlist/watchlist.service';
+import {WatchlistService} from '../configuration/watchlist.service';
 import {Character} from 'src/app/shared/api/models/character';
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';

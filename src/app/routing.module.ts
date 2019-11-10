@@ -3,16 +3,14 @@ import { ModuleWithProviders } from '@angular/core';
 
 import {HomeComponent} from './pages/home/home.component';
 import {NotFoundComponent} from './pages/not-found/not-found.component';
-import {SettingsComponent} from './pages/settings/settings.component';
 import {AboutComponent} from './pages/about/about.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'analyze', loadChildren: './pages/analyze/analyze.module#AnalyzeModule'},
-  {path: 'watchlist', loadChildren: './pages/watchlist/watchlist.module#WatchlistModule'},
-  {path: 'my-statics', loadChildren: './pages/my-statics/my-statics.module#MyStaticsModule'},
-  {path: 'settings', component: SettingsComponent},
+  {path: 'my-raid', loadChildren: './pages/my-raid/my-raid.module#MyRaidModule'},
+  {path: 'configuration', loadChildren: './pages/configuration/watchlist.module#WatchlistModule'},
   {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent}
 ];

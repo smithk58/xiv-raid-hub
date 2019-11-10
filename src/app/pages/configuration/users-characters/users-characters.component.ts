@@ -5,68 +5,67 @@ import {faChartBar, faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subscription} from 'rxjs';
 
-import {AddEditCharacterComponent} from 'src/app/pages/watchlist/modals/add-edit-character/add-edit-character.component';
-import {ClassToRole} from 'src/app/shared/Utils';
-import {WatchlistService} from 'src/app/pages/watchlist/watchlist.service';
+import {WatchlistService} from 'src/app/pages/configuration/watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
-import {Character} from 'src/app/shared/api/models/character';
-import {YesNoModalComponent} from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
 import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
+import {Character} from 'src/app/shared/api/models/character';
+import {ClassToRole} from 'src/app/shared/Utils';
+import {AddEditCharacterComponent} from 'src/app/pages/configuration/modals/add-edit-character/add-edit-character.component';
+import {YesNoModalComponent} from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
 
 @Component({
-  selector: 'app-friends-card',
-  templateUrl: './friends-card.component.html',
-  styleUrls: ['./friends-card.component.css']
+  selector: 'app-users-characters',
+  templateUrl: './users-characters.component.html',
+  styleUrls: ['./users-characters.component.scss']
 })
-export class FriendsCardComponent implements OnInit, OnDestroy {
+export class UsersCharactersComponent implements OnInit, OnDestroy {
   faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faChartBar = faChartBar;
   classToRole = ClassToRole;
-  friends$: Subscription;
-  friends: Character[] = [];
+  characters$: Subscription;
+  characters: Character[] = [];
   constructor(private wlService: WatchlistService, private modalService: NgbModal, private notify: PNotifyService,
-              private router: Router, private ffLogsAPi: FFLogsApiService
-  ) { }
+              private router: Router, private ffLogsAPi: FFLogsApiService) { }
 
   ngOnInit() {
-    this.friends$ = this.wlService.getFriends().subscribe(characters => {
-      this.friends = characters;
+    this.characters$ = this.wlService.getUsersCharacters().subscribe(characters => {
+      this.characters = characters;
     });
   }
   /**
-   * Launches a modal for adding/editing a character in a users friend list.
-   * @param characterId - The character ID to load in the modal, otherwise assumes you want to add a new friend.
+   * Launches a modal for adding/editing a character in a users cahracter list.
+   * @param characterId - The character ID to load in the modal, otherwise assumes you want to add a new character.
    */
-  friendListCharacterModal(characterId?: number) {
+  addEditCharacterModal(characterId?: number) {
     const modal = this.modalService.open(AddEditCharacterComponent);
     const isUpdate = typeof(characterId) !== 'undefined';
     // Populate the character on the modal if this is an edit attempt
     if (isUpdate) {
-      modal.componentInstance.characterToEdit = this.friends.find((character) => character.id === characterId);
+      modal.componentInstance.characterToEdit = this.characters.find((character) => character.id === characterId);
     }
-    modal.componentInstance.existingCharacterIds = this.friends.reduce((map, character) => {map[character.id] = true; return map; }, {});
+    modal.componentInstance.existingCharacterIds = this.characters.reduce((map, character) => {map[character.id] = true; return map; }, {});
     modal.result.then((character) => {
-        // Add/update the result in the users friend list
+        // Add/update the result in the users character list
         if (isUpdate) {
-          this.wlService.updateFriend(character);
+          this.wlService.updateUserCharacter(character);
         } else {
-          this.wlService.addFriend(character);
+          this.wlService.addUserCharacter(character);
         }
         this.notify.success({text: character.name + ' was successfully ' + (isUpdate ? 'updated!' : 'added!')});
       }, () => {}
     );
   }
   /**
-   * Deletes the character with the specified id from the friend list, if found.
+   * Deletes the character with the specified id from the character list, if found.
    * @param characterId - The character id to delete.
    */
-  deleteFriend(characterId: number) {
+  deleteCharacter(characterId: number) {
     const modal = this.modalService.open(YesNoModalComponent);
-    const friend = this.friends.find((character) => character.id === characterId);
+    const character = this.characters.find((char) => char.id === characterId);
     modal.componentInstance.modalTitle = 'Delete?';
-    modal.componentInstance.modalText = 'Are you sure you want to delete ' + friend.name + ' from your character list?';
+    modal.componentInstance.modalText = 'Are you sure you want to delete ' + character.name + ' from your character list?';
     modal.result.then(doDelete => {
       if (doDelete) {
-        const res = this.wlService.deleteFriend(characterId);
+        const res = this.wlService.deleteUserCharacter(characterId);
         if (res) {
           this.notify.success({text: 'Character was successfully deleted!'});
         }
@@ -91,8 +90,8 @@ export class FriendsCardComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    if (this.friends$) {
-      this.friends$.unsubscribe();
+    if (this.characters$) {
+      this.characters$.unsubscribe();
     }
   }
 }

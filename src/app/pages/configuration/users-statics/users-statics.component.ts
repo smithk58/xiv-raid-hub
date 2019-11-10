@@ -6,9 +6,9 @@ import {Subscription} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
-import {WatchlistService} from 'src/app/pages/watchlist/watchlist.service';
+import {WatchlistService} from 'src/app/pages/configuration/watchlist.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
-import {AddEditStaticComponent} from 'src/app/pages/watchlist/modals/add-edit-static/add-edit-static.component';
+import {AddEditStaticComponent} from 'src/app/pages/configuration/modals/add-edit-static/add-edit-static.component';
 import {YesNoModalComponent} from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
 
 @Component({

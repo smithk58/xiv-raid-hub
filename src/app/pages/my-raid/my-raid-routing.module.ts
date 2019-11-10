@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import {MyStaticsComponent} from 'src/app/pages/my-statics/my-statics.component';
+import {MyRaidComponent} from 'src/app/pages/my-raid/my-raid.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MyStaticsComponent,
+    component: MyRaidComponent,
     data: {
       reuse: true /*Used by the custom RouteReuseStrategy so navigating to the subroutes doesn't rebuild the existing component*/
     }
@@ -19,4 +19,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class MyStaticsRoutingModule { }
+export class MyRaidRoutingModule { }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { faAtom, faChartBar, faHome, faUserCog, faUsers, faUserSecret, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faAtom, faChartBar, faHome, faUserCog, faUser, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,6 @@ import { faAtom, faChartBar, faHome, faUserCog, faUsers, faUserSecret, faSignInA
 })
 
 export class HeaderComponent {
-  faAtom = faAtom; faChartBar = faChartBar; faHome = faHome; faUserCog = faUserCog; faUsers = faUsers;
-  faSecret = faUserSecret; faSignIn = faSignInAlt;
+  faAtom = faAtom; faChartBar = faChartBar; faHome = faHome; faUserCog = faUserCog; faUser = faUser; faSignIn = faSignInAlt;
   constructor() { }
 }

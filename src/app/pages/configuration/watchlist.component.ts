@@ -30,6 +30,9 @@ export class WatchlistComponent implements OnInit {
     this.fflogs.getReport(reportId).subscribe(report => {
       console.log('report', report);
     });
+    this.fflogs.getCharacterParses('Pocket Sans', 'Lamia', 'na', 29, undefined).subscribe(parses => {
+      console.log('parses', parses);
+    });
   }
   importData() {
     // TODO

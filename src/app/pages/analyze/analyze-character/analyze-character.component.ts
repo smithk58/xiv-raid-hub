@@ -4,7 +4,7 @@ import {FormControl} from '@angular/forms';
 
 import {faCheck, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
-import {WatchlistService} from 'src/app/pages/watchlist/watchlist.service';
+import {WatchlistService} from 'src/app/pages/configuration/watchlist.service';
 import {AnalyzeService} from 'src/app/pages/analyze/analyze.service';
 import {Character} from 'src/app/shared/api/models/character';
 import {Parse} from 'src/app/shared/api/fflogs/models/Parse';

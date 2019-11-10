@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SettingsComponent } from './settings.component';
+import { FriendsCardComponent } from 'src/app/pages/configuration/friends-card/friends-card.component';
 
-describe('SettingsComponent', () => {
-  let component: SettingsComponent;
-  let fixture: ComponentFixture<SettingsComponent>;
+describe('FriendsCardComponent', () => {
+  let component: FriendsCardComponent;
+  let fixture: ComponentFixture<FriendsCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SettingsComponent ]
+      declarations: [ FriendsCardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SettingsComponent);
+    fixture = TestBed.createComponent(FriendsCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
