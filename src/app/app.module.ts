@@ -1,9 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
 import {XivapiClientModule} from '@xivapi/angular-client';
 
-import { AppComponent } from './app.component';
+import {AppComponent } from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {RoutingModule} from './routing.module';
@@ -11,11 +11,12 @@ import {HomeComponent} from './pages/home/home.component';
 import {NotFoundComponent} from './pages/not-found/not-found.component';
 import {LoginComponent} from './shared/authentication/login/login.component';
 import {AboutComponent} from './pages/about/about.component';
-import { environment } from '../environments/environment';
+import {environment} from '../environments/environment';
 import {SharedModule} from './shared/shared.module';
 import {YesNoModalComponent} from './shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
 import {XIV_API_KEY} from 'src/app/shared/api/xivapi/xiv-api-2.service';
 import {httpInterceptorProviders} from 'src/app/shared/interceptors';
+import {BASE_API_URL} from 'src/app/api-injection-token';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import {httpInterceptorProviders} from 'src/app/shared/interceptors';
   entryComponents: [LoginComponent, YesNoModalComponent],
   providers: [
     httpInterceptorProviders,
-    { provide: XIV_API_KEY, useValue: environment.xivAPIKey}
+    { provide: XIV_API_KEY, useValue: environment.xivAPIKey },
+    { provide: BASE_API_URL, useValue: environment.baseHref }
   ],
   bootstrap: [AppComponent]
 })
