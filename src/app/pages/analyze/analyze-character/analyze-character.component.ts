@@ -4,7 +4,7 @@ import {FormControl} from '@angular/forms';
 
 import {faCheck, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
-import {WatchlistService} from 'src/app/pages/configuration/watchlist.service';
+import {ConfigurationService} from 'src/app/pages/configuration/configuration.service';
 import {AnalyzeService} from 'src/app/pages/analyze/analyze.service';
 import {Character} from 'src/app/shared/api/models/character';
 import {Parse} from 'src/app/shared/api/fflogs/models/Parse';
@@ -27,7 +27,7 @@ export class AnalyzeCharacterComponent implements OnInit, OnDestroy {
   ctCharacter: Character;
   lastSelectedClass: string;
   ctSelectedParse: Parse;
-  constructor(private route: ActivatedRoute, private wlService: WatchlistService, private analyzeService: AnalyzeService) { }
+  constructor(private route: ActivatedRoute, private wlService: ConfigurationService, private analyzeService: AnalyzeService) { }
   ngOnInit() {
     // TODO Preserve selected zone/encounter for page refresh via params
     // TODO Lookup character if they don't have it, send to error page if not found

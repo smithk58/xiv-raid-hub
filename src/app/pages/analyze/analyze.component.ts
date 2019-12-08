@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
 import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
-import {WatchlistService} from '../configuration/watchlist.service';
+import {ConfigurationService} from '../configuration/configuration.service';
 import {Character} from 'src/app/shared/api/models/character';
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
@@ -15,7 +15,7 @@ import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.servi
   styleUrls: ['./analyze.component.css']
 })
 export class AnalyzeComponent implements OnInit, OnDestroy {
-  constructor(private ffLogApi: FFLogsApiService, private wlService: WatchlistService, private router: Router,
+  constructor(private ffLogApi: FFLogsApiService, private wlService: ConfigurationService, private router: Router,
               private notify: PNotifyService
   ) { }
   faInfoCircle = faInfoCircle;

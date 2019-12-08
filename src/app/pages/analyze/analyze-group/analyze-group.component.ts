@@ -4,7 +4,7 @@ import {Encounter} from 'src/app/shared/api/fflogs/models/Zone';
 import {CharacterGroup} from 'src/app/shared/api/models/character-group';
 import {Character} from 'src/app/shared/api/models/character';
 import {ActivatedRoute} from '@angular/router';
-import {WatchlistService} from 'src/app/pages/configuration/watchlist.service';
+import {ConfigurationService} from 'src/app/pages/configuration/configuration.service';
 
 @Component({
   selector: 'app-analyze-group',
@@ -15,7 +15,7 @@ export class AnalyzeGroupComponent implements OnInit {
   encounters: Encounter[];
   group: CharacterGroup;
   reportCharacter: Character; /*used to get reports for the whole group*/
-  constructor(private route: ActivatedRoute, private wlService: WatchlistService) { }
+  constructor(private route: ActivatedRoute, private wlService: ConfigurationService) { }
 
   ngOnInit() {
     // Attempt to lookup the static ID in the url

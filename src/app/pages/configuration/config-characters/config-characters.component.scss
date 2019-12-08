@@ -1,0 +1,7 @@
+.container-col {
+  min-width: 280px; /*Any smaller than this and the card starts looking real fucky*/
+}
+/*Add vertical space between cards*/
+.cards-container > * {
+  margin-top: 0.5rem;
+}

@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'analyze', loadChildren: './pages/analyze/analyze.module#AnalyzeModule'},
   {path: 'my-raid', loadChildren: './pages/my-raid/my-raid.module#MyRaidModule'},
-  {path: 'configuration', loadChildren: './pages/configuration/watchlist.module#WatchlistModule'},
+  {path: 'configuration', loadChildren: './pages/configuration/configuration.module#ConfigurationModule'},
   {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent}
 ];
