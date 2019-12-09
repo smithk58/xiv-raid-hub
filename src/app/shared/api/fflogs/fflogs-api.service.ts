@@ -130,9 +130,10 @@ export class FFLogsApiService {
    */
   openFFlogsForCharacter(character: Character) {
     this.xivApi2.getServerToDCMap().subscribe(serverToDC => {
-      const dc = serverToDC[character.server];
+      const serverName = this.xivApi2.parseServerName(character.server);
+      const dc = serverToDC[serverName];
       const region = DCToRegion[dc];
-      const profileURL = this.baseURL + '/character/' + region + '/' + character.server + '/' + character.name;
+      const profileURL = this.baseURL + '/character/' + region + '/' + serverName + '/' + character.name;
       window.open(profileURL, '_blank');
     });
   }

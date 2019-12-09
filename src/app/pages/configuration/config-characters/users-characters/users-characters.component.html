@@ -11,13 +11,14 @@
   <div class="card-body">
     <p [hidden]="characters.length > 0" class="m-0 text-center">You haven't added any characters yet.</p>
     <ul class="list-group">
-      <li *ngFor="let character of characters" class="list-group-item d-flex">
+      <li *ngFor="let character of characters" class="list-group-item d-flex align-items-center">
         <img class="class-icon mr-1" aria-hidden="true"
              [alt]="character.defaultClass" [src]="'assets/class-icons/'+character.defaultClass+'.png'"
              [ngClass]="classToRole[character.defaultClass] + '-bg'"
              [ngbTooltip]="character.defaultClass" [openDelay]="500"
         />
         <span class="wrap-flex-overflow mr-3" [ngbTooltip]="character.name" [openDelay]="500">{{character.name}}</span>
+        <span class="badge badge-info">{{character.server}}</span>
         <img src="assets/fflogs.png" class="ml-auto logo-img" tabindex="0"
              (click)="goToFFlogs(character)"
              aria-label="Open this character's FF logs profile"

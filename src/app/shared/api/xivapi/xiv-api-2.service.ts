@@ -39,4 +39,9 @@ export class XivApiService2 {
       })
     );
   }
+  parseServerName(server: string) {
+    // Parses server name from the server/dc combination provided by xiv api
+    const nbs = String.fromCharCode(160);
+    return server.substring(0, server.indexOf(nbs));
+  }
 }
