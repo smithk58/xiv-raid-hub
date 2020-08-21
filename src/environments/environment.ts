@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  xivAPIKey: '4f26494f880549d69471842a',
+  xivAPIKey: 'ecc7df1fed8a49e58eb4a0b6d6cd8e61d4d766e3fe624ece90206accbcdcb99e',
   baseHref: 'http://127.0.0.1:3000/'
 };
 
