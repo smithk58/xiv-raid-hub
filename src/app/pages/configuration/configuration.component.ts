@@ -21,7 +21,7 @@ export class ConfigurationComponent implements OnInit {
               private fflogs: FFLogsApiService) { }
 
   ngOnInit() {
-    const reportId = 'PYGaA2zfrnMNJHBq';
+    /*const reportId = 'PYGaA2zfrnMNJHBq';
     this.fflogs.getEncounterRankings(25).subscribe(rankings => {
       console.log('rankings', rankings);
     });
@@ -33,7 +33,7 @@ export class ConfigurationComponent implements OnInit {
     });
     this.fflogs.getCharacterParses('Pocket Sans', 'Lamia', 'na', 29, undefined).subscribe(parses => {
       console.log('parses', parses);
-    });
+    });*/
   }
   importData() {
     // TODO
