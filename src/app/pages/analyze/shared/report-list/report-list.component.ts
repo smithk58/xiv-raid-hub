@@ -28,7 +28,7 @@ export class ReportListComponent implements OnInit, OnChanges, OnDestroy {
   /*Parse data*/
   getParses$ = new Subject();
   // Grid options/api
-  private gridOptions: GridOptions; gridApi; columnApi; agComponents; componentContext;
+  gridOptions: GridOptions; gridApi; columnApi; agComponents; componentContext;
   constructor(private analyzeService: AnalyzeService, private pNotify: PNotifyService) {
     // Add the angular components we want accessible to ag grid
     this.agComponents = {

@@ -32,7 +32,7 @@ export class ComparisonStaticsCardComponent implements OnInit, OnDestroy {
    * Launches a modal for adding/editing a comparison static.
    * @param staticId - The id of the static to load in the modal, otherwise assumes you want to add a new comparison static.
    */
-  comparisonStaticsModal(staticId: string) {
+  comparisonStaticsModal(staticId?: string) {
     const modal = this.modalService.open(AddEditStaticComponent, {backdrop: 'static'});
     const isUpdate = typeof(staticId) !== 'undefined';
     // Populate the character on the modal if this is an edit attempt

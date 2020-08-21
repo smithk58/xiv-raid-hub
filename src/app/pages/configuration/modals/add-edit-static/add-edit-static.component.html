@@ -11,7 +11,7 @@
     </div>
     <div class="members-container rounded-left row px-3 pt-1">
       <!--Repeat the member fields-->
-      <div *ngFor="let ctrlGrp of f.characters.controls; let i = index;" class="form-group col-6">
+      <div *ngFor="let ctrlGrp of f.characters; let i = index;" class="form-group col-6">
         <h5>Member {{i+1}}</h5>
         <div class="ml-4">
           <label [for]="'character_'+i">Character</label>
