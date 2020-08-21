@@ -8,9 +8,9 @@ import {AboutComponent} from './pages/about/about.component';
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  {path: 'analyze', loadChildren: './pages/analyze/analyze.module#AnalyzeModule'},
-  {path: 'my-raid', loadChildren: './pages/my-raid/my-raid.module#MyRaidModule'},
-  {path: 'configuration', loadChildren: './pages/configuration/configuration.module#ConfigurationModule'},
+  {path: 'analyze', loadChildren: () => import('./pages/analyze/analyze.module').then(m => m.AnalyzeModule)},
+  {path: 'my-raid', loadChildren: () => import('./pages/my-raid/my-raid.module').then(m => m.MyRaidModule)},
+  {path: 'configuration', loadChildren: () => import('./pages/configuration/configuration.module').then(m => m.ConfigurationModule)},
   {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent}
 ];

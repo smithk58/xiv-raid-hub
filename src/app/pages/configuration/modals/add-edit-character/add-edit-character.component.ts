@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, ValidationErrors, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
@@ -14,8 +14,6 @@ import {CharacterSearchResultRow} from '@xivapi/angular-client';
 })
 export class AddEditCharacterComponent implements OnInit {
   faInfoCircle = faInfoCircle;
-
-  @ViewChild('form') form: NgForm;
   characterForm: FormGroup;
   characterControl: FormControl;
   isSubmitted = false;
