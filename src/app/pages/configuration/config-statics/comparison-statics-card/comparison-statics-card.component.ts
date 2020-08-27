@@ -4,7 +4,7 @@ import {faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-s
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subscription} from 'rxjs';
 
-import {CharacterGroup} from 'src/app/shared/api/models/character-group';
+import {CharacterGroup} from 'src/app/shared/api/xiv-raid-hub/models/character-group';
 import {AddEditStaticComponent} from 'src/app/pages/configuration/modals/add-edit-static/add-edit-static.component';
 import {ConfigurationService} from 'src/app/pages/configuration/configuration.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';

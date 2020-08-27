@@ -3,8 +3,8 @@ import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, F
 
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {Character} from 'src/app/shared/api/models/character';
-import {CharacterGroup} from 'src/app/shared/api/models/character-group';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
+import {CharacterGroup} from 'src/app/shared/api/xiv-raid-hub/models/character-group';
 import {CharacterSearchResultRow} from '@xivapi/angular-client';
 
 @Component({

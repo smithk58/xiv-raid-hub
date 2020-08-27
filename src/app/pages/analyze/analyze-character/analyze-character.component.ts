@@ -6,7 +6,7 @@ import {faCheck, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
 import {ConfigurationService} from 'src/app/pages/configuration/configuration.service';
 import {AnalyzeService} from 'src/app/pages/analyze/analyze.service';
-import {Character} from 'src/app/shared/api/models/character';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {Parse} from 'src/app/shared/api/fflogs/models/Parse';
 import {ZoneEncounter} from 'src/app/pages/analyze/shared/encounter-toolbar/ZoneEncounter';
 

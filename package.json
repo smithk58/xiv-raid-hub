@@ -26,6 +26,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "@ng-select/ng-select": "^4.0.1",
+    "@ngx-loading-bar/core": "^5.1.0",
+    "@ngx-loading-bar/http-client": "^5.1.0",
     "@xivapi/angular-client": "^1.6.0",
     "ag-grid-angular": "^20.1.0",
     "ag-grid-community": "^20.1.0",

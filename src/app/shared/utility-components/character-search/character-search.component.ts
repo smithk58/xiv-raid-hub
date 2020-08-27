@@ -6,7 +6,7 @@ import {Subject, of} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, finalize, map, switchMap} from 'rxjs/operators';
 
 import {CharacterSearchService} from './character-search.service';
-import {Character} from 'src/app/shared/api/models/character';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 
 @Component({
   selector: 'app-character-search',

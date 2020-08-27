@@ -8,7 +8,7 @@ import { debounceTime} from 'rxjs/operators';
 import {Parse} from 'src/app/shared/api/fflogs/models/Parse';
 import {ReportLinksComponent} from 'src/app/pages/analyze/shared/ag-grid-columns/report-links/report-links.component';
 import {GridUtils} from 'src/app/pages/analyze/shared/ag-grid-columns/GridUtils';
-import {Character} from 'src/app/shared/api/models/character';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {ZoneEncounter} from 'src/app/pages/analyze/shared/encounter-toolbar/ZoneEncounter';
 import {AnalyzeService} from 'src/app/pages/analyze/analyze.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';

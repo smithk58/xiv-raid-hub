@@ -1,5 +1,6 @@
-@import "~ag-grid-community/dist/styles/ag-grid.css";
-@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+@import 'bootstrap-overrides';
+@import '../../node_modules/ag-grid-community/dist/styles/ag-grid.css';
+@import '../../node_modules/ag-grid-community/dist/styles/ag-theme-balham.css';
 
 html, body{
   height: 100%;
@@ -8,18 +9,13 @@ html, body{
 body {
   overflow: hidden;
 }
-/*Overwrite all the themes top/bottom padding, way too fat*/
-.btn {
-  padding-top: 0.375em !important;
-  padding-bottom: 0.375em !important;
-}
 /*Needed for responsive flex containers*/
 .min-flex {
   flex: 1 1 0px;
   min-width: 0;
 }
-/*Use for anything made clickable that isn't naturally clickable (e.g. an icon). Be sure to add tabindex and aria-label
-as well for accessibility*/
+/*Use for anything made clickable that isn't naturally clickable (e.g. an icon). Be sure to add tabindex, role="button",
+and aria-label as well for accessibility*/
 .clickable {
   cursor: pointer;
 }
@@ -71,4 +67,3 @@ as well for accessibility*/
   opacity: 0.6;
   cursor: pointer;
 }
-

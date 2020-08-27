@@ -24,22 +24,22 @@
         <span class="wrap-flex-overflow mr-3" [ngbTooltip]="character.name" [openDelay]="500">{{character.name}}</span>
         <span class="badge badge-info">{{character.server}}</span>
         <img src="assets/fflogs.png" class="ml-auto logo-img" tabindex="0"
-                (click)="goToFFlogs(character)"
+                (click)="goToFFlogs(character)" (keyup.enter)="goToFFlogs(character)"
                  aria-label="Open this character's FF logs profile"
                  ngbTooltip="Open this character's FF logs profile" [openDelay]="300"
         />
-        <fa-icon [icon]="faChartBar" size="xl" class="ml-2 clickable" tabindex="0"
-                 (click)="analyzeCharacter(character.id)"
+        <fa-icon [icon]="faChartBar" size="xl" class="ml-2 clickable" tabindex="0" role="button"
+                 (click)="analyzeCharacter(character.id)" (keyup.enter)="analyzeCharacter(character.id)"
                  aria-label="Analyze this character"
                  ngbTooltip="Analyze this character" [openDelay]="300"
         ></fa-icon>
-        <fa-icon [icon]="faEdit" size="xl" class="ml-3 clickable" tabindex="0"
-                 (click)="friendListCharacterModal(character.id)"
+        <fa-icon [icon]="faEdit" size="xl" class="ml-3 clickable" tabindex="0" role="button"
+                 (click)="friendListCharacterModal(character.id)" (keyup.enter)="friendListCharacterModal(character.id)"
                  aria-label="Edits the current character"
                  ngbTooltip="Edit this character" [openDelay]="300"
         ></fa-icon>
-        <fa-icon [icon]="faTrash" size="xl" class="ml-3 clickable" tabindex="0"
-                 (click)="deleteFriend(character.id)"
+        <fa-icon [icon]="faTrash" size="xl" class="ml-3 clickable" tabindex="0" role="button"
+                 (click)="deleteFriend(character.id)" (keyup.enter)="deleteFriend(character.id)"
                  aria-label="Deletes the current character"
                  ngbTooltip="Remove this character" [openDelay]="300"
         ></fa-icon>

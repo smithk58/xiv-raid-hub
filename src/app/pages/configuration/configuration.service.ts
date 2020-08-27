@@ -3,9 +3,9 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {map, take} from 'rxjs/operators';
 
-import {Character} from 'src/app/shared/api/models/character';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {StorageKeys} from 'src/app/shared/importExport/StorageKeys';
-import {CharacterGroup} from 'src/app/shared/api/models/character-group';
+import {CharacterGroup} from 'src/app/shared/api/xiv-raid-hub/models/character-group';
 import {Utils} from 'src/app/shared/Utils';
 
 @Injectable({

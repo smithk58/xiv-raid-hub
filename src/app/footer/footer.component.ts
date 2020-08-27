@@ -7,10 +7,7 @@ import { faGithub  } from '@fortawesome/free-brands-svg-icons';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent implements  OnInit {
+export class FooterComponent {
   gitHubIcon = faGithub;
   constructor() { }
-  ngOnInit(): void {
-    // f
-  }
 }

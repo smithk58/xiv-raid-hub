@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
-import {Character} from 'src/app/shared/api/models/character';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {ClassToRole} from 'src/app/shared/Utils';
 
 @Component({

@@ -1,7 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-
-import {BASE_API_URL} from 'src/app/api-injection-token';
+import { Component, Inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +6,6 @@ import {BASE_API_URL} from 'src/app/api-injection-token';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(private http: HttpClient, @Inject(BASE_API_URL) private baseAPIUrl: string) { }
-  ngOnInit() {
-    this.http.get('api/movies/1').subscribe(res => {
-      console.log('res', res);
-    });
-  }
+  constructor() { }
+  ngOnInit() { }
 }

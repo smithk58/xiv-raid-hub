@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
 import {ConfigurationService} from 'src/app/pages/configuration/configuration.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
-import {Character} from 'src/app/shared/api/models/character';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {ClassToRole} from 'src/app/shared/Utils';
 import {AddEditCharacterComponent} from 'src/app/pages/configuration/modals/add-edit-character/add-edit-character.component';
 import {YesNoModalComponent} from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';

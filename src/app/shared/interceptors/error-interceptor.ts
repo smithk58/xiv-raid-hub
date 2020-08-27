@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpRequest, HttpInterceptor, HttpHandler, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -16,8 +16,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   }
 
   /**
-   * Checks an http error for authentication issues, if found begins authentication process. If authentication succeeds the request is
-   * resent, otherwise the error is rethrown.
+   * Simplifies error responses to a simple string for service calls to handle easier.
    * @param error - The HttpErrorResponse object from angular/common/http.
    * @param request - The http request that had the error.
    * @param next - The http handler to continue the request.

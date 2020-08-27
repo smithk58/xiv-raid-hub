@@ -4,7 +4,7 @@ import {faInfoCircle, faPen, faPlus, faTrashAlt} from '@fortawesome/free-solid-s
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subscription} from 'rxjs';
 
-import {Character} from 'src/app/shared/api/models/character';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {ClassToRole} from 'src/app/shared/Utils';
 import {AddEditCharacterComponent} from 'src/app/pages/configuration/modals/add-edit-character/add-edit-character.component';
 import {ConfigurationService} from 'src/app/pages/configuration/configuration.service';

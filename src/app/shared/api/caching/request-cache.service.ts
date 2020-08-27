@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpRequest, HttpResponse} from '@angular/common/http';
+import { HttpRequest, HttpResponse } from '@angular/common/http';
 
-import {timer} from 'rxjs';
+import { timer } from 'rxjs';
 
-import {CachedItem} from './CachedItem';
+import { CachedItem } from 'src/app/shared/api/caching/CachedItem';
 
 @Injectable({
   providedIn: 'root'

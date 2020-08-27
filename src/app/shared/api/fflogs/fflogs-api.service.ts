@@ -9,7 +9,7 @@ import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.servi
 import {RankingPagesWrapper} from './models/Ranking';
 import {Zone} from './models/Zone';
 import {Parse} from 'src/app/shared/api/fflogs/models/Parse';
-import {Character} from 'src/app/shared/api/models/character';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {XivApiService2} from 'src/app/shared/api/xivapi/xiv-api-2.service';
 import {DCToRegion} from 'src/app/shared/Utils';
 

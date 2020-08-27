@@ -19,6 +19,11 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "sass"
+              ]
+            },
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -26,7 +31,7 @@
             "styles": [
               "node_modules/pnotify/dist/PNotifyBrightTheme.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
-              "src/styles.css"
+              "src/styles/styles.scss"
             ],
             "scripts": [
               "./node_modules/pnotify/dist/iife/PNotify.js",
@@ -90,7 +95,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "src/styles/styles.scss"
             ],
             "scripts": [],
             "assets": [
@@ -145,7 +150,8 @@
   "defaultProject": "xiv-raid-hub",
   "schematics": {
     "@schematics/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "styleext": "scss"
     }
   }
 }

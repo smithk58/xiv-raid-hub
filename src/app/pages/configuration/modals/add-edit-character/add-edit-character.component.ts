@@ -4,7 +4,7 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, 
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
-import {Character} from 'src/app/shared/api/models/character';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {CharacterSearchResultRow} from '@xivapi/angular-client';
 
 @Component({

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RequestCacheService } from './request-cache.service';
+import { RequestCacheService } from 'src/app/shared/api/caching/request-cache.service';
 
 describe('RequestCacheService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

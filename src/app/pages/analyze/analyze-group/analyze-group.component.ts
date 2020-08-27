@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import {Encounter} from 'src/app/shared/api/fflogs/models/Zone';
-import {CharacterGroup} from 'src/app/shared/api/models/character-group';
-import {Character} from 'src/app/shared/api/models/character';
+import {CharacterGroup} from 'src/app/shared/api/xiv-raid-hub/models/character-group';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {ActivatedRoute} from '@angular/router';
 import {ConfigurationService} from 'src/app/pages/configuration/configuration.service';
 

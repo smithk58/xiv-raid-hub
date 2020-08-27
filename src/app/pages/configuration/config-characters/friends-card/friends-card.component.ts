@@ -9,7 +9,7 @@ import {AddEditCharacterComponent} from 'src/app/pages/configuration/modals/add-
 import {ClassToRole} from 'src/app/shared/Utils';
 import {ConfigurationService} from 'src/app/pages/configuration/configuration.service';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
-import {Character} from 'src/app/shared/api/models/character';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {YesNoModalComponent} from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
 import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 

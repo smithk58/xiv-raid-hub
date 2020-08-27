@@ -7,7 +7,7 @@
   font-size: 1.5rem;
   line-height: 2rem; /*Keeps large icons from stretching smaller nav items*/
 }
-@media (min-width: 576px) { /* Should use bootstrap variable, but too lazy atm */
+@media (min-width: 576px) { /* TODO Should use bootstrap variable, but too lazy atm */
   /*When width is above sm we include the padding on sm-collapsed nav items*/
   .nav-item.sm-collapse {
     .nav-icon {
@@ -16,7 +16,7 @@
   }
 }
 /*Nav items that collapse a medium size*/
-@media (min-width: 768px) { /* Should use bootstrap variable, but too lazy atm */
+@media (min-width: 768px) { /* TODO Should use bootstrap variable, but too lazy atm */
   .nav-item.md-collapse {
     .nav-icon {
       font-size: inherit;
@@ -24,6 +24,12 @@
   }
 }
 
-.nav-link[ngbdropdown] {
+.nav-link[ngbdropdown], .nav-link[role=button] {
   cursor: pointer;
+}
+
+.avatar {
+  vertical-align: middle;
+  border-radius: 25px;
+  height: 32px;
 }

@@ -5,8 +5,8 @@ import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
 import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 import {ConfigurationService} from '../configuration/configuration.service';
-import {Character} from 'src/app/shared/api/models/character';
-import {CharacterGroup} from 'src/app/shared/api/models/character-group';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
+import {CharacterGroup} from 'src/app/shared/api/xiv-raid-hub/models/character-group';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 
 @Component({

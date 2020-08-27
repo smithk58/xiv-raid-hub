@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import {concatMap} from 'rxjs/operators';
 
 import {XivApiService2} from 'src/app/shared/api/xivapi/xiv-api-2.service';
-import {Character} from 'src/app/shared/api/models/character';
+import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 import {DCToRegion, ExpansionToBracketMin, ExpansionToDefaultZone, Utils} from 'src/app/shared/Utils';
 import {Zone} from 'src/app/shared/api/fflogs/models/Zone';
