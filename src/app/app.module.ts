@@ -24,7 +24,7 @@ import { IsAuthedGuard } from 'src/app/shared/IsAuthedGuard';
     BrowserModule,
     RoutingModule,
     SharedModule,
-    XivapiClientModule.forRoot(environment.xivAPIKey),
+    XivapiClientModule.forRoot(),
     LoadingBarHttpClientModule
   ],
   declarations: [

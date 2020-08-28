@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  xivAPIKey: 'ecc7df1fed8a49e58eb4a0b6d6cd8e61d4d766e3fe624ece90206accbcdcb99e',
   baseHref: 'http://localhost:3000/'
 };
 
