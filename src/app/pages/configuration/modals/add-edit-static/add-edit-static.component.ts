@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, FormArray} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, FormArray } from '@angular/forms';
 
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
-import {CharacterGroup} from 'src/app/shared/api/xiv-raid-hub/models/character-group';
-import {CharacterSearchResultRow} from '@xivapi/angular-client';
+import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
+import { CharacterGroup } from 'src/app/shared/api/xiv-raid-hub/models/character-group';
+import { CharacterSearchResultRow } from '@xivapi/angular-client';
 
 @Component({
   selector: 'app-add-edit-static',
@@ -121,4 +121,5 @@ export class AddEditStaticComponent implements OnInit {
   }
   // convenience getter for easy access to form fields
   get f() { return this.staticForm.controls; }
+  get getCharacterControls() { return (this.staticForm.get('characters') as FormArray).controls; }
 }

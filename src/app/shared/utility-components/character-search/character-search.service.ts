@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import {XivapiService} from '@xivapi/angular-client';
-import {catchError} from 'rxjs/operators';
+import { XivapiService } from '@xivapi/angular-client';
+import { catchError } from 'rxjs/operators';
 
-import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
+import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 
 @Injectable({
   providedIn: 'root'

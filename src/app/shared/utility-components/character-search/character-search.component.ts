@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
-import {CharacterSearchResult, CharacterSearchResultRow, Pagination} from '@xivapi/angular-client';
-import {Subject, of} from 'rxjs';
-import {catchError, debounceTime, distinctUntilChanged, finalize, map, switchMap} from 'rxjs/operators';
+import { CharacterSearchResult, CharacterSearchResultRow, Pagination } from '@xivapi/angular-client';
+import { Subject, of } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, finalize, map, switchMap } from 'rxjs/operators';
 
-import {CharacterSearchService} from './character-search.service';
-import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
+import { CharacterSearchService } from './character-search.service';
+import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
 
 @Component({
   selector: 'app-character-search',
