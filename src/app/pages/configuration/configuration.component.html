@@ -23,16 +23,13 @@
       </button>
     </div>
   </div>
-  <ngb-tabset (tabChange)="onTabChange($event)" [activeId]="tabToSelect" class="m-3">
-    <ngb-tab title="Characters">
-      <ng-template ngbTabContent>
-        <app-config-characters></app-config-characters>
-      </ng-template>
-    </ngb-tab>
-    <ngb-tab title="Statics">
-      <ng-template ngbTabContent>
-        <app-config-statics ngbTabContent></app-config-statics>
-      </ng-template>
-    </ngb-tab>
-  </ngb-tabset>
+  <ul ngbNav [(activeId)]="tabToSelect" class="nav-tabs mt-3">
+    <li [ngbNavItem]="Paths.Characters">
+      <a ngbNavLink [routerLink]="charactersRoute">Characters</a>
+    </li>
+    <li [ngbNavItem]="Paths.Statics">
+      <a ngbNavLink [routerLink]="staticsRoute">Statics</a>
+    </li>
+  </ul>
+  <router-outlet name="tab"></router-outlet>
 </div>

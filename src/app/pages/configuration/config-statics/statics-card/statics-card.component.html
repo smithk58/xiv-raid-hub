@@ -2,7 +2,8 @@
   <div class="card-header">
     <div class="d-flex align-items-center">
       <span class="text-capitalize">{{cardSubject}}s</span>
-      <fa-icon [icon]="faInfoCircle" class="ml-1"
+      <fa-icon *ngIf="tooltip"
+               [icon]="faInfoCircle" class="ml-1"
                [ngbTooltip]="tooltip"
                placement="right"
       ></fa-icon>
@@ -47,7 +48,7 @@
       <ul>
         <li>Your raid times will be shown under the 'My Raid' section.</li>
         <li>You can setup alarms that will send you direct messages on discord to remind you about raid.</li>
-        <li>You can setup alarms that will send reminders to a discord channel to remind that guy that always forgets about raid.</li>
+        <li>You can setup alarms that will send reminders to a discord channel to remind that guy that always forgets about raid <fa-icon [icon]="faAngry" size="xl" aria-label="angry face"></fa-icon>.</li>
       </ul>
       <p class="my-1">Click the <fa-icon [icon]="faCalendar" size="xl" class="mx-1" aria-label="calendar"></fa-icon> icon to setup a schedule!</p>
     </ng-template>

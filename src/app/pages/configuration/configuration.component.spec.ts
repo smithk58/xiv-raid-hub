@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfigurationComponent } from './watchlist.component';
+import { ConfigurationComponent } from 'src/app/pages/configuration/configuration.component';
 
 describe('WatchlistComponent', () => {
   let component: ConfigurationComponent;

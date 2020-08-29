@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
-import { faCalendar, faInfoCircle, faPen, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faInfoCircle, faPen, faPlus, faTrashAlt, faAngry } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CharacterGroup } from 'src/app/shared/api/xiv-raid-hub/models/character-group';
@@ -15,7 +15,7 @@ import { YesNoModalComponent } from 'src/app/shared/utility-components/modals/ye
   encapsulation: ViewEncapsulation.None
 })
 export class StaticsCardComponent {
-  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faCalendar = faCalendar;
+  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faCalendar = faCalendar; faAngry = faAngry;
   @Input() cardSubject: string;
   @Input() tooltip: string;
   @Input() statics: CharacterGroup[] = [];

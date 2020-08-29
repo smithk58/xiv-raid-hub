@@ -14,7 +14,6 @@ import { AboutComponent } from './pages/about/about.component';
 import { environment } from '../environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { YesNoModalComponent } from './shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
-import { XIV_API_KEY } from 'src/app/shared/api/xivapi/xiv-api-2.service';
 import { httpInterceptorProviders } from 'src/app/shared/interceptors';
 import { BASE_API_URL } from 'src/app/api-injection-token';
 import { IsAuthedGuard } from 'src/app/shared/IsAuthedGuard';
