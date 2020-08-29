@@ -9,7 +9,7 @@
         <div *ngIf="f.name.errors.required">A static name is required</div>
       </div>
     </div>
-    <div class="members-container scroll-shadow">
+    <div class="members-container position-relative">
       <div class="row mb-3 mr-1">
         <!--Repeat the member fields-->
         <div *ngFor="let ctrlGrp of getCharacterControls; let i = index;" class="form-group col-6">
@@ -20,13 +20,17 @@
                                   [labelForId]="'character_'+i"
                                   [fControl]="ctrlGrp.controls.character"
                                   (selected)="characterSelected(i, $event)"
+                                  appendTo=".modal-body"
             ></app-character-search>
             <div *ngIf="ctrlGrp.controls.character.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
               <div *ngIf="ctrlGrp.controls.character.errors.required">A character is required</div>
               <div *ngIf="ctrlGrp.controls.character.errors.notUnique">You can't add a character that you have already added</div>
             </div>
             <label [for]="'class_'+i" class="mt-3">Class</label>
-            <app-class-search [fControl]="ctrlGrp.controls.comparisonClass" [labelForId]="'class_'+i"></app-class-search>
+            <app-class-search [fControl]="ctrlGrp.controls.comparisonClass"
+                              [labelForId]="'class_'+i"
+                              appendTo=".modal-body">
+            </app-class-search>
             <div *ngIf="ctrlGrp.controls.comparisonClass.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
               <div *ngIf="ctrlGrp.controls.comparisonClass.errors.required">A class is required</div>
             </div>

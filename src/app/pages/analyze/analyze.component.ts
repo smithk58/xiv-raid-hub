@@ -28,7 +28,7 @@ export class AnalyzeComponent implements OnInit, OnDestroy {
     this.friends$ = this.wlService.getFriends().subscribe(friends => {
       this.friends = friends;
     });
-    this.statics$ = this.wlService.getStatics().subscribe(statics => {
+    this.statics$ = this.wlService.getFriendStatics().subscribe(statics => {
       this.statics = statics;
     });
   }

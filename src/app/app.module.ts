@@ -39,7 +39,6 @@ import { IsAuthedGuard } from 'src/app/shared/IsAuthedGuard';
   entryComponents: [YesNoModalComponent],
   providers: [
     httpInterceptorProviders,
-    { provide: XIV_API_KEY, useValue: environment.xivAPIKey },
     { provide: BASE_API_URL, useValue: environment.baseHref },
     IsAuthedGuard
   ],

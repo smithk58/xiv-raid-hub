@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
-import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
-import {CharacterSearchResultRow} from '@xivapi/angular-client';
+import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
+import { CharacterSearchResultRow } from '@xivapi/angular-client';
 
 @Component({
   selector: 'app-add-edit-character',

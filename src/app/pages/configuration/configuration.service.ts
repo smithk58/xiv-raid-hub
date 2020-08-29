@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {BehaviorSubject} from 'rxjs';
-import {map, take} from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
-import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
-import {StorageKeys} from 'src/app/shared/importExport/StorageKeys';
-import {CharacterGroup} from 'src/app/shared/api/xiv-raid-hub/models/character-group';
-import {Utils} from 'src/app/shared/Utils';
+import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
+import { StorageKeys } from 'src/app/shared/importExport/StorageKeys';
+import { CharacterGroup } from 'src/app/shared/api/xiv-raid-hub/models/character-group';
+import { Utils } from 'src/app/shared/Utils';
 
 @Injectable({
   providedIn: 'root'
@@ -35,12 +35,12 @@ export class ConfigurationService {
     return this.usersStatics = this.getHelper(this.usersStatics, StorageKeys.usersStatics);
   }
   addUserStatic(group: CharacterGroup) {
-    this.addHelper(group, this.usersStatics, StorageKeys.usersStatics, false);
+    this.addHelper(group, this.usersStatics, StorageKeys.usersStatics, true);
   }
   updateUserStatic(group: CharacterGroup) {
     return this.updateHelper(group, this.usersStatics, StorageKeys.usersStatics);
   }
-  deleteUsersStatic(staticId: number) {
+  deleteUsersStatic(staticId: string) {
     return this.deleteHelper(staticId, this.usersStatics, StorageKeys.usersStatics);
   }
   /**
@@ -81,8 +81,8 @@ export class ConfigurationService {
   deleteFriend(characterId: number) {
     return this.deleteHelper(characterId, this.friends, StorageKeys.friends);
   }
-  getStatic(groupId: string) { // TODO Should be moved to analyzer service and check friends statics  + users statics
-    return this.getStatics().pipe(
+  getFriendStatic(groupId: string) { // TODO Should be moved to analyzer service and check friends statics  + users statics
+    return this.getFriendStatics().pipe(
       take(1),
       map( statics => statics.find(sStatic => sStatic.id === groupId))
     );
@@ -90,7 +90,7 @@ export class ConfigurationService {
   /**
    * Returns an observable of the list of statics for the current user.
    */
-  getStatics() {
+  getFriendStatics() {
     return this.friendStatics = this.getHelper(this.friendStatics, StorageKeys.statics);
   }
 
@@ -98,7 +98,7 @@ export class ConfigurationService {
    * Adds the static to the existing list of statics.
    * @param nStatic - The static to add.
    */
-  addStatic(nStatic: CharacterGroup) {
+  addFriendStatic(nStatic: CharacterGroup) {
     this.addHelper(nStatic, this.friendStatics, StorageKeys.statics, true);
   }
 
@@ -106,7 +106,7 @@ export class ConfigurationService {
    * Updates the specified static in the list of statics, if found (matches on id).
    * @param uStatic - The updated static.
    */
-  updateStatic(uStatic: CharacterGroup) {
+  updateFriendStatic(uStatic: CharacterGroup) {
     return this.updateHelper(uStatic, this.friendStatics, StorageKeys.statics);
   }
 
@@ -114,7 +114,7 @@ export class ConfigurationService {
    * Deletes the static with the specified id.
    * @param staticId - The static id to delete.
    */
-  deleteStatic(staticId: string) {
+  deleteFriendStatic(staticId: string) {
     return this.deleteHelper(staticId, this.friendStatics, StorageKeys.statics);
   }
   /**

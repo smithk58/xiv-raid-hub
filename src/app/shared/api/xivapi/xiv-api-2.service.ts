@@ -1,7 +1,7 @@
-import {Inject, Injectable, InjectionToken} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {of} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Injectable, InjectionToken } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export const XIV_API_KEY = new InjectionToken<string>('XIV_API_KEY');
 @Injectable({
@@ -12,13 +12,9 @@ export class XivApiService2 {
   // This service only exists because the provided xivapi service didn't have all of their API endpoints. Remove any from here that become
   // available from the official APIs service
   API_BASE_URL = 'https://xivapi.com';
-  constructor(private http: HttpClient, @Inject(XIV_API_KEY) private xivApiKey: string) { }
+  constructor(private http: HttpClient) { }
   getServerListByDC() {
-    const config = {
-      params: {
-        key: this.xivApiKey
-      }
-    };
+    const config = {};
     return this.http.get(this.API_BASE_URL + '/servers/dc', config);
   }
 

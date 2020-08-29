@@ -20,7 +20,7 @@ export class AnalyzeGroupComponent implements OnInit {
   ngOnInit() {
     // Attempt to lookup the static ID in the url
     const groupId = this.route.snapshot.params.groupId;
-    this.wlService.getStatic(groupId).subscribe(sStatic => {
+    this.wlService.getFriendStatic(groupId).subscribe(sStatic => {
       this.group = sStatic;
       // We'll use the first character from the group to get reports
       this.reportCharacter = this.group.characters[0];
