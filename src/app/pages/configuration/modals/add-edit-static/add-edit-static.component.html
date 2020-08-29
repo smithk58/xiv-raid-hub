@@ -9,8 +9,8 @@
         <div *ngIf="f.name.errors.required">A static name is required</div>
       </div>
     </div>
-    <div class="members-container position-relative">
-      <div class="row mb-3 mr-1">
+    <div class="members-container scroll-shadow position-relative">
+      <div class="row mr-1">
         <!--Repeat the member fields-->
         <div *ngFor="let ctrlGrp of getCharacterControls; let i = index;" class="form-group col-6">
           <h5>Member {{i+1}}</h5>

@@ -1,5 +1,9 @@
 .members-container {
-  height: 500px;
-  overflow-y: scroll;
+  max-height: calc(100vh - 300px);
+  min-height: 200px;
+  overflow-y: auto;
   overflow-x: hidden;
+}
+.form-group {
+  margin-bottom: 2rem;
 }
