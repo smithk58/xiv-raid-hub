@@ -14,14 +14,6 @@ body {
   flex: 1 1 0px;
   min-width: 0;
 }
-/*Use for anything made clickable that isn't naturally clickable (e.g. an icon). Be sure to add tabindex, role="button",
-and aria-label as well for accessibility*/
-.clickable {
-  cursor: pointer;
-}
-.clickable:hover {
-  color: var(--primary) !important;
-}
 /*Prevents flex content from wrapping and instead does ellipsis*/
 .wrap-flex-overflow {
   white-space: nowrap;
@@ -58,14 +50,10 @@ and aria-label as well for accessibility*/
 }
 /*For display FFlogs logo for linking to the site*/
 .logo-img {
-  height: 25px;
+  height: 22px;
 }
-.logo-img-sm {
-  height: 20px;
-}
-.logo-img:hover, .logo-img-sm:hover {
+.logo-img:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 .scroll-shadow {
   position: relative; /*Required to "contain" the absolutely positioned ::after*/
@@ -89,6 +77,23 @@ and aria-label as well for accessibility*/
   display: block;
   width: 100%;
   height: 1px;
-  background: white; /* TODO Has to be matched to theme*/
+  background: white;
   z-index: 2;
+}
+.theme-slate .scroll-shadow::after {
+  background: #32383e;
+}
+/* For a container element with child actin buttons*/
+.actions-container > button:not(:first-child) { /*TODO Apply to other action lists*/
+  margin-left: 1rem;
+}
+/* For wrapping svgs/images in <button>'s*/
+.btn-svg {
+  all: unset;
+}
+.btn-svg .logo-img {
+  margin-top: -5px; /*Fixes vertical alignment on images in button vs fa icons*/
+}
+.btn-svg:hover > fa-icon {
+  color: var(--primary) !important;
 }
