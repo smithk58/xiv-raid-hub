@@ -6,7 +6,7 @@ describe('XivApiService2Service', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: XivApiService2 = TestBed.get(XivApiService2);
+    const service: XivApiService2 = TestBed.inject(XivApiService2);
     expect(service).toBeTruthy();
   });
 });

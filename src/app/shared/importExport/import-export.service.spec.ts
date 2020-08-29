@@ -6,7 +6,7 @@ describe('ImportExportService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ImportExportService = TestBed.get(ImportExportService);
+    const service: ImportExportService = TestBed.inject(ImportExportService);
     expect(service).toBeTruthy();
   });
 });

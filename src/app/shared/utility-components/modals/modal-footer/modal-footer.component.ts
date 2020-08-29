@@ -24,7 +24,7 @@ export class ModalFooterComponent {
     this.delete.emit(event);
   }
   onConfirm(result: boolean, event: Event) {
-    this.confirm.emit({result: result, event: event});
+    this.confirm.emit({result, event});
   }
   onCancel(event: Event) {
     this.cancel.emit(event);

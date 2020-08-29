@@ -6,7 +6,7 @@ describe('FFLogsApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FFLogsApiService = TestBed.get(FFLogsApiService);
+    const service: FFLogsApiService = TestBed.inject(FFLogsApiService);
     expect(service).toBeTruthy();
   });
 });
