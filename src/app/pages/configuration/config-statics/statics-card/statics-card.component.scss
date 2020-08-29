@@ -1,0 +1,6 @@
+/* NOTE This component has view encapsulation off for .no-schedule-popover to be usable by a popover, scope any CSS in here
+very carefully, since it's now global*/
+
+.no-schedule-popover {
+  max-width: 400px;
+}

@@ -18,13 +18,16 @@
       <li *ngFor="let static of statics" class="list-group-item d-flex">
         <div>
           <span class="wrap-flex-overflow mr-3" [ngbTooltip]="static.name">{{static.name}}</span>
-          <span class="badge badge-warning" [hidden]="static.schedule" [ngbPopover]="noScheduleWarning">No schedule</span>
+          <span class="badge badge-warning cursor-pointer" [hidden]="static.schedule"
+                [ngbPopover]="noScheduleWarning" openDelay="300" popoverTitle="No Schedule" triggers="click" popoverClass="no-schedule-popover">
+            No schedule
+          </span>
         </div>
         <div class="ml-auto actions-container">
-          <button class="btn-svg" (click)="addEditStaticModal(static.id)"
-                  aria-label="Edits the current {{cardSubject}}"
-                  ngbTooltip="Edit this {{cardSubject}}">
-            <fa-icon [icon]="faEdit" size="xl" aria-hidden="true"></fa-icon>
+          <button class="btn-svg" (click)="addEditCalendarModal(static.id)"
+                  aria-label="Edits the schedule of the current {{cardSubject}}"
+                  ngbTooltip="Edit this {{cardSubject}}'s schedule">
+            <fa-icon [icon]="faCalendar" size="xl" aria-hidden="true"></fa-icon>
           </button>
           <button class="btn-svg" (click)="addEditStaticModal(static.id)"
                   aria-label="Edits the current {{cardSubject}}"
@@ -40,7 +43,13 @@
       </li>
     </ul>
     <ng-template #noScheduleWarning>
-
+      <p class="my-1">Assigning a schedule let's you setup fancy stuff!</p>
+      <ul>
+        <li>Your raid times will be shown under the 'My Raid' section.</li>
+        <li>You can setup alarms that will send you direct messages on discord to remind you about raid.</li>
+        <li>You can setup alarms that will send reminders to a discord channel to remind that guy that always forgets about raid.</li>
+      </ul>
+      <p class="my-1">Click the <fa-icon [icon]="faCalendar" size="xl" class="mx-1" aria-label="calendar"></fa-icon> icon to setup a schedule!</p>
     </ng-template>
   </div>
 </div>

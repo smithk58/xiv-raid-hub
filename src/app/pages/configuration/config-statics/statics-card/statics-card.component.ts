@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
-import { faInfoCircle, faPen, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faInfoCircle, faPen, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CharacterGroup } from 'src/app/shared/api/xiv-raid-hub/models/character-group';
@@ -11,10 +11,11 @@ import { YesNoModalComponent } from 'src/app/shared/utility-components/modals/ye
 @Component({
   selector: 'app-statics-card',
   templateUrl: './statics-card.component.html',
-  styleUrls: ['./statics-card.component.scss']
+  styleUrls: ['./statics-card.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class StaticsCardComponent {
-  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt;
+  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faCalendar = faCalendar;
   @Input() cardSubject: string;
   @Input() tooltip: string;
   @Input() statics: CharacterGroup[] = [];
@@ -23,6 +24,9 @@ export class StaticsCardComponent {
   @Output() deleteStatic: EventEmitter<string> = new EventEmitter();
   constructor(private wlService: ConfigurationService, private modalService: NgbModal) { }
 
+  addEditCalendarModal(staticId?: string) {
+    // a
+  }
   addEditStaticModal(staticId?: string) {
     const modal = this.modalService.open(AddEditStaticComponent, {backdrop: 'static', size: 'lg'});
     const isUpdate = typeof(staticId) !== 'undefined';
