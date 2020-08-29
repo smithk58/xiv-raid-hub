@@ -2,7 +2,7 @@
 <!--Separate ng-select depending on if we were given a form control or not-->
 <ng-select *ngIf="!fControl"
            [items]="characters"
-           dropdownPosition="down"
+           [appendTo]="appendTo"
            [(ngModel)]="selectedCharacter"
            bindLabel="Name"
            [labelForId]="labelForId"
@@ -24,7 +24,7 @@
 </ng-select>
 <ng-select *ngIf="fControl"
            [items]="characters"
-           dropdownPosition="down"
+           [appendTo]="appendTo"
            bindLabel="Name"
            [labelForId]="labelForId"
            [typeahead]="searchCharacterInput$"

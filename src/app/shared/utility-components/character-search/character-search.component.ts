@@ -18,6 +18,7 @@ export class CharacterSearchComponent implements OnInit, OnDestroy {
   @Input() clearOnSelect = false;
   @Input() labelForId: string;
   @Input() fControl: FormControl;
+  @Input() appendTo: string;
   selectedCharacter: CharacterSearchResultRow;
   searchCharacterInput$ = new Subject<string>();
   lastInput: string;
