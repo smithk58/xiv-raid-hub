@@ -30,6 +30,14 @@ export class ThemeSelectorComponent implements OnInit {
       const url = theme !== 'default' ?
         'assets/themes/' + theme + '.min.css' : 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css';
       themeElement.href = url;
+      // Add theme class to body for misc. overrides, clean up previous one. 'selectedTheme' will still be the previous theme at ths point
+      const html = document.querySelector('html');
+      if (this.selectedTheme !== 'default') {
+        html.classList.remove('theme-' + this.selectedTheme);
+      }
+      if (theme !== 'default') {
+        html.classList.add('theme-' + theme);
+      }
     }
   }
 }

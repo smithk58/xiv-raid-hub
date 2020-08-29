@@ -14,6 +14,9 @@
     const themeLink = document.getElementById('bootstrap-theme');
     if (theme && themeLink) {
       themeLink.href = 'assets/themes/' + theme + '.min.css';
+      // Add theme class to body for misc. overrides
+      const html = document.querySelector('html');
+      html.classList.add('theme-' + theme);
     }
   </script>
 </head>

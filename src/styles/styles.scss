@@ -89,6 +89,6 @@ and aria-label as well for accessibility*/
   display: block;
   width: 100%;
   height: 1px;
-  background: white;
+  background: white; /* TODO Has to be matched to theme*/
   z-index: 2;
 }

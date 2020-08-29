@@ -1,6 +1,6 @@
 <select [attr.id]="labelForId" class="d-inline text-capitalize"
-  [(ngModel)]="selectedTheme"
-  (ngModelChange)="themeChange($event)"
+        (ngModelChange)="themeChange($event)"
+        [(ngModel)]="selectedTheme"
 >
   <option *ngFor="let theme of themes" [value]="theme">{{theme}}</option>
 </select>
