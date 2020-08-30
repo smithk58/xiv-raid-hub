@@ -1,6 +1,23 @@
 @import 'variables';
-
+@import 'ng-select-overrides';
 .btn {
   padding-top: $btn-padding-y !important;
   padding-bottom: $btn-padding-y !important;
+}
+/*Mimics bootstraps valid/invalid, but with angulars native reactive form error classes*/
+.form-control {
+  .ng-was-validated &.ng-valid {
+    border-color: $form-feedback-valid-color;
+    &:focus {
+      border-color: $form-feedback-valid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-valid-color, .25);
+    }
+  }
+  .ng-was-validated &.ng-invalid {
+    border-color: $form-feedback-invalid-color;
+    &:focus {
+      border-color: $form-feedback-invalid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-invalid-color, .25);
+    }
+  }
 }

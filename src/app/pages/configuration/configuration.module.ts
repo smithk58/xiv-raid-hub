@@ -12,6 +12,7 @@ import { UsersCharactersComponent } from './config-characters/users-characters/u
 import { ConfigCharactersComponent } from './config-characters/config-characters.component';
 import { ConfigStaticsComponent } from './config-statics/config-statics.component';
 import { StaticsCardComponent } from './config-statics/statics-card/statics-card.component';
+import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler/scheduler.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { StaticsCardComponent } from './config-statics/statics-card/statics-card
     UsersCharactersComponent,
     ConfigCharactersComponent,
     ConfigStaticsComponent,
-    StaticsCardComponent
+    StaticsCardComponent,
+    SchedulerComponent
   ],
   entryComponents: [AddEditCharacterComponent, AddEditStaticComponent]
 })

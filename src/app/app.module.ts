@@ -17,6 +17,8 @@ import { YesNoModalComponent } from './shared/utility-components/modals/yes-no-m
 import { httpInterceptorProviders } from 'src/app/shared/interceptors';
 import { BASE_API_URL } from 'src/app/api-injection-token';
 import { IsAuthedGuard } from 'src/app/shared/IsAuthedGuard';
+import { NgbTimeAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTimeStringAdapter } from 'src/app/ISOTimeAdapter';
 
 @NgModule({
   imports: [
@@ -38,8 +40,9 @@ import { IsAuthedGuard } from 'src/app/shared/IsAuthedGuard';
   entryComponents: [YesNoModalComponent],
   providers: [
     httpInterceptorProviders,
+    IsAuthedGuard,
     { provide: BASE_API_URL, useValue: environment.baseHref },
-    IsAuthedGuard
+    {provide: NgbTimeAdapter, useClass: NgbTimeStringAdapter}
   ],
   bootstrap: [AppComponent]
 })

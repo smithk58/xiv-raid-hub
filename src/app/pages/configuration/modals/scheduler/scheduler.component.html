@@ -1,0 +1,41 @@
+<app-modal-header title="Schedule"></app-modal-header>
+<div class="modal-body">
+  <form #form="ngForm" [formGroup]="scheduleForm" (ngSubmit)="saveSchedule()" [class.ng-was-validated]="isSubmitted">
+    <p [hidden]="weeklyRaidTimes.controls.length > 0">You don't have any raid times. Click <span class="font-weight-bold">new time</span> to start scheduling!</p>
+    <div *ngFor="let wrt of weeklyRaidTimes.controls; let wrtIndex = index; let first = first;"
+         [class.border-top]="!first" [class.pt-3]="!first">
+      <h5 class="d-inline-block">Raid Time {{wrtIndex + 1}}</h5>
+      <button class="btn-svg text-danger ml-2" (click)="removeWeeklyRaidTime(wrtIndex)" ngbTooltip="Removes this raid time" container="body">
+        <fa-icon [icon]="faTrash" size="xl" aria-hidden="true"></fa-icon>
+      </button>
+      <div class="ml-4">
+        <!--Week days-->
+        <div class="form-group">
+          <label class="d-block">Days</label>
+          <div *ngFor="let dowControl of wrt.controls.daysOfWeek.controls; let dowIndex = index;" class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" [id]="'cb' + wrtIndex + '_' + dowIndex" [formControl]="dowControl">
+            <label class="form-check-label" [for]="'cb' + wrtIndex + '_' + dowIndex">{{daysOfWeek[dowIndex]}}</label>
+          </div>
+          <div *ngIf="wrt.controls.daysOfWeek.errors?.required" class="invalid-feedback" [class.d-block]="isSubmitted">
+            At least one day must be selected.
+          </div>
+        </div>
+        <!--start time-->
+        <div class="form-group">
+          <label [for]="'sd' + wrtIndex">Start time</label>
+          <ngb-timepicker [id]="'sd' + wrtIndex" [formControl]="wrt.controls.startTime" meridian="true" [spinners]="false"></ngb-timepicker>
+          <div *ngIf="wrt.controls.startTime.errors?.required" class="invalid-feedback" [class.d-block]="isSubmitted">
+            A fully defined time is required.
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<app-modal-footer mode="save" (save)="form.ngSubmit.emit()">
+  <div pre-content class="mr-auto">
+    <button class="btn btn-secondary" (click)="addWeeklyRaidTime()" ngbTooltip="Adds a new time block" container="body">
+      <fa-icon [icon]="faPlus" class="mr-1" aria-hidden="true"></fa-icon>New Time
+    </button>
+  </div>
+</app-modal-footer>

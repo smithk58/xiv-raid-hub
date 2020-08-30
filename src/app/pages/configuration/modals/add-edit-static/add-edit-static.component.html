@@ -1,12 +1,12 @@
 <app-modal-header [title]="isEdit ? 'Edit Static' : 'Add Static'"></app-modal-header>
 <div class="modal-body pb-0">
-  <form #form="ngForm" [formGroup]="staticForm" (ngSubmit)="saveStatic()">
+  <form #form="ngForm" [formGroup]="staticForm"(ngSubmit)="saveStatic()" [class.ng-was-validated]="isSubmitted">
     <!--Static name-->
     <div class="form-group">
       <label for="staticName">Static Name</label>
       <input id="staticName" type="text" formControlName="name" class="form-control">
       <div *ngIf="f.name.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
-        <div *ngIf="f.name.errors.required">A static name is required</div>
+        <div *ngIf="f.name.errors.required">A static name is required.</div>
       </div>
     </div>
     <div class="members-container scroll-shadow position-relative">
@@ -23,8 +23,8 @@
                                   appendTo=".modal-body"
             ></app-character-search>
             <div *ngIf="ctrlGrp.controls.character.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
-              <div *ngIf="ctrlGrp.controls.character.errors.required">A character is required</div>
-              <div *ngIf="ctrlGrp.controls.character.errors.notUnique">You can't add a character that you have already added</div>
+              <div *ngIf="ctrlGrp.controls.character.errors.required">A character is required.</div>
+              <div *ngIf="ctrlGrp.controls.character.errors.notUnique">You can't add a character that you have already added.</div>
             </div>
             <label [for]="'class_'+i" class="mt-3">Class</label>
             <app-class-search [fControl]="ctrlGrp.controls.comparisonClass"
@@ -32,7 +32,7 @@
                               appendTo=".modal-body">
             </app-class-search>
             <div *ngIf="ctrlGrp.controls.comparisonClass.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
-              <div *ngIf="ctrlGrp.controls.comparisonClass.errors.required">A class is required</div>
+              <div *ngIf="ctrlGrp.controls.comparisonClass.errors.required">A class is required.</div>
             </div>
           </div>
         </div>

@@ -1,0 +1,37 @@
+// Set ng-select variables to bootstrap
+$ng-select-disabled-text: $input-disabled-bg;
+// $ng-select-disabled-text styles the background color, not the text color. bug on ng-select
+$ng-select-height: $input-height;
+$ng-select-value-font-size: 0.875rem;
+$ng-select-placeholder: $input-placeholder-color;
+$ng-select-border: $input-border-color;
+$ng-select-value-padding-left: $input-btn-padding-x;
+
+@import "node_modules/@ng-select/ng-select/scss/default.theme.scss";
+
+.ng-select{
+  font-size: $input-font-size;
+
+  // Apply bootstrap validation
+  .ng-was-validated &.ng-valid {
+    .ng-select-container {
+      border-color: $form-feedback-valid-color;
+    }
+
+    &.ng-select-focused .ng-select-container {
+      border-color: $form-feedback-valid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-valid-color, .25);
+    }
+  }
+
+  .ng-was-validated &.ng-invalid {
+    .ng-select-container {
+      border-color: $form-feedback-invalid-color;
+    }
+
+    &.ng-select-focused .ng-select-container {
+      border-color: $form-feedback-invalid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-invalid-color, .25);
+    }
+  }
+}
