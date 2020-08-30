@@ -5,5 +5,5 @@ export interface CharacterGroup {
   id?: string;
   name: string;
   characters: Character[];
-  schedule?: WeeklyRaidTime[];
+  raidTimes: WeeklyRaidTime[];
 }

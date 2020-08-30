@@ -91,7 +91,7 @@ export class ConfigurationService {
    * Returns an observable of the list of statics for the current user.
    */
   getFriendStatics() {
-    return this.friendStatics = this.getHelper(this.friendStatics, StorageKeys.statics);
+    return this.friendStatics = this.getHelper(this.friendStatics, StorageKeys.friendsStatics);
   }
 
   /**
@@ -99,7 +99,7 @@ export class ConfigurationService {
    * @param nStatic - The static to add.
    */
   addFriendStatic(nStatic: CharacterGroup) {
-    this.addHelper(nStatic, this.friendStatics, StorageKeys.statics, true);
+    this.addHelper(nStatic, this.friendStatics, StorageKeys.friendsStatics, true);
   }
 
   /**
@@ -107,7 +107,7 @@ export class ConfigurationService {
    * @param uStatic - The updated static.
    */
   updateFriendStatic(uStatic: CharacterGroup) {
-    return this.updateHelper(uStatic, this.friendStatics, StorageKeys.statics);
+    return this.updateHelper(uStatic, this.friendStatics, StorageKeys.friendsStatics);
   }
 
   /**
@@ -115,7 +115,7 @@ export class ConfigurationService {
    * @param staticId - The static id to delete.
    */
   deleteFriendStatic(staticId: string) {
-    return this.deleteHelper(staticId, this.friendStatics, StorageKeys.statics);
+    return this.deleteHelper(staticId, this.friendStatics, StorageKeys.friendsStatics);
   }
   /**
    * Returns an observable of the list of comparison targets for the current user.

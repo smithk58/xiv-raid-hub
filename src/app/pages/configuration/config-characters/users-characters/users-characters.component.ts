@@ -35,42 +35,37 @@ export class UsersCharactersComponent implements OnInit, OnDestroy {
    * Launches a modal for adding/editing a character in a users cahracter list.
    * @param characterId - The character ID to load in the modal, otherwise assumes you want to add a new character.
    */
-  addEditCharacterModal(characterId?: number) {
+  addEditCharacterModal(character?: Character) {
     const modal = this.modalService.open(AddEditCharacterComponent);
-    const isUpdate = typeof(characterId) !== 'undefined';
-    // Populate the character on the modal if this is an edit attempt
-    if (isUpdate) {
-      modal.componentInstance.characterToEdit = this.characters.find((character) => character.id === characterId);
-    }
-    modal.componentInstance.existingCharacterIds = this.characters.reduce((map, character) => {map[character.id] = true; return map; }, {});
-    modal.result.then((character) => {
-        // Add/update the result in the users character list
-        if (isUpdate) {
-          this.wlService.updateUserCharacter(character);
-        } else {
-          this.wlService.addUserCharacter(character);
-        }
-        this.notify.success({text: character.name + ' was successfully ' + (isUpdate ? 'updated!' : 'added!')});
-      }, () => {}
+    modal.componentInstance.characterToEdit = character;
+    modal.componentInstance.existingCharacterIds = this.characters.reduce((map, char) => {map[char.id] = true; return map; }, {});
+    modal.result.then((res) => {
+      // Add/update the result in the users character list
+      if (character) {
+        this.wlService.updateUserCharacter(res);
+      } else {
+        this.wlService.addUserCharacter(res);
+      }
+      this.notify.success({text: character.name + ' was successfully ' + (character ? 'updated!' : 'added!')});
+    }, () => {} // They aborted, do nothing
     );
   }
   /**
    * Deletes the character with the specified id from the character list, if found.
    * @param characterId - The character id to delete.
    */
-  deleteCharacter(characterId: number) {
+  deleteCharacter(character: Character) {
     const modal = this.modalService.open(YesNoModalComponent);
-    const character = this.characters.find((char) => char.id === characterId);
     modal.componentInstance.modalTitle = 'Delete?';
     modal.componentInstance.modalText = 'Are you sure you want to delete ' + character.name + ' from your character list?';
     modal.result.then(doDelete => {
       if (doDelete) {
-        const res = this.wlService.deleteUserCharacter(characterId);
+        const res = this.wlService.deleteUserCharacter(character.id);
         if (res) {
           this.notify.success({text: 'Character was successfully deleted!'});
         }
       }
-    }, () => {});
+    }, () => {}); // They aborted, do nothing
   }
 
   /**

@@ -115,7 +115,8 @@ export class AddEditStaticComponent implements OnInit {
       const nStatic: CharacterGroup = {
         id: this.isEdit ? this.groupToEdit.id : undefined,
         name: this.staticForm.get('name').value,
-        characters
+        characters,
+        raidTimes: []
       };
       this.modal.close(nStatic);
     }

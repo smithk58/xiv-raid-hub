@@ -8,6 +8,7 @@ import { ConfigurationService } from 'src/app/pages/configuration/configuration.
 import { AddEditStaticComponent } from 'src/app/pages/configuration/modals/add-edit-static/add-edit-static.component';
 import { YesNoModalComponent } from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
 import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler/scheduler.component';
+import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 
 @Component({
   selector: 'app-statics-card',
@@ -25,37 +26,34 @@ export class StaticsCardComponent {
   @Output() deleteStatic: EventEmitter<string> = new EventEmitter();
   constructor(private wlService: ConfigurationService, private modalService: NgbModal) { }
 
-  addEditCalendarModal(staticId?: string) {
+  addEditCalendarModal(group: CharacterGroup) {
     const modal = this.modalService.open(SchedulerComponent,  {backdrop: 'static', size: 'lg'});
-    modal.result.then((schedule) => {
-      console.log('schedule', schedule);
-    }, () => {});
+    modal.componentInstance.raidTimes = group.raidTimes;
+    modal.result.then((raidTimes: WeeklyRaidTime[]) => {
+      group.raidTimes = raidTimes;
+      this.updateStatic.emit(group);
+    }, () => {}); // They aborted, do nothing
   }
-  addEditStaticModal(staticId?: string) {
+  addEditStaticModal(group?: CharacterGroup) {
     const modal = this.modalService.open(AddEditStaticComponent, {backdrop: 'static', size: 'lg'});
-    const isUpdate = typeof(staticId) !== 'undefined';
-    // Populate the character on the modal if this is an edit attempt
-    if (isUpdate) {
-      modal.componentInstance.groupToEdit = this.statics.find((s) => s.id === staticId);
-    }
-    modal.result.then((group) => {
-        // Add/update the result in the users statics
-        if (isUpdate) {
-          this.updateStatic.emit(group);
-        } else {
-          this.addStatic.emit(group);
-        }
-      }, () => {} // They aborted, do nothing
+    modal.componentInstance.groupToEdit = group;
+    modal.result.then((res: CharacterGroup) => {
+      // Add/update the result in the users statics
+      if (group) {
+        this.updateStatic.emit(res);
+      } else {
+        this.addStatic.emit(res);
+      }
+    }, () => {} // They aborted, do nothing
     );
   }
-  deleteStaticModal(staticId: string) {
+  deleteStaticModal(group: CharacterGroup) {
     const modal = this.modalService.open(YesNoModalComponent);
-    const cStatic = this.statics.find((group) => group.id === staticId);
     modal.componentInstance.modalTitle = 'Delete?';
-    modal.componentInstance.modalText = 'Are you sure you want to delete ' + cStatic.name + ' from your ' + this.cardSubject + 's?';
+    modal.componentInstance.modalText = 'Are you sure you want to delete ' + group.name + ' from your ' + this.cardSubject + 's?';
     modal.result.then(doDelete => {
       if (doDelete) {
-        this.deleteStatic.emit(staticId);
+        this.deleteStatic.emit(group.id);
       }
     }, () => {}); // They aborted, do nothing
   }

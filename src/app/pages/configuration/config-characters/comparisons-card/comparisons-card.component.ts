@@ -47,14 +47,14 @@ export class ComparisonsCardComponent implements OnInit, OnDestroy {
     const existing = this.comparisonTargets.reduce((map, character) => {map[character.id] = true; return map; }, {});
     modal.componentInstance.existingCharacterIds = existing;
     modal.result.then((character) => {
-        // Add/update the result in the users friend list
-        if (isUpdate) {
-          this.wlService.updateComparisonTarget(character);
-        } else {
-          this.wlService.addComparisonTarget(character);
-        }
-        this.notify.success({text: character.name + ' was successfully ' + (isUpdate ? 'updated!' : 'added!')});
-      }, () => {}
+      // Add/update the result in the users friend list
+      if (isUpdate) {
+        this.wlService.updateComparisonTarget(character);
+      } else {
+        this.wlService.addComparisonTarget(character);
+      }
+      this.notify.success({text: character.name + ' was successfully ' + (isUpdate ? 'updated!' : 'added!')});
+    }, () => {}
     );
   }
 

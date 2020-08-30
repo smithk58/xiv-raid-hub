@@ -45,14 +45,14 @@ export class FriendsCardComponent implements OnInit, OnDestroy {
     }
     modal.componentInstance.existingCharacterIds = this.friends.reduce((map, character) => {map[character.id] = true; return map; }, {});
     modal.result.then((character) => {
-        // Add/update the result in the users friend list
-        if (isUpdate) {
-          this.wlService.updateFriend(character);
-        } else {
-          this.wlService.addFriend(character);
-        }
-        this.notify.success({text: character.name + ' was successfully ' + (isUpdate ? 'updated!' : 'added!')});
-      }, () => {}
+      // Add/update the result in the users friend list
+      if (isUpdate) {
+        this.wlService.updateFriend(character);
+      } else {
+        this.wlService.addFriend(character);
+      }
+      this.notify.success({text: character.name + ' was successfully ' + (isUpdate ? 'updated!' : 'added!')});
+    }, () => {}
     );
   }
   /**

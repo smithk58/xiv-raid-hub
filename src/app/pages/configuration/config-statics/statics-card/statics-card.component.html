@@ -19,23 +19,23 @@
       <li *ngFor="let static of statics" class="list-group-item d-flex">
         <div>
           <span class="wrap-flex-overflow mr-3" [ngbTooltip]="static.name">{{static.name}}</span>
-          <span class="badge badge-warning cursor-pointer" [hidden]="static.schedule"
+          <span class="badge badge-warning cursor-pointer" [hidden]="static.raidTimes.length > 0"
                 [ngbPopover]="noScheduleWarning" openDelay="300" popoverTitle="No Schedule" triggers="click" popoverClass="no-schedule-popover">
             No schedule
           </span>
         </div>
         <div class="ml-auto actions-container">
-          <button class="btn-svg" (click)="addEditCalendarModal(static.id)"
+          <button class="btn-svg" (click)="addEditCalendarModal(static)"
                   aria-label="Edits the schedule of the current {{cardSubject}}"
                   ngbTooltip="Edit this {{cardSubject}}'s schedule">
             <fa-icon [icon]="faCalendar" size="xl" aria-hidden="true"></fa-icon>
           </button>
-          <button class="btn-svg" (click)="addEditStaticModal(static.id)"
+          <button class="btn-svg" (click)="addEditStaticModal(static)"
                   aria-label="Edits the current {{cardSubject}}"
                   ngbTooltip="Edit this {{cardSubject}}">
             <fa-icon [icon]="faEdit" size="xl" aria-hidden="true"></fa-icon>
           </button>
-          <button class="btn-svg text-danger" (click)="deleteStaticModal(static.id)"
+          <button class="btn-svg text-danger" (click)="deleteStaticModal(static)"
                   aria-label="Deletes the current {{cardSubject}}"
                   ngbTooltip="Remove this {{cardSubject}}">
             <fa-icon [icon]="faTrash" size="xl" aria-hidden="true"></fa-icon>

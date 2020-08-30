@@ -2,7 +2,7 @@ export enum StorageKeys {
   usersCharacters = 'usersCharacters',
   usersStatics = 'usersStatics',
   friends = 'friends',
-  statics = 'statics',
+  friendsStatics = 'statics',
   comparisonTargets = 'comparisonTargets',
   comparisonStatics = 'comparisonGroup'
 }
