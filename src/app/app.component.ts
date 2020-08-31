@@ -13,9 +13,26 @@ export class AppComponent implements OnInit {
     tooltipConfig.openDelay = 1000;
     popoverConfig.openDelay = 1000;
     popoverConfig.triggers = 'mouseenter:mouseleave';
+    this.appendTheme();
   }
 
   ngOnInit() {
     this.userService.refreshSession();
+  }
+  appendTheme() {
+    // TODO Should be controlled server side to prevent flicker, but too lazy atm
+    // Load theme
+    const theme = (localStorage.getItem('theme') || 'default') + '-theme.css';
+    /*const preloadElement = document.createElement('link');
+    preloadElement.rel = 'preload';
+    preloadElement.as = 'style';
+    preloadElement.href = theme;
+    document.head.appendChild(preloadElement);*/
+
+    const lazyStyleElement = document.createElement('link');
+    lazyStyleElement.id = 'bootstrap-theme';
+    lazyStyleElement.rel = 'stylesheet';
+    lazyStyleElement.href = theme;
+    document.head.appendChild(lazyStyleElement);
   }
 }

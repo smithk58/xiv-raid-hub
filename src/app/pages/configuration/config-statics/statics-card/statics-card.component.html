@@ -20,7 +20,8 @@
         <div>
           <span class="wrap-flex-overflow mr-3" [ngbTooltip]="static.name">{{static.name}}</span>
           <span class="badge badge-warning cursor-pointer" [hidden]="static.raidTimes.length > 0"
-                [ngbPopover]="noScheduleWarning" openDelay="300" popoverTitle="No Schedule" triggers="click" popoverClass="no-schedule-popover">
+                [ngbPopover]="noScheduleWarning" openDelay="300" popoverTitle="No Schedule" triggers="click"
+                popoverClass="no-schedule-popover" placement="right">
             No schedule
           </span>
         </div>

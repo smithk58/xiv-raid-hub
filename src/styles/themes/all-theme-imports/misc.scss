@@ -1,9 +1,3 @@
-@import 'variables';
-@import 'ng-select-overrides';
-.btn {
-  padding-top: $btn-padding-y !important;
-  padding-bottom: $btn-padding-y !important;
-}
 /*Mimics bootstraps valid/invalid, but with angulars native reactive form error classes*/
 .form-control {
   .ng-was-validated &.ng-valid {
