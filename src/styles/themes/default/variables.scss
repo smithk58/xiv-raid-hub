@@ -1,0 +1,4 @@
+@import "node_modules/bootstrap/scss/mixins";
+// Darken the default navbar color a bit
+$navbar-dark-color: rgba(255, 255, 255, 0.8); // default is .5
+$navbar-dark-hover-color: rgba(255, 255, 255, 0.9); // default is .75
