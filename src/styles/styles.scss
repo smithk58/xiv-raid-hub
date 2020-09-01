@@ -76,11 +76,8 @@ body {
   display: block;
   width: 100%;
   height: 1px;
-  background: white;
+  background: white; /*Overridden in slate theme*/
   z-index: 2;
-}
-.theme-slate .scroll-shadow::after {
-  background: #32383e;
 }
 /* For a container element with child actin buttons*/
 .actions-container > button:not(:first-child) { /*TODO Apply to other action lists*/

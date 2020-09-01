@@ -1,5 +1,5 @@
 .members-container {
-  max-height: calc(100vh - 400px);
+  max-height: calc(100vh - 325px);
   min-height: 200px;
   overflow-y: auto;
   overflow-x: hidden;
