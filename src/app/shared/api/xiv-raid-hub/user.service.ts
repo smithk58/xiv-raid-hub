@@ -3,11 +3,11 @@ import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
 import { ReplaySubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { BASE_API_URL } from 'src/app/api-injection-token';
 import { UserSession } from 'src/app/shared/api/xiv-raid-hub/models/user-session';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +29,19 @@ export class UserService {
     }));
   }
   refreshSession() {
+    const timezone = this.getTimezone();
+    const config = {
+      params: {
+        timezone
+      }
+    };
     // Not very "reactive", but rxjs shenanigans are a annoying me
-    this.http.get<UserSession>('/session').subscribe(session => {
+    this.http.get<UserSession>('/session', config).pipe(
+      tap((session) => {
+        // Default the timezone if the server failed to parse it to shorthand for whatever reason
+        session.timezone = session.timezone ? session.timezone : this.getTimezone();
+      })
+    ).subscribe(session => {
       this.userSession$.next(session);
     }, error => {
       this.notify.error({text: 'Failed to get a session. ' + error});
@@ -38,5 +49,8 @@ export class UserService {
   }
   getUserSession() {
     return this.userSession$;
+  }
+  private getTimezone(): string {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
   }
 }

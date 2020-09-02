@@ -5,7 +5,7 @@
     <div *ngFor="let wrt of weeklyRaidTimes.controls; let wrtIndex = index; let first = first;"
          [class.border-top]="!first" [class.pt-3]="!first">
       <h5 class="d-inline-block">Raid Time {{wrtIndex + 1}}</h5>
-      <button class="btn-svg text-danger ml-2" (click)="removeWeeklyRaidTime(wrtIndex)" ngbTooltip="Removes this raid time" container="body">
+      <button class="btn-svg text-danger ml-2" type="button" (click)="removeWeeklyRaidTime(wrtIndex)" ngbTooltip="Removes this raid time" container="body">
         <fa-icon [icon]="faTrash" size="xl" aria-hidden="true"></fa-icon>
       </button>
       <div class="ml-4">
@@ -22,8 +22,9 @@
         </div>
         <!--start time-->
         <div class="form-group">
-          <label [for]="'sd' + wrtIndex">Start time</label>
-          <ngb-timepicker [id]="'sd' + wrtIndex" [formControl]="wrt.controls.startTime" meridian="true" [spinners]="false"></ngb-timepicker>
+          <label [for]="'sd' + wrtIndex" class="d-block">Start time</label>
+          <ngb-timepicker [id]="'sd' + wrtIndex" class="d-inline-block" [formControl]="wrt.controls.startTime" meridian="true" [spinners]="false"></ngb-timepicker>
+          <span class="d-inline-block ml-2">{{timezone}}</span>
           <div *ngIf="wrt.controls.startTime.errors?.required" class="invalid-feedback" [class.d-block]="isSubmitted">
             A fully defined time is required.
           </div>

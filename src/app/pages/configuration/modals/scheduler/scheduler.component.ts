@@ -10,6 +10,7 @@ import {
   WeeklyRaidTime,
   daysInWeekMaskToBools
 } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
+import { UserService } from 'src/app/shared/api/xiv-raid-hub/user.service';
 
 @Component({
   selector: 'app-scheduler',
@@ -23,7 +24,8 @@ export class SchedulerComponent implements OnInit {
   scheduleForm: FormGroup;
   weeklyRaidTimes: FormArray;
   isSubmitted = false;
-  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder) { }
+  timezone: string;
+  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private userService: UserService) { }
 
   ngOnInit(): void {
     // Build schedule form
@@ -37,6 +39,10 @@ export class SchedulerComponent implements OnInit {
         this.addWeeklyRaidTime(raidTime);
       }
     }
+    // Get the users time zone for display purposes
+    this.userService.getUserSession().subscribe((user) => {
+      this.timezone = user.timezone;
+    });
   }
 
   /**
