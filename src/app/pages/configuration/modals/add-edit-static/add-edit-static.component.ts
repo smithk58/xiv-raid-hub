@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
-import { CharacterGroup } from 'src/app/shared/api/xiv-raid-hub/models/character-group';
+import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { CharacterSearchResultRow } from '@xivapi/angular-client';
 
 @Component({
@@ -19,7 +19,7 @@ export class AddEditStaticComponent implements OnInit {
   isSubmitted = false;
 
   isEdit = false;
-  groupToEdit: CharacterGroup;
+  groupToEdit: RaidGroup;
   existingCharacterIds: Record<number, number> = {}; /*id -> howManyTimesItsUsed*/
   indexToCharacterId: Record<number, number> = {}; /*index -> number*/
   constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder) { }
@@ -27,11 +27,13 @@ export class AddEditStaticComponent implements OnInit {
   ngOnInit() {
     this.isEdit = typeof(this.groupToEdit) !== 'undefined';
     const staticName = this.isEdit ? this.groupToEdit.name : '';
+    const purpose = this.isEdit ? this.groupToEdit.purpose : '';
     const characters = this.isEdit ? this.groupToEdit.characters : undefined;
     // Build form (character control has to be separated so we can trigger validate)
     this.characterControls = this.buildCharacterControlList(characters);
     this.staticForm = this.formBuilder.group({
       name: [staticName, Validators.required],
+      purpose: [purpose, Validators.maxLength(10)],
       characters: this.characterControls
     });
   }
@@ -112,11 +114,12 @@ export class AddEditStaticComponent implements OnInit {
         });
       });
       // Build static from characters + static
-      const nStatic: CharacterGroup = {
+      const nStatic: RaidGroup = {
         id: this.isEdit ? this.groupToEdit.id : undefined,
         name: this.staticForm.get('name').value,
+        purpose: this.staticForm.get('purpose').value,
         characters,
-        raidTimes: []
+        weeklyRaidTimes: []
       };
       this.modal.close(nStatic);
     }

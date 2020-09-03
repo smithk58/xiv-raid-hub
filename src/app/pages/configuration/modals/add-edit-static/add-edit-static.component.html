@@ -1,14 +1,25 @@
 <app-modal-header [title]="isEdit ? 'Edit Static' : 'Add Static'"></app-modal-header>
 <div class="modal-body pb-0">
   <form #form="ngForm" [formGroup]="staticForm"(ngSubmit)="saveStatic()" [class.ng-was-validated]="isSubmitted">
-    <!--Static name-->
-    <div class="form-group">
-      <label for="staticName">Static Name</label>
-      <input id="staticName" type="text" formControlName="name" class="form-control">
-      <div *ngIf="f.name.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
-        <div *ngIf="f.name.errors.required">A static name is required.</div>
+    <div class="row">
+      <!--Static name-->
+      <div class="form-group col">
+        <label for="staticName">Static Name</label>
+        <input id="staticName" type="text" formControlName="name" class="form-control">
+        <div *ngIf="f.name.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
+          <div *ngIf="f.name.errors.required">A static name is required.</div>
+        </div>
+      </div>
+      <!--Static tag-->
+      <div class="form-group col">
+        <label for="staticPurpose">Static Purpose</label>
+        <input id="staticPurpose" type="text" formControlName="purpose" class="form-control" placeholder="e.g. Savage, UWU">
+        <div *ngIf="f.purpose.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
+          <div *ngIf="f.purpose.errors.maxlength">Max length of 10 characters.</div>
+        </div>
       </div>
     </div>
+
     <div class="members-container scroll-shadow position-relative">
       <div class="row mr-1">
         <!--Repeat the member fields-->
