@@ -79,9 +79,22 @@ body {
   background: white; /*Overridden in slate theme*/
   z-index: 2;
 }
+.actions-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
 /* For a container element with child actin buttons*/
 .actions-container > button:not(:first-child) { /*TODO Apply to other action lists*/
   margin-left: 1rem;
+}
+/*For a container of multiple text elements, where one has .wrap-flex-overflow and will ellipsis when shrunk*/
+.text-ellipsis-container {
+  display: flex;
+  overflow: hidden;
+  > * {
+    margin-left: 0.25rem;
+    align-self: center;
+  }
 }
 /* For wrapping svgs/images in <button>'s*/
 .btn-svg {

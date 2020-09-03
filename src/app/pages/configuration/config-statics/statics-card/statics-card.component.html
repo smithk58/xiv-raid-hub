@@ -17,10 +17,10 @@
     <p [hidden]="raidGroups.length > 0" class="m-0 text-center">You haven't added any {{cardSubject}}s yet.</p>
     <ul class="list-group">
       <li *ngFor="let raidGroup of raidGroups" class="list-group-item d-flex">
-        <div>
+        <div class="text-ellipsis-container pr-2">
           <span class="wrap-flex-overflow" [ngbTooltip]="raidGroup.name">{{raidGroup.name}}</span>
-          <span class="badge badge-info ml-1">{{raidGroup.purpose}}</span>
-          <span class="badge badge-warning cursor-pointer ml-3" [hidden]="raidGroup.weeklyRaidTimes.length > 0"
+          <span class="badge badge-info">{{raidGroup.purpose}}</span>
+          <span class="badge badge-warning cursor-pointer" [hidden]="raidGroup.weeklyRaidTimes.length > 5"
                 [ngbPopover]="noScheduleWarning" openDelay="300" popoverTitle="No Schedule" triggers="click"
                 popoverClass="no-schedule-popover" placement="right">
             No schedule

@@ -12,13 +12,13 @@
     <p [hidden]="characters.length > 0" class="m-0 text-center">You haven't added any characters yet.</p>
     <ul class="list-group">
       <li *ngFor="let character of characters" class="list-group-item d-flex">
-        <div class="d-flex align-items-center">
+        <div class="text-ellipsis-container mr-2">
           <img class="class-icon mr-1" aria-hidden="true"
                [alt]="character.defaultClass" [src]="'assets/class-icons/'+character.defaultClass+'.png'"
                [ngClass]="classToRole[character.defaultClass] + '-bg'"
                [ngbTooltip]="character.defaultClass"
           />
-          <span class="wrap-flex-overflow mr-3" [ngbTooltip]="character.name">{{character.name}}</span>
+          <span class="wrap-flex-overflow" [ngbTooltip]="character.name">{{character.name}}</span>
           <span class="badge badge-info">{{character.server}}</span>
         </div>
         <div class="ml-auto actions-container">
