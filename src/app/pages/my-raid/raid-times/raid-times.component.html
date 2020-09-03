@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex align-items-center">
+      <span class="text-capitalize">Upcoming Raid Times</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <p [hidden]="raidTimeDisplays.length > 0" class="m-0 text-center">You don't have raid days in the next week!</p>
+    <ul class="list-group">
+      <li *ngFor="let rtd of raidTimeDisplays" class="list-group-item d-flex">
+        <span class="d-inline-block pr-1">{{rtd.raidGroup.name}} in</span>
+        <countdown [config]="rtd.countdownConfig"></countdown>
+      </li>
+    </ul>
+  </div>
+</div>

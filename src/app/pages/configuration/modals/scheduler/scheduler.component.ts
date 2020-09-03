@@ -6,7 +6,7 @@ import { faTrashAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import {
   DaysInWeek,
-  CalculateDaysInWeekMask,
+  calculateDaysInWeekMask,
   WeeklyRaidTime,
   daysInWeekMaskToBools
 } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
@@ -71,7 +71,7 @@ export class SchedulerComponent implements OnInit {
       for (const raidTime of this.weeklyRaidTimes.value) {
         raidTimes.push({
           startTime: raidTime.startTime,
-          weekMask: CalculateDaysInWeekMask(raidTime.daysOfWeek)
+          weekMask: calculateDaysInWeekMask(raidTime.daysOfWeek)
         });
       }
       this.modal.close(raidTimes);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CharacterGroup } from 'src/app/shared/api/xiv-raid-hub/models/character-group';
+import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { ConfigurationService } from 'src/app/pages/configuration/configuration.service';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 
@@ -10,19 +10,19 @@ import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.ser
   styleUrls: ['./config-statics.component.scss']
 })
 export class ConfigStaticsComponent implements OnInit {
-  statics: CharacterGroup[] = [];
+  raidGroups: RaidGroup[] = [];
   constructor(private wlService: ConfigurationService, private notify: PNotifyService) { }
 
   ngOnInit() {
-    this.wlService.getUsersStatics().subscribe(statics => {
-      this.statics = statics;
+    this.wlService.getUsersStatics().subscribe(raidGroups => {
+      this.raidGroups = raidGroups;
     });
   }
-  addUserStatic(newStatic: CharacterGroup) {
+  addUserStatic(newStatic: RaidGroup) {
     this.wlService.addUserStatic(newStatic);
     this.notify.success({text: newStatic.name + ' was successfully added!'});
   }
-  updateUserStatic(updatedStatic: CharacterGroup) {
+  updateUserStatic(updatedStatic: RaidGroup) {
     const res = this.wlService.updateUserStatic(updatedStatic);
     if (res) {
       this.notify.success({text: updatedStatic.name + ' was successfully updated!'});

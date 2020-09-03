@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "analyze-bundle": "ng run xiv-raid-hub:analyze --gzip"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +35,10 @@
     "bootstrap": "^4.4.1",
     "bootswatch": "^4.5.2",
     "core-js": "^2.5.4",
+    "date-fns": "^2.16.1",
+    "date-fns-tz": "^1.0.10",
+    "lodash": "^4.17.20",
+    "ngx-countdown": "^10.0.0",
     "pnotify": "^4.0.0",
     "rxjs": "~6.6.2",
     "tslib": "^1.10.0",
@@ -44,6 +49,7 @@
     "@angular/cli": "~9.1.12",
     "@angular/compiler-cli": "~9.1.12",
     "@angular/language-service": "~9.1.12",
+    "@ngx-builders/analyze": "^2.0.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",

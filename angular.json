@@ -37,7 +37,8 @@
                 "input": "src/styles/themes/slate/index.scss",
                 "lazy": true,
                 "bundleName": "slate-theme"
-              },{
+              },
+              {
                 "input": "src/styles/themes/spacelab/index.scss",
                 "lazy": true,
                 "bundleName": "spacelab-theme"
@@ -126,6 +127,12 @@
             "exclude": [
               "**/node_modules/**"
             ]
+          }
+        },
+        "analyze": {
+          "builder": "@ngx-builders/analyze:analyze",
+          "options": {
+            "outputPath": "dist/xiv-raid-hub"
           }
         }
       }

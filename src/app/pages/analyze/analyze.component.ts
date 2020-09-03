@@ -6,7 +6,7 @@ import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import {FFLogsApiService} from 'src/app/shared/api/fflogs/fflogs-api.service';
 import {ConfigurationService} from '../configuration/configuration.service';
 import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
-import {CharacterGroup} from 'src/app/shared/api/xiv-raid-hub/models/character-group';
+import {RaidGroup} from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import {PNotifyService} from 'src/app/shared/notifications/pnotify-service.service';
 
 @Component({
@@ -23,13 +23,13 @@ export class AnalyzeComponent implements OnInit, OnDestroy {
   /*Available characters/statics*/
   friends$; statics$;
   friends: Character[] = [];
-  statics: CharacterGroup[] = [];
+  raidGroups: RaidGroup[] = [];
   ngOnInit() {
     this.friends$ = this.wlService.getFriends().subscribe(friends => {
       this.friends = friends;
     });
     this.statics$ = this.wlService.getFriendStatics().subscribe(statics => {
-      this.statics = statics;
+      this.raidGroups = statics;
     });
   }
   /**
@@ -48,7 +48,7 @@ export class AnalyzeComponent implements OnInit, OnDestroy {
    * Triggered when a static is selected from the static select input. Triggers analysis on that particular static.
    * @param sStatic - The static that was selected
    */
-  staticSelected(sStatic: CharacterGroup) {
+  staticSelected(sStatic: RaidGroup) {
     // Navigate to the group analysis route
     this.router.navigate(['analyze/group/', sStatic.id]).catch( err => {
       this.notify.error({text: 'There was an error while trying to send you to group analysis. ' + err});

@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {SharedModule} from 'src/app/shared/shared.module';
-import {MyRaidComponent} from 'src/app/pages/my-raid/my-raid.component';
-import {MyRaidRoutingModule} from 'src/app/pages/my-raid/my-raid-routing.module';
+import { CountdownModule } from 'ngx-countdown';
+
+import { SharedModule } from 'src/app/shared/shared.module';
+import { MyRaidComponent } from 'src/app/pages/my-raid/my-raid.component';
+import { MyRaidRoutingModule } from 'src/app/pages/my-raid/my-raid-routing.module';
+import { RaidTimesComponent } from './raid-times/raid-times.component';
+
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    MyRaidRoutingModule
+    MyRaidRoutingModule,
+    CountdownModule
   ],
-  declarations: [MyRaidComponent]
+  declarations: [MyRaidComponent, RaidTimesComponent]
 })
 export class MyRaidModule { }

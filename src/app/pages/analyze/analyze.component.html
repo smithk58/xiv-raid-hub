@@ -27,7 +27,7 @@
                ngbTooltip="Go to Watchlist to add statics that you want to do analysis on often."
                placement="right"
       ></fa-icon>
-      <ng-select [items]="statics"
+      <ng-select [items]="raidGroups"
                  bindLabel="name"
                  labelForId="myStaticsInput"
                  (change)="staticSelected($event)"

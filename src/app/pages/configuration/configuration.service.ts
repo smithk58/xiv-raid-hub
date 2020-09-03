@@ -5,7 +5,7 @@ import { map, take } from 'rxjs/operators';
 
 import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
 import { StorageKeys } from 'src/app/shared/importExport/StorageKeys';
-import { CharacterGroup } from 'src/app/shared/api/xiv-raid-hub/models/character-group';
+import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { Utils } from 'src/app/shared/Utils';
 
 @Injectable({
@@ -13,11 +13,11 @@ import { Utils } from 'src/app/shared/Utils';
 })
 export class ConfigurationService {
   usersCharacters: BehaviorSubject<Character[]>;
-  usersStatics: BehaviorSubject<CharacterGroup[]>;
+  usersStatics: BehaviorSubject<RaidGroup[]>;
   friends: BehaviorSubject<Character[]>;
-  friendStatics: BehaviorSubject<CharacterGroup[]>;
+  friendStatics: BehaviorSubject<RaidGroup[]>;
   comparisonTargets: BehaviorSubject<Character[]>;
-  comparisonStatics: BehaviorSubject<CharacterGroup[]>;
+  comparisonStatics: BehaviorSubject<RaidGroup[]>;
   constructor() { }
   getUsersCharacters() {
     return this.usersCharacters = this.getHelper(this.usersCharacters, StorageKeys.usersCharacters);
@@ -34,10 +34,10 @@ export class ConfigurationService {
   getUsersStatics() {
     return this.usersStatics = this.getHelper(this.usersStatics, StorageKeys.usersStatics);
   }
-  addUserStatic(group: CharacterGroup) {
+  addUserStatic(group: RaidGroup) {
     this.addHelper(group, this.usersStatics, StorageKeys.usersStatics, true);
   }
-  updateUserStatic(group: CharacterGroup) {
+  updateUserStatic(group: RaidGroup) {
     return this.updateHelper(group, this.usersStatics, StorageKeys.usersStatics);
   }
   deleteUsersStatic(staticId: string) {
@@ -98,7 +98,7 @@ export class ConfigurationService {
    * Adds the static to the existing list of statics.
    * @param nStatic - The static to add.
    */
-  addFriendStatic(nStatic: CharacterGroup) {
+  addFriendStatic(nStatic: RaidGroup) {
     this.addHelper(nStatic, this.friendStatics, StorageKeys.friendsStatics, true);
   }
 
@@ -106,7 +106,7 @@ export class ConfigurationService {
    * Updates the specified static in the list of statics, if found (matches on id).
    * @param uStatic - The updated static.
    */
-  updateFriendStatic(uStatic: CharacterGroup) {
+  updateFriendStatic(uStatic: RaidGroup) {
     return this.updateHelper(uStatic, this.friendStatics, StorageKeys.friendsStatics);
   }
 
@@ -155,7 +155,7 @@ export class ConfigurationService {
    * Adds the group to the current users comparison statics.
    * @param group - The static to add.
    */
-  addComparisonStatic(group: CharacterGroup) {
+  addComparisonStatic(group: RaidGroup) {
     this.addHelper(group, this.comparisonStatics, StorageKeys.comparisonStatics, true);
   }
 
@@ -163,7 +163,7 @@ export class ConfigurationService {
    * Updates the specified static in the comparison statics list, if found (matches on id).
    * @param group - The group to update.
    */
-  updateComparisonStatic(group: CharacterGroup) {
+  updateComparisonStatic(group: RaidGroup) {
     return this.updateHelper(group, this.comparisonStatics, StorageKeys.comparisonStatics);
   }
   /**

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {Encounter} from 'src/app/shared/api/fflogs/models/Zone';
-import {CharacterGroup} from 'src/app/shared/api/xiv-raid-hub/models/character-group';
+import {RaidGroup} from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
 import {ActivatedRoute} from '@angular/router';
 import {ConfigurationService} from 'src/app/pages/configuration/configuration.service';
@@ -13,7 +13,7 @@ import {ConfigurationService} from 'src/app/pages/configuration/configuration.se
 })
 export class AnalyzeGroupComponent implements OnInit {
   encounters: Encounter[];
-  group: CharacterGroup;
+  group: RaidGroup;
   reportCharacter: Character; /*used to get reports for the whole group*/
   constructor(private route: ActivatedRoute, private wlService: ConfigurationService) { }
 
