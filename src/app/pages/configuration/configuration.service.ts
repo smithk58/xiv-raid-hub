@@ -7,6 +7,9 @@ import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
 import { StorageKeys } from 'src/app/shared/importExport/StorageKeys';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { Utils } from 'src/app/shared/Utils';
+import { HttpClient } from '@angular/common/http';
+import { UserSession } from 'src/app/shared/api/xiv-raid-hub/models/user-session';
+import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +21,7 @@ export class ConfigurationService {
   friendStatics: BehaviorSubject<RaidGroup[]>;
   comparisonTargets: BehaviorSubject<Character[]>;
   comparisonStatics: BehaviorSubject<RaidGroup[]>;
-  constructor() { }
+  constructor(private http: HttpClient) { }
   getUsersCharacters() {
     return this.usersCharacters = this.getHelper(this.usersCharacters, StorageKeys.usersCharacters);
   }
@@ -32,7 +35,11 @@ export class ConfigurationService {
     return this.deleteHelper(characterId, this.usersCharacters, StorageKeys.usersCharacters);
   }
   getUsersStatics() {
-    return this.usersStatics = this.getHelper(this.usersStatics, StorageKeys.usersStatics);
+    // return this.usersStatics = this.getHelper(this.usersStatics, StorageKeys.usersStatics);
+    return this.http.get<RaidGroup[]>('/raid-groups');
+  }
+  getUsersRaidTimes() {
+    return this.http.get<WeeklyRaidTime[]>('/schedules');
   }
   addUserStatic(group: RaidGroup) {
     this.addHelper(group, this.usersStatics, StorageKeys.usersStatics, true);

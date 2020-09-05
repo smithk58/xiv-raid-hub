@@ -11,7 +11,7 @@ body {
 /*Needed for responsive flex containers*/
 .min-flex {
   flex: 1 1 0px;
-  min-width: 0;
+  min-width: 0px;
 }
 /*Prevents flex content from wrapping and instead does ellipsis*/
 .wrap-flex-overflow {
@@ -92,7 +92,7 @@ body {
   display: flex;
   overflow: hidden;
   > * {
-    margin-left: 0.25rem;
+    margin-right: 0.25rem;
     align-self: center;
   }
 }

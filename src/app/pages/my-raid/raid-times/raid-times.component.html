@@ -1,15 +1,32 @@
 <div class="card">
   <div class="card-header">
     <div class="d-flex align-items-center">
-      <span class="text-capitalize">Upcoming Raid Times</span>
+      <span>Upcoming Raid Times</span>
     </div>
   </div>
   <div class="card-body">
-    <p [hidden]="raidTimeDisplays.length > 0" class="m-0 text-center">You don't have raid days in the next week!</p>
+    <p [hidden]="raidDayDisplays.length > 0" class="m-0 text-center">You don't have raid days in the next week!</p>
     <ul class="list-group">
-      <li *ngFor="let rtd of raidTimeDisplays" class="list-group-item d-flex">
-        <span class="d-inline-block pr-1">{{rtd.raidGroup.name}} in</span>
-        <countdown [config]="rtd.countdownConfig"></countdown>
+      <li *ngFor="let dateDisplay of raidDayDisplays" class="list-group-item">
+        <div>
+          <span class="h5">{{dateDisplay.daysAwayInWords}}</span> ({{dateDisplay.date | date: 'EEEE'}})
+        </div>
+        <div *ngFor="let timeDisplay of dateDisplay.raidTimeDisplays" class="ml-3 mt-2">
+          <!--Raid time/purpose/etc.-->
+          <div class="text-ellipsis-container">
+            <span class="flex-shrink-0">{{timeDisplay.raidDateTime | date: 'h:mm a'}}</span>
+            <span class="font-weight-bold pl-2"> {{timeDisplay.raidGroup.purpose || 'Raiding'}}</span>
+            <span> with</span>
+            <span class="wrap-flex-overflow" [ngbTooltip]="timeDisplay.raidGroup.name" placement="top">
+              ({{timeDisplay.raidGroup.name}})
+            </span>
+          </div>
+          <!--Countdown-->
+          <div *ngIf="timeDisplay.countdownConfig" class="ml-2">
+            <countdown class="font-weight-bold" [config]="timeDisplay.countdownConfig"></countdown>
+            <span away></span>
+          </div>
+        </div>
       </li>
     </ul>
   </div>

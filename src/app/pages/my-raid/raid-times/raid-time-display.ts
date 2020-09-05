@@ -3,5 +3,11 @@ import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 
 export interface RaidTimeDisplay {
   raidGroup: RaidGroup;
-  countdownConfig: CountdownConfig;
+  raidDateTime: Date;
+  countdownConfig?: CountdownConfig;
+}
+export interface RaidDayDisplay {
+  date: Date;
+  daysAwayInWords: string;
+  raidTimeDisplays: RaidTimeDisplay[];
 }

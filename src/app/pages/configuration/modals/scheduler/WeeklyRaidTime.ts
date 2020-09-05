@@ -1,12 +1,13 @@
-import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
+import parseISO from 'date-fns/parseISO';
 
 export interface WeeklyRaidTime {
+  raidGroupId?: string;
   weekMask: number;
-  startTime: string; /*ISO time string*/
+  startTime: string; /*technically a date, but should only use the time off of it*/
 }
 export interface RaidTime {
-  raidGroup: RaidGroup;
-  startTime: string; /*ISO time string*/
+  raidGroupId: string;
+  startTime: Date;
 }
 /**
  * Maps a day of the week string to our bit mask for WeeklyRaidTime.weekMask.
@@ -25,13 +26,13 @@ export enum DaysInWeekBit {
  * Maps a day of the week string to the number equivalent in JS.
  */
 export enum DayToDayNumber {
+  Sun,
   Mon,
   Tue,
   Wed,
   Thu,
   Fri,
-  Sat,
-  Sun
+  Sat
 }
 export const DaysInWeek = Object.keys(DaysInWeekBit).filter(x => isNaN(Number(x)));
 
@@ -67,22 +68,20 @@ export function daysInWeekMaskToBools(mask: number): boolean[] {
 
 /**
  * Returns a map of day numbers(DayToDayNumber) to RaidTime's.
- * @param raidTimes - The list of raid times to use weekMask/ISO times from.
+ * @param weeklyRaidTimes - The list of weekly raid times to use weekMask/times from.
  */
-export function dayToRaidTimesMap(raidGroups: RaidGroup[]) {
+export function dayToRaidTimesMap(weeklyRaidTimes: WeeklyRaidTime[]): Map<number, RaidTime[]> {
   const dayToTimes = new Map<number, RaidTime[]>();
-  for (const raidGroup of raidGroups) {
-    for (const weeklyRaidTime of raidGroup.weeklyRaidTimes) {
-      for (const day of DaysInWeek) {
-        // tslint:disable-next-line:no-bitwise - I do what I want >:(
-        if (weeklyRaidTime.weekMask & DaysInWeekBit[day]) {
-          const dayNum = DayToDayNumber[day];
-          const raidTime: RaidTime = {raidGroup, startTime: weeklyRaidTime.startTime};
-          if (!dayToTimes.has(dayNum)) {
-            dayToTimes.set(dayNum, [raidTime]);
-          } else {
-            dayToTimes.get(dayNum).push(raidTime);
-          }
+  for (const weeklyRaidTime of weeklyRaidTimes) {
+    for (const day of DaysInWeek) {
+      // tslint:disable-next-line:no-bitwise - I do what I want >:(
+      if (weeklyRaidTime.weekMask & DaysInWeekBit[day]) {
+        const dayNum = DayToDayNumber[day];
+        const startTime = parseISO(weeklyRaidTime.startTime);
+        if (!dayToTimes.has(dayNum)) {
+          dayToTimes.set(dayNum, [{raidGroupId: weeklyRaidTime.raidGroupId, startTime}]);
+        } else {
+          dayToTimes.get(dayNum).push({raidGroupId: weeklyRaidTime.raidGroupId, startTime});
         }
       }
     }
