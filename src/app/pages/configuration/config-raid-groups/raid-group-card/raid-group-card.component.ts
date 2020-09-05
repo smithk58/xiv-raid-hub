@@ -11,12 +11,12 @@ import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler
 import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 
 @Component({
-  selector: 'app-statics-card',
-  templateUrl: './statics-card.component.html',
-  styleUrls: ['./statics-card.component.scss'],
+  selector: 'app-raid-group-card',
+  templateUrl: './raid-group-card.component.html',
+  styleUrls: ['./raid-group.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class StaticsCardComponent {
+export class RaidGroupCardComponent {
   faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faCalendar = faCalendarAlt; faAngry = faAngry;
   @Input() cardSubject: string;
   @Input() tooltip: string;

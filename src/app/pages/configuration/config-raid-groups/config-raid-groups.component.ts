@@ -5,11 +5,11 @@ import { ConfigurationService } from 'src/app/pages/configuration/configuration.
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 
 @Component({
-  selector: 'app-config-statics',
-  templateUrl: './config-statics.component.html',
-  styleUrls: ['./config-statics.component.scss']
+  selector: 'app-config-raid-groups',
+  templateUrl: './config-raid-groups.component.html',
+  styleUrls: ['./config-raid-groups.component.scss']
 })
-export class ConfigStaticsComponent implements OnInit {
+export class ConfigRaidGroupsComponent implements OnInit {
   raidGroups: RaidGroup[] = [];
   constructor(private wlService: ConfigurationService, private notify: PNotifyService) { }
 

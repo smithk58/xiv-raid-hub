@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StaticsCardComponent } from './statics-card.component';
+import { RaidGroupCardComponent } from 'src/app/pages/configuration/config-raid-groups/raid-group-card/raid-group-card.component';
 
 describe('StaticsCardComponent', () => {
-  let component: StaticsCardComponent;
-  let fixture: ComponentFixture<StaticsCardComponent>;
+  let component: RaidGroupCardComponent;
+  let fixture: ComponentFixture<RaidGroupCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StaticsCardComponent ]
+      declarations: [ RaidGroupCardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StaticsCardComponent);
+    fixture = TestBed.createComponent(RaidGroupCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

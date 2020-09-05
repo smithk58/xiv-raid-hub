@@ -10,8 +10,8 @@ import { FriendsCardComponent } from './config-characters/friends-card/friends-c
 import { ComparisonsCardComponent } from './config-characters/comparisons-card/comparisons-card.component';
 import { UsersCharactersComponent } from './config-characters/users-characters/users-characters.component';
 import { ConfigCharactersComponent } from './config-characters/config-characters.component';
-import { ConfigStaticsComponent } from './config-statics/config-statics.component';
-import { StaticsCardComponent } from './config-statics/statics-card/statics-card.component';
+import { ConfigRaidGroupsComponent } from 'src/app/pages/configuration/config-raid-groups/config-raid-groups.component';
+import { RaidGroupCardComponent } from './config-raid-groups/raid-group-card/raid-group-card.component';
 import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler/scheduler.component';
 
 @NgModule({
@@ -28,8 +28,8 @@ import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler
     ComparisonsCardComponent,
     UsersCharactersComponent,
     ConfigCharactersComponent,
-    ConfigStaticsComponent,
-    StaticsCardComponent,
+    ConfigRaidGroupsComponent,
+    RaidGroupCardComponent,
     SchedulerComponent
   ],
   entryComponents: [AddEditCharacterComponent, AddEditStaticComponent]

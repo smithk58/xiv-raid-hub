@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ConfigurationComponent } from './configuration.component';
 import { ConfigCharactersComponent } from 'src/app/pages/configuration/config-characters/config-characters.component';
-import { ConfigStaticsComponent } from 'src/app/pages/configuration/config-statics/config-statics.component';
+import { ConfigRaidGroupsComponent } from 'src/app/pages/configuration/config-raid-groups/config-raid-groups.component';
 import { ConfigurationPaths } from 'src/app/pages/configuration/ConfigurationPaths';
 
 const routes: Routes = [
@@ -24,7 +24,7 @@ const routes: Routes = [
       {
         path: ConfigurationPaths.Statics,
         outlet: 'tab',
-        component: ConfigStaticsComponent
+        component: ConfigRaidGroupsComponent
       }
     ]
   }

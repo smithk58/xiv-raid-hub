@@ -1,31 +1,31 @@
 <p class="mt-3">Adding statics here will make them available to other areas of the application that use statics.</p>
 <div class="cards-container mt-4 mb-3 col-lg-6 col">
   <div class="container-col">
-    <app-statics-card
+    <app-raid-group-card
       cardSubject="static"
       [raidGroups]="raidGroups"
       (addStatic)="addUserStatic($event)"
       (updateStatic)="updateUserStatic($event)"
       (deleteStatic)="deleteUserStatic($event)"
-    ></app-statics-card>
+    ></app-raid-group-card>
   </div>
 </div>
 <!--Disabling these guys until I care about them one day-->
 <!--<div class="cards-container mt-4 mb-3">
   <div class="container-col">
-    <app-statics-card
+    <app-raid-group-card
       cardSubject="friend static"
       tooltip="Adding statics here will help you compare their performance against other statics."
       [statics]="friendStatics"
-    ></app-statics-card>
+    ></app-raid-group-card>
   </div>
 </div>
 <div class="cards-container mt-4 mb-3">
   <div class="container-col">
-    <app-statics-card
+    <app-raid-group-card
       cardSubject="comparison static"
       tooltip="Adding statics here will give you quick access to compare other statics against them."
       [statics]="comparisonStatics"
-    ></app-statics-card>
+    ></app-raid-group-card>
   </div>
 </div>-->
