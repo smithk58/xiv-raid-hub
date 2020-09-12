@@ -23,10 +23,4 @@ export class ConfigurationComponent implements OnInit {
     // First child should be the subroute we're on and its path should match our ConfigurationPaths enum
     this.tabToSelect = this.route.snapshot.firstChild.routeConfig.path;
   }
-  importData() {
-    // TODO
-  }
-  exportData() {
-    // TODO
-  }
 }

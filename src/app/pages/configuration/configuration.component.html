@@ -1,28 +1,4 @@
 <div class="container-fluid">
-  <div class="row mx-2 mt-2">
-    <!--Toolbar-->
-    <div class="d-flex align-items-start">
-      <fa-icon [icon]="faWarn" size="2x" class="text-warning mr-3"
-               aria-label="Warning - all data you add is only stored in the browser. If you clear your cache you will lose it. Pages that allow saving have an import/export button to mitigate this annoyance for now."
-               ngbTooltip="Warning - all data you add is only stored in the browser. If you clear your cache you will lose it. Pages that allow saving have an import/export button to mitigate this annoyance for now."
-               placement="bottom-left"
-      ></fa-icon>
-      <button class="btn btn-secondary text-nowrap"
-        (click)="exportData()"
-        aria-label="Download your saved data. Can be used to restore your data in this browser, or another browser."
-        ngbTooltip="Download your saved data. Can be used to restore your data in this browser, or another browser."
-        placement="right"
-      ><fa-icon [icon]="faExport" size="xl" class="mr-1" aria-hidden="true"></fa-icon>Export
-      </button>
-      <button class="btn btn-secondary text-nowrap ml-3"
-        (click)="importData()"
-        aria-label="Import data. Will overwrite all data currently saved on this page with whatever you provide."
-        ngbTooltip="Import data. Will overwrite all data currently saved on this page with whatever you provide."
-        placement="right"
-      ><fa-icon [icon]="faImport" size="xl" class="mr-1" aria-hidden="true"></fa-icon>Import
-      </button>
-    </div>
-  </div>
   <ul ngbNav [(activeId)]="tabToSelect" class="nav-tabs mt-3">
     <li [ngbNavItem]="Paths.Characters">
       <a ngbNavLink [routerLink]="charactersRoute">Characters</a>

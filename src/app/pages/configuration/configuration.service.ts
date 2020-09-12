@@ -34,13 +34,13 @@ export class ConfigurationService {
     return this.deleteHelper(characterId, this.usersCharacters, StorageKeys.usersCharacters);
   }
   getRaidGroupsRaidTimes(raidGroupId: number) {
-    return this.http.get<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/schedules');
+    return this.http.get<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/raidTimes');
   }
   updateRaidGroupsRaidTimes(raidGroupId: number, weeklyRaidTimes: WeeklyRaidTime[]) {
-    return this.http.put<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/schedules', weeklyRaidTimes);
+    return this.http.put<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/raidTimes', weeklyRaidTimes);
   }
-  getUsersRaidTimes() {
-    return this.http.get<WeeklyRaidTime[]>('/schedules');
+  getRaidTimes() {
+    return this.http.get<WeeklyRaidTime[]>('/raidTimes');
   }
   /**
    * Returns a particular character from your friends, otherwise

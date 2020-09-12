@@ -58,11 +58,11 @@ export class SchedulerComponent implements OnInit {
    * Adds a weekly raid time section to the form.
    */
   addWeeklyRaidTime(raidTime?: WeeklyRaidTime) {
-    const initialValues = raidTime ? daysInWeekMaskToBools(raidTime.weekMask) : undefined;
     // Build a form array of checkbox inputs
+    const initialDaysInWeek = raidTime ? daysInWeekMaskToBools(raidTime.weekMask) : undefined;
     const daysOfWeek = new FormArray(
       // Initialize the checkboxes to the existing values if provided otherwise false
-      this.daysOfWeek.map((day, index) => new FormControl(initialValues ? initialValues[index] : false)),
+      this.daysOfWeek.map((day, index) => new FormControl(initialDaysInWeek ? initialDaysInWeek[index] : false)),
       this.atLeastOneCheckboxCheckedValidator.bind(this)
     );
     let initialTime: NgbTimeStruct;

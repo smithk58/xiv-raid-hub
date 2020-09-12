@@ -43,6 +43,8 @@ export class ConfigRaidGroupsComponent implements OnInit {
   }
   deleteUserRaidGroup(raidGroupId: number) {
     this.raidGroupService.deleteRaidGroup(raidGroupId).subscribe((res) => {
+      const existingGroupIndex = findIndex(this.raidGroups, {id: raidGroupId});
+      this.raidGroups = this.raidGroups.splice(existingGroupIndex, 1);
       this.notify.success({text: 'Raid group was successfully deleted!'});
     }, error => {
       this.notify.error({text: 'Failed to delete raid group. ' + error});

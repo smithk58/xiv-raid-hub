@@ -47,7 +47,7 @@ export class RaidTimesComponent implements OnInit, OnDestroy {
     // Build raid time displays from the statics/schedules
     forkJoin([
       this.raidGroupService.getRaidGroups(),
-      this.wlService.getUsersRaidTimes()
+      this.wlService.getRaidTimes()
     ]).subscribe((res) => {
       const raidGroups = res[0];
       const raidTimes = res[1];

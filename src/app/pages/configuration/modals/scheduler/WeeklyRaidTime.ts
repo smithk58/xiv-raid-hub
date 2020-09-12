@@ -1,7 +1,8 @@
 import parseISO from 'date-fns/parseISO';
 
 export interface WeeklyRaidTime {
-  raidGroupId?: number;
+  id?: number;
+  raidGroupId: number;
   weekMask: number;
   startTime: string; /*technically a date, but should only use the time off of it*/
 }
