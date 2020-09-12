@@ -96,11 +96,11 @@ export class RequestCacheService {
         const item: CachedItem = itemAsString ? JSON.parse(itemAsString) : undefined;
         // Only add the item if it's not expired, remove it from local storage if it is expired though
         if (item && item.lastRead) { // just in case something slipped past our namespace check
+          const realKey =  key.substring(this.localStorageNamespace.length);
           if (item.lastRead > expired) { // not expired
-            const realKey =  key.substring(this.localStorageNamespace.length);
             this.cache.set(realKey, item);
           } else {
-            this.removeCachedItem(key);
+            this.removeCachedItem(realKey);
           }
         }
       }
