@@ -1,10 +1,10 @@
-import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
-import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
+import { RaidGroupCharacter } from 'src/app/shared/api/xiv-raid-hub/models/raid-group-character';
 
 export interface RaidGroup {
-  id?: string;
+  id?: number;
+  owner?: any; // TODO maybe isOwner: boolean instead
   name: string;
-  purpose: string;
-  characters: Character[];
-  weeklyRaidTimes: WeeklyRaidTime[];
+  purpose?: string;
+  share: boolean;
+  characters: RaidGroupCharacter[];
 }

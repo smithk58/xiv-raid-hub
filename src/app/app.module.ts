@@ -18,7 +18,6 @@ import { httpInterceptorProviders } from 'src/app/shared/interceptors';
 import { BASE_API_URL } from 'src/app/api-injection-token';
 import { IsAuthedGuard } from 'src/app/shared/IsAuthedGuard';
 import { NgbTimeAdapter } from '@ng-bootstrap/ng-bootstrap';
-import { NgbTimeStringAdapter } from 'src/app/ISOTimeAdapter';
 
 @NgModule({
   imports: [
@@ -41,8 +40,7 @@ import { NgbTimeStringAdapter } from 'src/app/ISOTimeAdapter';
   providers: [
     httpInterceptorProviders,
     IsAuthedGuard,
-    { provide: BASE_API_URL, useValue: environment.baseHref },
-    {provide: NgbTimeAdapter, useClass: NgbTimeStringAdapter}
+    { provide: BASE_API_URL, useValue: environment.baseHref }
   ],
   bootstrap: [AppComponent]
 })

@@ -2,55 +2,60 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, FormArray } from '@angular/forms';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CharacterSearchResultRow } from '@xivapi/angular-client';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
-import { CharacterSearchResultRow } from '@xivapi/angular-client';
+import { RaidGroupCharacter } from 'src/app/shared/api/xiv-raid-hub/models/raid-group-character';
+import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 
 @Component({
   selector: 'app-add-edit-static',
-  templateUrl: './add-edit-static.component.html',
-  styleUrls: ['./add-edit-static.component.css']
+  templateUrl: './add-edit-raid-group.component.html',
+  styleUrls: ['./add-edit-raid-group.component.css']
 })
-export class AddEditStaticComponent implements OnInit {
-  staticForm: FormGroup;
+export class AddEditRaidGroupComponent implements OnInit {
+  faSpinner = faSpinner;
+  raidGroupForm: FormGroup;
   characterControls: FormArray;
   requiredCharacters = 8; // The amount of members that will be generated on the form
   isSubmitted = false;
-
   isEdit = false;
-  groupToEdit: RaidGroup;
+  raidGroup: RaidGroup;
   existingCharacterIds: Record<number, number> = {}; /*id -> howManyTimesItsUsed*/
   indexToCharacterId: Record<number, number> = {}; /*index -> number*/
   constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.isEdit = typeof(this.groupToEdit) !== 'undefined';
-    const staticName = this.isEdit ? this.groupToEdit.name : '';
-    const purpose = this.isEdit ? this.groupToEdit.purpose : '';
-    const characters = this.isEdit ? this.groupToEdit.characters : undefined;
+    this.isEdit = typeof(this.raidGroup) !== 'undefined';
+    this.initializeForm(this.raidGroup);
+  }
+  initializeForm(raidGroup?: RaidGroup) {
+    const name = raidGroup ? raidGroup.name : '';
+    const purpose = raidGroup ? raidGroup.purpose : '';
+    const characters = raidGroup ? raidGroup.characters : undefined;
     // Build form (character control has to be separated so we can trigger validate)
     this.characterControls = this.buildCharacterControlList(characters);
-    this.staticForm = this.formBuilder.group({
-      name: [staticName, Validators.required],
+    this.raidGroupForm = this.formBuilder.group({
+      name: [name, [Validators.required, Validators.maxLength(30)]],
       purpose: [purpose, Validators.maxLength(10)],
       characters: this.characterControls
     });
   }
-
   /**
    * Builds the form controls for each required character
    * @param defaultValues - The default character values to apply to the form controls being built.
    */
-  buildCharacterControlList(defaultValues?: Character[]) {
+  buildCharacterControlList(defaultValues?: RaidGroupCharacter[]) {
     const controls = [];
     for (let i = 0; i < this.requiredCharacters; i++) {
       // Populate the controls w/ default values if available
       const isValue = defaultValues && (i < defaultValues.length);
       const character = !isValue ? null : {
-        ID: defaultValues[i].id,
-        Name: defaultValues[i].name,
-        Server: defaultValues[i].server
+        ID: defaultValues[i].character.id,
+        Name: defaultValues[i].character.name,
+        Server: defaultValues[i].character.server
       };
       const comparisonClass = !isValue ? null : defaultValues[i].defaultClass;
       controls.push(this.formBuilder.group({
@@ -98,33 +103,37 @@ export class AddEditStaticComponent implements OnInit {
   /**
    * Triggered on form submit.
    */
-  saveStatic() {
+  saveRaidGroup() {
     this.isSubmitted = true;
-    if (this.staticForm.valid) {
+    if (this.raidGroupForm.valid) {
       // Builds characters from the search components + class inputs
-      const characters: Character[] = [];
-      this.characterControls.controls.forEach(control => {
+      const characters: RaidGroupCharacter[] = [];
+      for (let i = 0; i < this.characterControls.controls.length; i++) {
+        const control = this.characterControls.controls[i];
         const char = control.get('character').value as CharacterSearchResultRow;
         const dClass = control.get('comparisonClass').value;
         characters.push({
-          id: char.ID,
-          name: char.Name,
-          server: char.Server,
-          defaultClass: dClass
+          defaultClass: dClass,
+          order: i + 1,
+          character: {
+            id: char.ID,
+            name: char.Name,
+            server: char.Server,
+          }
         });
-      });
-      // Build static from characters + static
-      const nStatic: RaidGroup = {
-        id: this.isEdit ? this.groupToEdit.id : undefined,
-        name: this.staticForm.get('name').value,
-        purpose: this.staticForm.get('purpose').value,
-        characters,
-        weeklyRaidTimes: []
+      }
+      // Build raid groups from characters
+      const raidGroup: RaidGroup = {
+        id: this.isEdit ? this.raidGroup.id : undefined,
+        share: false, // TODO add to/retrieve from form
+        name: this.raidGroupForm.get('name').value,
+        purpose: this.raidGroupForm.get('purpose').value,
+        characters
       };
-      this.modal.close(nStatic);
+      this.modal.close(raidGroup);
     }
   }
   // convenience getter for easy access to form fields
-  get f() { return this.staticForm.controls; }
-  get getCharacterControls() { return (this.staticForm.get('characters') as FormArray).controls; }
+  get f() { return this.raidGroupForm.controls; }
+  get getCharacterControls() { return (this.raidGroupForm.get('characters') as FormArray).controls; }
 }

@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { faTrashAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import parseISO from 'date-fns/parseISO';
 
 import {
   DaysInWeek,
@@ -11,6 +12,8 @@ import {
   daysInWeekMaskToBools
 } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 import { UserService } from 'src/app/shared/api/xiv-raid-hub/user.service';
+import { ConfigurationService } from 'src/app/pages/configuration/configuration.service';
+import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time-struct';
 
 @Component({
   selector: 'app-scheduler',
@@ -18,27 +21,33 @@ import { UserService } from 'src/app/shared/api/xiv-raid-hub/user.service';
   styleUrls: ['./scheduler.component.scss']
 })
 export class SchedulerComponent implements OnInit {
-  faTrash = faTrashAlt; faPlus = faPlus;
+  faTrash = faTrashAlt; faPlus = faPlus; faSpinner = faSpinner;
   daysOfWeek = DaysInWeek;
-  @Input() raidTimes: WeeklyRaidTime[];
+  @Input() raidGroupId: number;
   scheduleForm: FormGroup;
   weeklyRaidTimes: FormArray;
   isSubmitted = false;
   timezone: string;
-  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private userService: UserService) { }
+  isLoaded = false;
+  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private userService: UserService,
+              private wlService: ConfigurationService
+  ) { }
 
   ngOnInit(): void {
+    this.initializeData();
+  }
+  initializeData() {
     // Build schedule form
     this.weeklyRaidTimes = new FormArray([]);
     this.scheduleForm = this.formBuilder.group({
       weeklyRaidTimes: this.weeklyRaidTimes
     });
-    // Add initial raid times if provided
-    if (this.raidTimes) {
-      for (const raidTime of this.raidTimes) {
+    this.wlService.getRaidGroupsRaidTimes(this.raidGroupId).subscribe((raidTimes) => {
+      for (const raidTime of raidTimes) {
         this.addWeeklyRaidTime(raidTime);
       }
-    }
+      this.isLoaded = true;
+    });
     // Get the users time zone for display purposes
     this.userService.getUserSession().subscribe((user) => {
       this.timezone = user.timezone;
@@ -56,10 +65,17 @@ export class SchedulerComponent implements OnInit {
       this.daysOfWeek.map((day, index) => new FormControl(initialValues ? initialValues[index] : false)),
       this.atLeastOneCheckboxCheckedValidator.bind(this)
     );
+    let initialTime: NgbTimeStruct;
+    if (raidTime) {
+      const isoTime = parseISO(raidTime.startTime);
+      initialTime = {hour: isoTime.getHours(), minute: isoTime.getMinutes(), second: 0};
+    } else {
+      initialTime = {hour: 12, minute: 0, second: 0}; // 12pm default
+    }
     // Build a group of controls with start/end times, and days of week
     const group = new FormGroup({
       // Initialize start time to existing value if available, otherwise 12pm
-      startTime: new FormControl(raidTime ? raidTime.startTime : '12:00:00', Validators.required),
+      startTime: new FormControl(initialTime, Validators.required),
       daysOfWeek
     });
     this.weeklyRaidTimes.push(group);
@@ -69,8 +85,14 @@ export class SchedulerComponent implements OnInit {
     if (this.scheduleForm.valid) {
       const raidTimes: WeeklyRaidTime[] = [];
       for (const raidTime of this.weeklyRaidTimes.value) {
+        // Convert NgbTimeStruct back to an actual date, so we have timezone information
+        const startTime = new Date();
+        startTime.setHours(raidTime.startTime.hour);
+        startTime.setMinutes(raidTime.startTime.minute);
+        startTime.setSeconds(0);
         raidTimes.push({
-          startTime: raidTime.startTime,
+          raidGroupId: this.raidGroupId,
+          startTime: startTime.toISOString(),
           weekMask: calculateDaysInWeekMask(raidTime.daysOfWeek)
         });
       }

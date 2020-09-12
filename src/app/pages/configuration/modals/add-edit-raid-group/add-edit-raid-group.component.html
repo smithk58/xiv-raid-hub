@@ -1,19 +1,19 @@
-<app-modal-header [title]="isEdit ? 'Edit Static' : 'Add Static'"></app-modal-header>
+<app-modal-header [title]="isEdit ? 'Edit Raid Group' : 'Add Raid Group'"></app-modal-header>
 <div class="modal-body pb-0">
-  <form #form="ngForm" [formGroup]="staticForm"(ngSubmit)="saveStatic()" [class.ng-was-validated]="isSubmitted">
+  <form #form="ngForm" [formGroup]="raidGroupForm"(ngSubmit)="saveRaidGroup()" [class.ng-was-validated]="isSubmitted">
     <div class="row">
-      <!--Static name-->
+      <!--Raid group name-->
       <div class="form-group col">
-        <label for="staticName">Static Name</label>
-        <input id="staticName" type="text" formControlName="name" class="form-control">
+        <label for="raidGroupName">Name</label>
+        <input id="raidGroupName" type="text" formControlName="name" class="form-control">
         <div *ngIf="f.name.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
-          <div *ngIf="f.name.errors.required">A static name is required.</div>
+          <div *ngIf="f.name.errors.required">A raid group name is required.</div>
         </div>
       </div>
-      <!--Static tag-->
+      <!--Raid group tag-->
       <div class="form-group col">
-        <label for="staticPurpose">Static Purpose</label>
-        <input id="staticPurpose" type="text" formControlName="purpose" class="form-control" placeholder="e.g. Savage, UWU">
+        <label for="raidGroupPurpose">Purpose</label>
+        <input id="raidGroupPurpose" type="text" formControlName="purpose" class="form-control" placeholder="e.g. Savage, UWU">
         <div *ngIf="f.purpose.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
           <div *ngIf="f.purpose.errors.maxlength">Max length of 10 characters.</div>
         </div>

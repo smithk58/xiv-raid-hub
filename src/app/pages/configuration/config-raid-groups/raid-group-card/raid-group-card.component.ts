@@ -1,14 +1,15 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
-import { faCalendarAlt, faInfoCircle, faPen, faPlus, faTrashAlt, faAngry } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faInfoCircle, faPen, faPlus, faTrashAlt, faAngry, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { ConfigurationService } from 'src/app/pages/configuration/configuration.service';
-import { AddEditStaticComponent } from 'src/app/pages/configuration/modals/add-edit-static/add-edit-static.component';
+import { AddEditRaidGroupComponent } from 'src/app/pages/configuration/modals/add-edit-raid-group/add-edit-raid-group.component';
 import { YesNoModalComponent } from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
 import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler/scheduler.component';
 import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
+import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 
 @Component({
   selector: 'app-raid-group-card',
@@ -18,42 +19,51 @@ import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/Wee
 })
 export class RaidGroupCardComponent {
   faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faCalendar = faCalendarAlt; faAngry = faAngry;
+  faSpinner = faSpinner;
   @Input() cardSubject: string;
   @Input() tooltip: string;
-  @Input() raidGroups: RaidGroup[] = [];
-  @Output() addStatic: EventEmitter<RaidGroup> = new EventEmitter();
-  @Output() updateStatic: EventEmitter<RaidGroup> = new EventEmitter();
-  @Output() deleteStatic: EventEmitter<string> = new EventEmitter();
-  constructor(private wlService: ConfigurationService, private modalService: NgbModal) { }
-
-  addEditCalendarModal(group: RaidGroup) {
+  @Input() raidGroups: RaidGroup[];
+  @Input() isLoaded = false;
+  @Output() addRaidGroup: EventEmitter<RaidGroup> = new EventEmitter();
+  @Output() updateRaidGroup: EventEmitter<RaidGroup> = new EventEmitter();
+  @Output() deleteRaidGroup: EventEmitter<number> = new EventEmitter();
+  @Output() updateSchedule: EventEmitter<{ raidGroupId: number, weeklyRaidTimes: WeeklyRaidTime[]}> = new EventEmitter();
+  constructor(private wlService: ConfigurationService, private modalService: NgbModal, private raidGroupService: RaidGroupService) { }
+  addEditScheduleModal(raidGroupId: number) {
     const modal = this.modalService.open(SchedulerComponent,  {backdrop: 'static', size: 'lg'});
-    modal.componentInstance.raidTimes = group.weeklyRaidTimes;
-    modal.result.then((raidTimes: WeeklyRaidTime[]) => {
-      group.weeklyRaidTimes = raidTimes;
-      this.updateStatic.emit(group);
+    modal.componentInstance.raidGroupId = raidGroupId;
+    modal.result.then((weeklyRaidTimes: WeeklyRaidTime[]) => {
+      this.updateSchedule.emit({raidGroupId, weeklyRaidTimes});
     }, () => {}); // They aborted, do nothing
   }
-  addEditStaticModal(group?: RaidGroup) {
-    const modal = this.modalService.open(AddEditStaticComponent, {backdrop: 'static', size: 'lg'});
-    modal.componentInstance.groupToEdit = group;
-    modal.result.then((res: RaidGroup) => {
-      // Add/update the result in the users statics
-      if (group) {
-        this.updateStatic.emit(res);
+  editRaidGroup(raidGroupId: number) {
+    // TODO refactor to get raid group characters instead of full group, which are then appended on to the existing raid group definition
+    //  we have, API call should be generic to all raid group types so component is still reusable
+    this.raidGroupService.getRaidGroup(raidGroupId).subscribe((raidGroup) => {
+      this.openRaidGroupModal(raidGroup);
+    });
+  }
+  openRaidGroupModal(raidGroup?: RaidGroup) {
+    const isInsert = typeof(raidGroup) === 'undefined';
+    const modal = this.modalService.open(AddEditRaidGroupComponent, {backdrop: 'static', size: 'lg'});
+    modal.componentInstance.raidGroup = raidGroup;
+    modal.result.then((modalRaidGroup: RaidGroup) => {
+      if (isInsert) {
+        this.addRaidGroup.emit(modalRaidGroup);
       } else {
-        this.addStatic.emit(res);
+        this.updateRaidGroup.emit(modalRaidGroup);
       }
-    }, () => {} // They aborted, do nothing
+    },
+      () => {} // They aborted modal, do nothing
     );
   }
-  deleteStaticModal(group: RaidGroup) {
+  deleteRaidGroupModal(raidGroup: RaidGroup) {
     const modal = this.modalService.open(YesNoModalComponent);
     modal.componentInstance.modalTitle = 'Delete?';
-    modal.componentInstance.modalText = 'Are you sure you want to delete ' + group.name + ' from your ' + this.cardSubject + 's?';
+    modal.componentInstance.modalText = 'Are you sure you want to delete ' + raidGroup.name + ' from your ' + this.cardSubject + 's?';
     modal.result.then(doDelete => {
       if (doDelete) {
-        this.deleteStatic.emit(group.id);
+        this.deleteRaidGroup.emit(raidGroup.id);
       }
     }, () => {}); // They aborted, do nothing
   }

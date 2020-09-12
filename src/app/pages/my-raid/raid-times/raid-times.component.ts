@@ -19,6 +19,7 @@ import { ConfigurationService } from 'src/app/pages/configuration/configuration.
 import { dayToRaidTimesMap, WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 import { RaidDayDisplay, RaidTimeDisplay } from 'src/app/pages/my-raid/raid-times/raid-time-display';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
+import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 
 @Component({
   selector: 'app-raid-times',
@@ -30,7 +31,7 @@ export class RaidTimesComponent implements OnInit, OnDestroy {
   raidDayDisplays: RaidDayDisplay[] = [];
   countdownFormat = 'H \'hrs\', m \'mins\', s \'secs\'';
   refreshData$: Subscription;
-  constructor(private wlService: ConfigurationService) { }
+  constructor(private wlService: ConfigurationService, private raidGroupService: RaidGroupService) { }
 
   ngOnInit(): void {
     // Wait until midnight and refresh the displays, for follow up refreshes wait 24 hrs before refreshing
@@ -45,7 +46,7 @@ export class RaidTimesComponent implements OnInit, OnDestroy {
   initializeData() {
     // Build raid time displays from the statics/schedules
     forkJoin([
-      this.wlService.getUsersStatics(),
+      this.raidGroupService.getRaidGroups(),
       this.wlService.getUsersRaidTimes()
     ]).subscribe((res) => {
       const raidGroups = res[0];

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RaidGroupCardComponent } from 'src/app/pages/configuration/config-raid-groups/raid-group-card/raid-group-card.component';
 
-describe('StaticsCardComponent', () => {
+describe('RaidGroupsCardComponent', () => {
   let component: RaidGroupCardComponent;
   let fixture: ComponentFixture<RaidGroupCardComponent>;
 

@@ -16,7 +16,6 @@ import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/Wee
 })
 export class ConfigurationService {
   usersCharacters: BehaviorSubject<Character[]>;
-  usersStatics: BehaviorSubject<RaidGroup[]>;
   friends: BehaviorSubject<Character[]>;
   friendStatics: BehaviorSubject<RaidGroup[]>;
   comparisonTargets: BehaviorSubject<Character[]>;
@@ -34,21 +33,14 @@ export class ConfigurationService {
   deleteUserCharacter(characterId: number) {
     return this.deleteHelper(characterId, this.usersCharacters, StorageKeys.usersCharacters);
   }
-  getUsersStatics() {
-    // return this.usersStatics = this.getHelper(this.usersStatics, StorageKeys.usersStatics);
-    return this.http.get<RaidGroup[]>('/raid-groups');
+  getRaidGroupsRaidTimes(raidGroupId: number) {
+    return this.http.get<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/schedules');
+  }
+  updateRaidGroupsRaidTimes(raidGroupId: number, weeklyRaidTimes: WeeklyRaidTime[]) {
+    return this.http.put<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/schedules', weeklyRaidTimes);
   }
   getUsersRaidTimes() {
     return this.http.get<WeeklyRaidTime[]>('/schedules');
-  }
-  addUserStatic(group: RaidGroup) {
-    this.addHelper(group, this.usersStatics, StorageKeys.usersStatics, true);
-  }
-  updateUserStatic(group: RaidGroup) {
-    return this.updateHelper(group, this.usersStatics, StorageKeys.usersStatics);
-  }
-  deleteUsersStatic(staticId: string) {
-    return this.deleteHelper(staticId, this.usersStatics, StorageKeys.usersStatics);
   }
   /**
    * Returns a particular character from your friends, otherwise

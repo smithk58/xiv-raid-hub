@@ -17,19 +17,24 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   /**
    * Simplifies error responses to a simple string for service calls to handle easier.
-   * @param error - The HttpErrorResponse object from angular/common/http.
+   * @param response - The HttpErrorResponse object from angular/common/http.
    * @param request - The http request that had the error.
    * @param next - The http handler to continue the request.
    */
-  handleError(error: any, request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  handleError(response: any, request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let simplifiedError;
-    // Simplify the handling of the user vs developer message (user message has precedence)
-    if (error instanceof HttpErrorResponse && error.error) {
-      const httpError = error.error;
-      if (httpError.error) {
-        simplifiedError = httpError.error;
+    if (response instanceof HttpErrorResponse) {
+      if (typeof(response.error) === 'string') {
+        simplifiedError = response.error;
+      } else if (typeof(response.error.message) === 'string') {
+        simplifiedError = response.error.message;
+      } else if (typeof(response.statusText) === 'string') {
+        simplifiedError = response.statusText;
+      } else if (typeof(response.message) === 'string') {
+        simplifiedError = response.message;
       }
+      simplifiedError = !simplifiedError ? 'Unknown error.' : simplifiedError;
     }
-    return simplifiedError ? throwError(simplifiedError) : throwError(error);
+    return throwError(simplifiedError);
   }
 }

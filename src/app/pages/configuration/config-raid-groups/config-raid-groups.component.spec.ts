@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConfigRaidGroupsComponent } from 'src/app/pages/configuration/config-raid-groups/config-raid-groups.component';
 
-describe('ConfigStaticsComponent', () => {
+describe('ConfigRaidGroupsComponent', () => {
   let component: ConfigRaidGroupsComponent;
   let fixture: ComponentFixture<ConfigRaidGroupsComponent>;
 

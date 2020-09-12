@@ -1,7 +1,8 @@
 <app-modal-header title="Schedule"></app-modal-header>
 <div class="modal-body">
+  <fa-icon [icon]="faSpinner" class="center-absolute" spin="true" size="2x" aria-hidden="true" [hidden]="isLoaded"></fa-icon>
   <form #form="ngForm" [formGroup]="scheduleForm" (ngSubmit)="saveSchedule()" [class.ng-was-validated]="isSubmitted">
-    <p [hidden]="weeklyRaidTimes.controls.length > 0">You don't have any raid times. Click <span class="font-weight-bold">new time</span> to start scheduling!</p>
+    <p [hidden]="!isLoaded || weeklyRaidTimes.controls.length > 0">You don't have any raid times. Click <span class="font-weight-bold">new time</span> to start scheduling!</p>
     <div *ngFor="let wrt of weeklyRaidTimes.controls; let wrtIndex = index; let first = first;"
          [class.border-top]="!first" [class.pt-3]="!first">
       <h5 class="d-inline-block">Raid Time {{wrtIndex + 1}}</h5>

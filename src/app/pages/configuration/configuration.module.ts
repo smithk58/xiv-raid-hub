@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AddEditCharacterComponent } from './modals/add-edit-character/add-edit-character.component';
-import { AddEditStaticComponent } from './modals/add-edit-static/add-edit-static.component';
+import { AddEditRaidGroupComponent } from 'src/app/pages/configuration/modals/add-edit-raid-group/add-edit-raid-group.component';
 import { ConfigurationComponent } from './configuration.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
@@ -23,7 +23,7 @@ import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler
   declarations: [
     ConfigurationComponent,
     AddEditCharacterComponent,
-    AddEditStaticComponent,
+    AddEditRaidGroupComponent,
     FriendsCardComponent,
     ComparisonsCardComponent,
     UsersCharactersComponent,
@@ -32,6 +32,6 @@ import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler
     RaidGroupCardComponent,
     SchedulerComponent
   ],
-  entryComponents: [AddEditCharacterComponent, AddEditStaticComponent]
+  entryComponents: [AddEditCharacterComponent, AddEditRaidGroupComponent]
 })
 export class ConfigurationModule { }

@@ -1,12 +1,14 @@
-<p class="mt-3">Adding statics here will make them available to other areas of the application that use statics.</p>
+<p class="mt-3">Adding raid groups here will make them available to other areas of the application that use raid groups.</p>
 <div class="cards-container mt-4 mb-3 col-lg-6 col">
   <div class="container-col">
     <app-raid-group-card
-      cardSubject="static"
+      cardSubject="raid group"
       [raidGroups]="raidGroups"
-      (addStatic)="addUserStatic($event)"
-      (updateStatic)="updateUserStatic($event)"
-      (deleteStatic)="deleteUserStatic($event)"
+      [isLoaded]="!!raidGroups"
+      (addRaidGroup)="addUserRaidGroup($event)"
+      (updateRaidGroup)="updateUserRaidGroup($event)"
+      (deleteRaidGroup)="deleteUserRaidGroup($event)"
+      (updateSchedule)="updateRaidGroupSchedule($event.raidGroupId, $event.weeklyRaidTimes)"
     ></app-raid-group-card>
   </div>
 </div>
@@ -15,7 +17,7 @@
   <div class="container-col">
     <app-raid-group-card
       cardSubject="friend static"
-      tooltip="Adding statics here will help you compare their performance against other statics."
+      tooltip="Adding raid groups here will help you compare their performance against other raid groups."
       [statics]="friendStatics"
     ></app-raid-group-card>
   </div>
@@ -24,7 +26,7 @@
   <div class="container-col">
     <app-raid-group-card
       cardSubject="comparison static"
-      tooltip="Adding statics here will give you quick access to compare other statics against them."
+      tooltip="Adding raid groups here will give you quick access to compare other raid groups against them."
       [statics]="comparisonStatics"
     ></app-raid-group-card>
   </div>

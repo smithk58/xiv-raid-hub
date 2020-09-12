@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddEditStaticComponent } from './add-edit-static.component';
+import { AddEditRaidGroupComponent } from 'src/app/pages/configuration/modals/add-edit-raid-group/add-edit-raid-group.component';
 
 describe('AddEditStaticComponent', () => {
-  let component: AddEditStaticComponent;
-  let fixture: ComponentFixture<AddEditStaticComponent>;
+  let component: AddEditRaidGroupComponent;
+  let fixture: ComponentFixture<AddEditRaidGroupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddEditStaticComponent ]
+      declarations: [ AddEditRaidGroupComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddEditStaticComponent);
+    fixture = TestBed.createComponent(AddEditRaidGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

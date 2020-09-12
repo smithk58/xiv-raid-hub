@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {Encounter} from 'src/app/shared/api/fflogs/models/Zone';
-import {RaidGroup} from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
-import {Character} from 'src/app/shared/api/xiv-raid-hub/models/character';
-import {ActivatedRoute} from '@angular/router';
-import {ConfigurationService} from 'src/app/pages/configuration/configuration.service';
+import { Encounter } from 'src/app/shared/api/fflogs/models/Zone';
+import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
+import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
+import { ConfigurationService } from 'src/app/pages/configuration/configuration.service';
 
 @Component({
   selector: 'app-analyze-group',
@@ -23,7 +23,7 @@ export class AnalyzeGroupComponent implements OnInit {
     this.wlService.getFriendStatic(groupId).subscribe(sStatic => {
       this.group = sStatic;
       // We'll use the first character from the group to get reports
-      this.reportCharacter = this.group.characters[0];
+      // this.reportCharacter = this.group.characters[0];
     });
   }
   /**
