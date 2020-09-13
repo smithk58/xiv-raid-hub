@@ -51,7 +51,10 @@ export class ConfigRaidGroupsComponent implements OnInit {
     });
   }
   updateRaidGroupSchedule(raidGroupId: number, schedule: WeeklyRaidTime[]) {
-    this.wlService.updateRaidGroupsRaidTimes(raidGroupId, schedule).subscribe(raidGroups => {
+    this.wlService.updateRaidGroupsRaidTimes(raidGroupId, schedule).subscribe(raidTimes => {
+      // Update hasSchedule on the raid group
+      const existingGroupIndex = findIndex(this.raidGroups, {id: raidGroupId});
+      this.raidGroups[existingGroupIndex].hasSchedule = raidTimes.length > 0;
       this.notify.success({text: 'Schedule successfully updated!'});
     }, (error) => {
       this.notify.error({text: 'Failed to update schedule. ' + error});

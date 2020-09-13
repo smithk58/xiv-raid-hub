@@ -6,7 +6,7 @@
   </div>
   <div class="card-body position-relative">
     <fa-icon [hidden]="isReady" [icon]="faSpinner" class="center-absolute" spin="true" size="2x" aria-hidden="true"></fa-icon>
-    <p [hidden]="!isReady || hasDays" class="m-0 text-center">You don't have raid days schedule!</p>
+    <p [hidden]="!isReady || hasDays" class="m-0 text-center">You don't have raid days scheduled!</p>
     <ul class="list-group">
       <li *ngFor="let dateDisplay of raidDayDisplays" class="list-group-item">
         <div>

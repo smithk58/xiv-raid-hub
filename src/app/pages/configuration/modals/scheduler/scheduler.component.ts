@@ -4,16 +4,14 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Valid
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { faTrashAlt, faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import parseISO from 'date-fns/parseISO';
+import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time-struct';
 
-import {
-  DaysInWeek,
-  calculateDaysInWeekMask,
-  WeeklyRaidTime,
-  daysInWeekMaskToBools
-} from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
+// tslint:disable-next-line:max-line-length
+import { calculateDaysInWeekMask, WeeklyRaidTime, daysInWeekMaskToBools } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 import { UserService } from 'src/app/shared/api/xiv-raid-hub/user.service';
 import { ConfigurationService } from 'src/app/pages/configuration/configuration.service';
-import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time-struct';
+
+import { DaysOfWeek } from 'src/app/shared/DaysUtils';
 
 @Component({
   selector: 'app-scheduler',
@@ -22,7 +20,7 @@ import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time-st
 })
 export class SchedulerComponent implements OnInit {
   faTrash = faTrashAlt; faPlus = faPlus; faSpinner = faSpinner;
-  daysOfWeek = DaysInWeek;
+  daysOfWeek = DaysOfWeek;
   @Input() raidGroupId: number;
   scheduleForm: FormGroup;
   weeklyRaidTimes: FormArray;
@@ -58,11 +56,12 @@ export class SchedulerComponent implements OnInit {
    * Adds a weekly raid time section to the form.
    */
   addWeeklyRaidTime(raidTime?: WeeklyRaidTime) {
+    const daysOfWeekArr = Array.from(DaysOfWeek);
     // Build a form array of checkbox inputs
     const initialDaysInWeek = raidTime ? daysInWeekMaskToBools(raidTime.weekMask) : undefined;
     const daysOfWeek = new FormArray(
       // Initialize the checkboxes to the existing values if provided otherwise false
-      this.daysOfWeek.map((day, index) => new FormControl(initialDaysInWeek ? initialDaysInWeek[index] : false)),
+      daysOfWeekArr.map((day, index) => new FormControl(initialDaysInWeek ? initialDaysInWeek[index] : false)),
       this.atLeastOneCheckboxCheckedValidator.bind(this)
     );
     let initialTime: NgbTimeStruct;

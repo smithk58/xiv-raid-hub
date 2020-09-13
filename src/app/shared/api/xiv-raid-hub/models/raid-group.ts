@@ -5,6 +5,7 @@ export interface RaidGroup {
   owner?: any; // TODO maybe isOwner: boolean instead
   name: string;
   purpose?: string;
+  hasSchedule?: boolean;
   share: boolean;
   characters: RaidGroupCharacter[];
 }
