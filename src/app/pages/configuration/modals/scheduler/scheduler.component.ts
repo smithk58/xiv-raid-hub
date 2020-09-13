@@ -48,7 +48,7 @@ export class SchedulerComponent implements OnInit {
     });
     // Get the users time zone for display purposes
     this.userService.getUserSession().subscribe((user) => {
-      this.timezone = user.timezone;
+      this.timezone = user.prettyTimezone;
     });
   }
 

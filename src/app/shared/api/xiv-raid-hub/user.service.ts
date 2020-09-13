@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { ReplaySubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -14,7 +15,7 @@ import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.ser
 })
 export class UserService {
   constructor(@Inject(DOCUMENT) private document: Document, @Inject(BASE_API_URL) private baseAPIUrl: string, private http: HttpClient,
-              private notify: PNotifyService
+              private notify: PNotifyService, private router: Router
   ) { }
   private userSession$ = new ReplaySubject<UserSession>(1);
   /**
@@ -26,6 +27,7 @@ export class UserService {
   logout() {
     return this.http.get('/session/logout').pipe(tap(() => {
       this.refreshSession();
+      this.router.navigate(['/home']);
     }));
   }
   refreshSession() {
@@ -39,7 +41,9 @@ export class UserService {
     this.http.get<UserSession>('/session', config).pipe(
       tap((session) => {
         // Default the timezone if the server failed to parse it to shorthand for whatever reason
-        session.timezone = session.timezone ? session.timezone : this.getTimezone();
+        if (!session.prettyTimezone) {
+          session.prettyTimezone = this.getTimezone();
+        }
       })
     ).subscribe(session => {
       this.userSession$.next(session);

@@ -1,5 +1,5 @@
 export interface UserSession {
-  timezone: string;
+  prettyTimezone: string;
   isLoggedIn: boolean;
   user?: {
     username: string;
