@@ -9,8 +9,8 @@ import { IsAuthedGuard } from 'src/app/shared/IsAuthedGuard';
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  {path: 'analyze', loadChildren: () => import('./pages/analyze/analyze.module').then(m => m.AnalyzeModule)},
-  {path: 'my-raid', loadChildren: () => import('./pages/my-raid/my-raid.module').then(m => m.MyRaidModule)},
+  /*{path: 'analyze', loadChildren: () => import('./pages/analyze/analyze.module').then(m => m.AnalyzeModule)},*/
+  {path: 'my-raid', canActivate: [IsAuthedGuard], loadChildren: () => import('./pages/my-raid/my-raid.module').then(m => m.MyRaidModule)},
   {
     path: 'configuration',
     canActivate: [IsAuthedGuard],

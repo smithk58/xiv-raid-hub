@@ -20,7 +20,9 @@
       <li *ngFor="let raidGroup of raidGroups; index as i;" class="list-group-item d-flex">
         <div class="text-ellipsis-container pr-2">
           <span class="wrap-flex-overflow" [ngbTooltip]="raidGroup.name">{{raidGroup.name}}</span>
-          <span class="badge badge-info">{{raidGroup.purpose}}</span>
+          <span class="badge badge-secondary">{{raidGroup.purpose}}</span>
+          <span *ngIf="raidGroup.share" class="badge badge-info" ngbTooltip="All your raid group members can see this group.">Shared</span>
+          <span *ngIf="!raidGroup.share" class="badge badge-info" ngbTooltip="Only you can see this raid group.">Not Shared</span>
           <span class="badge badge-warning cursor-pointer" [hidden]="raidGroup.hasSchedule"
                 [ngbPopover]="noScheduleWarning" openDelay="300" popoverTitle="No Schedule" triggers="click"
                 popoverClass="no-schedule-popover" placement="right">

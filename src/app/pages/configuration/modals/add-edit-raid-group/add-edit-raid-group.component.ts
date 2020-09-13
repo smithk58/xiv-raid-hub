@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, FormArray } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, FormArray, FormControl } from '@angular/forms';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CharacterSearchResultRow } from '@xivapi/angular-client';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
@@ -11,9 +12,11 @@ import { RaidGroupCharacter } from 'src/app/shared/api/xiv-raid-hub/models/raid-
 @Component({
   selector: 'app-add-edit-raid-group',
   templateUrl: './add-edit-raid-group.component.html',
-  styleUrls: ['./add-edit-raid-group.component.css']
+  styleUrls: ['./add-edit-raid-group.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AddEditRaidGroupComponent implements OnInit {
+  faInfoCircle = faInfoCircle;
   raidGroupForm: FormGroup;
   characterControls: FormArray;
   requiredCharacters = 8; // The amount of members that will be generated on the form
@@ -32,11 +35,13 @@ export class AddEditRaidGroupComponent implements OnInit {
     const name = raidGroup ? raidGroup.name : '';
     const purpose = raidGroup ? raidGroup.purpose : '';
     const characters = raidGroup ? raidGroup.characters : undefined;
+    const shared = raidGroup ? raidGroup.share : true;
     // Build form (character control has to be separated so we can trigger validate)
     this.characterControls = this.buildCharacterControlList(characters);
     this.raidGroupForm = this.formBuilder.group({
       name: [name, [Validators.required, Validators.maxLength(30)]],
       purpose: [purpose, Validators.maxLength(10)],
+      share: [shared],
       characters: this.characterControls
     });
   }
@@ -122,7 +127,7 @@ export class AddEditRaidGroupComponent implements OnInit {
       // Build raid groups from characters
       const raidGroup: RaidGroup = {
         id: this.isEdit ? this.raidGroup.id : undefined,
-        share: false, // TODO add to/retrieve from form
+        share: this.raidGroupForm.get('share').value,
         name: this.raidGroupForm.get('name').value,
         purpose: this.raidGroupForm.get('purpose').value,
         characters
@@ -133,4 +138,5 @@ export class AddEditRaidGroupComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.raidGroupForm.controls; }
   get getCharacterControls() { return (this.raidGroupForm.get('characters') as FormArray).controls; }
+  get getShareCheckbox() { return (this.raidGroupForm.get('share') as FormControl); }
 }

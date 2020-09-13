@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbPopoverConfig, NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserService } from 'src/app/shared/api/xiv-raid-hub/user.service';
-import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
-import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 
 @Component({
   selector: 'app-root',

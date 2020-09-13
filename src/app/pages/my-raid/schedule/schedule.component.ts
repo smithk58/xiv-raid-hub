@@ -39,7 +39,7 @@ export class ScheduleComponent {
         continue;
       }
       const raidDay: RaidDayDisplay = {
-        day: day.dayShort,
+        day: day.dayLong,
         raidTimeDisplays: []
       };
       for (const raidTime of rTimes) {

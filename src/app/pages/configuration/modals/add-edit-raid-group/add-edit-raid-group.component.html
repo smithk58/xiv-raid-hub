@@ -19,7 +19,6 @@
         </div>
       </div>
     </div>
-
     <div class="members-container scroll-shadow position-relative">
       <div class="row mr-1">
         <!--Repeat the member fields-->
@@ -51,4 +50,19 @@
     </div>
   </form>
 </div>
-<app-modal-footer mode="save" (save)="form.ngSubmit.emit()"></app-modal-footer>
+<app-modal-footer mode="save" (save)="form.ngSubmit.emit()">
+  <div pre-content class="mr-auto mb-0">
+    <div class="form-check form-check-inline">
+      <input id="sharedCb" class="form-check-input" type="checkbox" [formControl]="getShareCheckbox">
+      <label class="form-check-label" for="sharedCb">Share with other members</label>
+      <fa-icon [icon]="faInfoCircle" class="ml-1"
+               [ngbPopover]="sharingPopover" popoverClass="sharing-popover" placement="top"
+      ></fa-icon>
+    </div>
+  </div>
+</app-modal-footer>
+<ng-template #sharingPopover>
+  <p class="my-1">If enabled this raid group will show up to other raid group members, so they don't have to add it themselves.</p>
+  <p>They must have added their character in the <span class="font-weight-bold">Characters</span> list and have <span class="font-weight-bold">claimed</span> it as their character.</p>
+  <p>They will <span class="font-weight-bold">NOT</span> be able to edit it, but they can see all of the information.</p>
+</ng-template>
