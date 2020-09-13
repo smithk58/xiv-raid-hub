@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { faFileDownload, faFileUpload, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-
 import { ConfigurationPaths } from 'src/app/pages/configuration/ConfigurationPaths';
 
 @Component({
@@ -13,10 +11,8 @@ import { ConfigurationPaths } from 'src/app/pages/configuration/ConfigurationPat
 export class ConfigurationComponent implements OnInit {
   tabToSelect: string;
   public Paths = ConfigurationPaths;
-  // Icons
-  faExport = faFileDownload; faImport = faFileUpload; faWarn = faExclamationTriangle;
   charactersRoute = ['/configuration/h/', {outlets: { tab: ConfigurationPaths.Characters}}];
-  staticsRoute = ['/configuration/h/', {outlets: { tab: ConfigurationPaths.Statics}}];
+  raidGroupsRoute = ['/configuration/h/', {outlets: { tab: ConfigurationPaths.RaidGroups}}];
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {

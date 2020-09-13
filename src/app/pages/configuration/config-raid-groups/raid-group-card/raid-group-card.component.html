@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="card-body position-relative">
-    <fa-icon [icon]="faSpinner" class="center-absolute" spin="true" size="2x" aria-hidden="true" [hidden]="isLoaded"></fa-icon>
+    <fa-icon [hidden]="isLoaded" [icon]="faSpinner" class="center-absolute" spin="true" size="2x" aria-hidden="true"></fa-icon>
     <p [hidden]="!isLoaded || raidGroups.length > 0" class="m-0 text-center">You haven't added any {{cardSubject}}s yet.</p>
     <ul class="list-group" *ngIf="isLoaded">
       <li *ngFor="let raidGroup of raidGroups; index as i;" class="list-group-item d-flex">

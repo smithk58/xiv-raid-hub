@@ -22,7 +22,7 @@ const routes: Routes = [
         component: ConfigCharactersComponent
       },
       {
-        path: ConfigurationPaths.Statics,
+        path: ConfigurationPaths.RaidGroups,
         outlet: 'tab',
         component: ConfigRaidGroupsComponent
       }

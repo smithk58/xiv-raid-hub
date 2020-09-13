@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { MyRaidTab } from 'src/app/pages/my-raid/MyRaidTab';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
+import { dayToRaidTimesMap, RaidTime, WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
+import { forkJoin } from 'rxjs';
+import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 
 @Component({
   selector: 'app-my-raid',
@@ -11,10 +14,20 @@ import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 export class MyRaidComponent implements OnInit {
   tabs: MyRaidTab[] = [];
   tabToSelect: string;
-  statics: RaidGroup[] = [];
-  constructor() { }
+  // Data
+  raidGroups: RaidGroup[];
+  dayToRaidTimes: Map<number, RaidTime[]>;
+  isLoaded = false;
+  constructor(private raidGroupService: RaidGroupService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    forkJoin([
+      this.raidGroupService.getRaidGroups(),
+      this.raidGroupService.getRaidTimes()
+    ]).subscribe((res) => {
+      this.raidGroups = res[0];
+      this.dayToRaidTimes = dayToRaidTimesMap(res[1]);
+      this.isLoaded = true;
+    });
   }
-
 }

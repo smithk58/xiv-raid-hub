@@ -39,9 +39,6 @@ export class ConfigurationService {
   updateRaidGroupsRaidTimes(raidGroupId: number, weeklyRaidTimes: WeeklyRaidTime[]) {
     return this.http.put<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/raidTimes', weeklyRaidTimes);
   }
-  getRaidTimes() {
-    return this.http.get<WeeklyRaidTime[]>('/raidTimes');
-  }
   /**
    * Returns a particular character from your friends, otherwise
    * @param characterId - The character id of the friend to return.

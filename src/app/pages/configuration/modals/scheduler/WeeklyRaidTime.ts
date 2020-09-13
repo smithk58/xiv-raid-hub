@@ -36,6 +36,7 @@ export enum DayToDayNumber {
   Sat
 }
 export const DaysInWeek = Object.keys(DaysInWeekBit).filter(x => isNaN(Number(x)));
+export const DaysInWeekNum = Object.keys(DayToDayNumber).map(x => Number(x)).filter(x => !isNaN(x));
 
 /**
  * Calculates the days in week mask via an array of booleans, where true implies it's included in the mask.

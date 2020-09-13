@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { faCalendarAlt, faPen, faTrashAlt, faInfoCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faPen, faTrashAlt, faInfoCircle, faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import {
   eachDayOfInterval,
   addDays,
@@ -12,14 +12,12 @@ import {
 } from 'date-fns';
 import isPast from 'date-fns/isPast';
 import startOfTomorrow from 'date-fns/startOfTomorrow';
-import { forkJoin, Subscription, timer } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import keyBy from 'lodash/keyBy';
 
-import { ConfigurationService } from 'src/app/pages/configuration/configuration.service';
-import { dayToRaidTimesMap, WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
+import { RaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 import { RaidDayDisplay, RaidTimeDisplay } from 'src/app/pages/my-raid/raid-times/raid-time-display';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
-import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 
 @Component({
   selector: 'app-raid-times',
@@ -27,40 +25,36 @@ import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.ser
   styleUrls: ['./raid-times.component.scss']
 })
 export class RaidTimesComponent implements OnInit, OnDestroy {
-  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faCalendar = faCalendarAlt;
+  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faCalendar = faCalendarAlt; faSpinner = faSpinner;
+  @Input() raidGroups: RaidGroup[];
+  @Input() dayToRaidTimes: Map<number, RaidTime[]>;
+  isReady = false;
+  @Input() set dataReady(ready: boolean) {
+    if (ready) {
+      this.generateRaidTimeDisplays(this.raidGroups, this.dayToRaidTimes);
+      this.isReady = true;
+    }
+  }
   raidDayDisplays: RaidDayDisplay[] = [];
   countdownFormat = 'H \'hrs\', m \'mins\', s \'secs\'';
   refreshData$: Subscription;
-  constructor(private wlService: ConfigurationService, private raidGroupService: RaidGroupService) { }
+  constructor() { }
 
   ngOnInit(): void {
+    // TODO watch event for countdown hitting 0 and remove the countdown
     // Wait until midnight and refresh the displays, for follow up refreshes wait 24 hrs before refreshing
     const millisUntilMidnight = differenceInMilliseconds(startOfTomorrow(), Date.now());
     const millisInADay = 86400000;
     this.refreshData$ = timer(millisUntilMidnight, millisInADay).subscribe(() => {
-      this.initializeData();
-    });
-    // Initial page data
-    this.initializeData();
-  }
-  initializeData() {
-    // Build raid time displays from the statics/schedules
-    forkJoin([
-      this.raidGroupService.getRaidGroups(),
-      this.wlService.getRaidTimes()
-    ]).subscribe((res) => {
-      const raidGroups = res[0];
-      const raidTimes = res[1];
-      this.generateRaidTimeDisplays(raidGroups, raidTimes);
+      this.generateRaidTimeDisplays(this.raidGroups, this.dayToRaidTimes);
     });
   }
   /**
    * Generates the raid time displays for the specified raid groups.
    * @param raidGroups - The list of raid groups for the schedules.
-   * @param weeklyRaidTimes - The list of raid times for the raid groups.
+   * @param raidTimesByDay - A map of days to raid times.
    */
-  generateRaidTimeDisplays(raidGroups: RaidGroup[], weeklyRaidTimes: WeeklyRaidTime[]) {
-    const raidTimesByDay = dayToRaidTimesMap(weeklyRaidTimes);
+  generateRaidTimeDisplays(raidGroups: RaidGroup[], raidTimesByDay: Map<number, RaidTime[]>) {
     const raidGroupMap = keyBy(raidGroups, 'id');
     // Get next 6 dates from today
     const sevenDaysFromNow = addDays(Date.now(), 6);

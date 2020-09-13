@@ -1,16 +1,16 @@
 <div class="card">
   <div class="card-header">
     <div class="d-flex align-items-center">
-      <span>Upcoming Raid Times</span>
+      <span>Full Schedule</span>
     </div>
   </div>
   <div class="card-body position-relative">
     <fa-icon [hidden]="isReady" [icon]="faSpinner" class="center-absolute" spin="true" size="2x" aria-hidden="true"></fa-icon>
-    <p [hidden]="!isReady || raidDayDisplays.length > 0" class="m-0 text-center">You don't have raid days in the next week!</p>
+    <p [hidden]="!isReady || hasDays" class="m-0 text-center">You don't have raid days schedule!</p>
     <ul class="list-group">
       <li *ngFor="let dateDisplay of raidDayDisplays" class="list-group-item">
         <div>
-          <span class="h5">{{dateDisplay.daysAwayInWords}}</span> ({{dateDisplay.date | date: 'EEEE'}})
+          <span class="h5">{{dateDisplay.day}}</span>
         </div>
         <div *ngFor="let timeDisplay of dateDisplay.raidTimeDisplays" class="ml-3 mt-2">
           <!--Raid time/purpose/etc.-->
@@ -21,10 +21,6 @@
             <span class="wrap-flex-overflow" [ngbTooltip]="timeDisplay.raidGroup.name" placement="top">
               {{timeDisplay.raidGroup.name}}
             </span>
-          </div>
-          <!--Countdown-->
-          <div *ngIf="timeDisplay.countdownConfig" class="ml-2">
-            <countdown class="font-weight-bold" [config]="timeDisplay.countdownConfig"></countdown>
           </div>
         </div>
       </li>

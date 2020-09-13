@@ -3,20 +3,17 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, 
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CharacterSearchResultRow } from '@xivapi/angular-client';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { RaidGroupCharacter } from 'src/app/shared/api/xiv-raid-hub/models/raid-group-character';
-import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 
 @Component({
-  selector: 'app-add-edit-static',
+  selector: 'app-add-edit-raid-group',
   templateUrl: './add-edit-raid-group.component.html',
   styleUrls: ['./add-edit-raid-group.component.css']
 })
 export class AddEditRaidGroupComponent implements OnInit {
-  faSpinner = faSpinner;
   raidGroupForm: FormGroup;
   characterControls: FormArray;
   requiredCharacters = 8; // The amount of members that will be generated on the form

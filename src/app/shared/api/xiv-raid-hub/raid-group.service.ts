@@ -3,15 +3,14 @@ import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
 import { BASE_API_URL } from 'src/app/api-injection-token';
-import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
+import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RaidGroupService {
-  constructor(@Inject(DOCUMENT) private document: Document, @Inject(BASE_API_URL) private baseAPIUrl: string, private http: HttpClient,
-              private notify: PNotifyService
+  constructor(@Inject(DOCUMENT) private document: Document, @Inject(BASE_API_URL) private baseAPIUrl: string, private http: HttpClient
   ) { }
   getRaidGroups() {
     return this.http.get<RaidGroup[]>('/raid-groups');
@@ -27,5 +26,8 @@ export class RaidGroupService {
   }
   deleteRaidGroup(raidGroupId: number) {
     return this.http.delete('/raid-groups/' + raidGroupId);
+  }
+  getRaidTimes() {
+    return this.http.get<WeeklyRaidTime[]>('/raidTimes');
   }
 }
