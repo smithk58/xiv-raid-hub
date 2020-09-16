@@ -1,0 +1,65 @@
+<app-modal-header title="Confirm Character"></app-modal-header>
+<div class="modal-body">
+  <!--Why-->
+  <div>
+    <span class="h5">Why confirm?</span>
+    <button class="btn-svg ml-2" (click)="showWhy = !showWhy"
+            aria-label="Expand/collapse why confirm section"
+            ngbTooltip="Expand/collapse why confirm section"
+    >
+      <fa-icon [icon]=" showWhy ? chevronDown : chevronUp" aria-hidden="true"></fa-icon>
+    </button>
+  </div>
+  <div [@openClose]="showWhy ? 'open' : 'closed'" class="overflow-hidden">
+    <p class="mt-1">Confirming ownership of a character gives you access to information about the character that we wouldn't want to give to just anyone.</p>
+    <p>For example, if someone creates a raid group with your character in it and enables sharing you will automatically see that raid group. This includes things, such as its raid schedule, that people may not want publicly available.</p>
+  </div>
+  <!--How-->
+  <div class="mt-2">
+    <span class="h5">How does this work?</span>
+    <button class="btn-svg ml-2" (click)="showHow = !showHow"
+            aria-label="Expand/collapse how does this work section"
+            ngbTooltip="Expand/collapse how does this work section"
+    >
+      <fa-icon [icon]=" showHow ? chevronDown : chevronUp" aria-hidden="true"></fa-icon>
+    </button>
+  </div>
+  <div [@openClose]="showHow ? 'open' : 'closed'" class="overflow-hidden">
+    <p class="mt-1">To confirm you own the character you are given a unique code. You put this code in your character's profile on the FFXIV website (the lodestone), which only you can edit, but anyone can view. After doing so we scan the profile section for the code and if found can assume the person that had access to put the code in the profile is the owner of the character.</p>
+    <p>After the character is confirmed you can safely remove the unique code.</p>
+  </div>
+  <div class="h5 mt-2">Steps to confirm:</div>
+  <ol class="pl-3">
+    <li>Copy the following unique code: <span class="font-weight-bold" *ngIf="session">xiv-raid-hub-{{session.user.id}}</span></li>
+    <li>Paste the code in your character's Character Profile on the lodestone and save it.
+      <ul>
+        <li>You may navigate there yourself, or use the link below if you trust this website.</li>
+        <li><a target="_blank"[href]="'https://na.finalfantasyxiv.com/lodestone/character/' + characterId">https://na.finalfantasyxiv.com/lodestone/character/{{characterId}}</a></li>
+      </ul>
+    </li>
+    <li>
+        After you are sure it's saved, click the 'Yes' button below and we will scan the profile for the code.
+    </li>
+  </ol>
+  <!--Debugging-->
+  <div *ngIf="failedToFindCode" class="mt-4">
+    <span class="h5">Debugging steps</span>
+    <button class="btn-svg ml-2" (click)="showDebugging = !showDebugging"
+            aria-label="Expand/collapse how does this work section"
+            ngbTooltip="Expand/collapse how does this work section"
+    >
+      <fa-icon [icon]=" showDebugging ? chevronDown : chevronUp" class="mr-1" aria-hidden="true"></fa-icon>
+    </button>
+  </div>
+  <div [@openClose]="showDebugging ? 'open' : 'closed'" class="overflow-hidden">
+    <ul class="mt-2">
+      <li>Go back to your profile and double check that you fully saved. If you did, you should be able to visit your
+        profile on another browser tab and see the code in your Character Profile section.</li>
+      <li>Compare the code in your profile to the one we asked for. It must be an exact match, no capital letters or extra spaces.</li>
+      <li>Have a friend look at your profile and confirm that they can see the code and that it's correct.</li>
+      <li>If all of the above failed it's probably something on our end. Sorry about that! Report it as an issue on the Github
+      linked in the footer, or give it another try later.</li>
+    </ul>
+  </div>
+</div>
+<app-modal-footer mode="confirm" (confirm)="onConfirm($event)" [disabled]="attemptingClaim"></app-modal-footer>

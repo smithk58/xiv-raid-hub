@@ -15,7 +15,7 @@ import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.ser
 })
 export class ConfigRaidGroupsComponent implements OnInit {
   raidGroups: RaidGroup[];
-  constructor(private wlService: ConfigurationService, private notify: PNotifyService, private raidGroupService: RaidGroupService) { }
+  constructor(private notify: PNotifyService, private raidGroupService: RaidGroupService) { }
 
   ngOnInit() {
     this.raidGroupService.getRaidGroups().subscribe(raidGroups => {
@@ -44,14 +44,14 @@ export class ConfigRaidGroupsComponent implements OnInit {
   deleteUserRaidGroup(raidGroupId: number) {
     this.raidGroupService.deleteRaidGroup(raidGroupId).subscribe((res) => {
       const existingGroupIndex = findIndex(this.raidGroups, {id: raidGroupId});
-      this.raidGroups = this.raidGroups.splice(existingGroupIndex, 1);
+      this.raidGroups.splice(existingGroupIndex, 1);
       this.notify.success({text: 'Raid group was successfully deleted!'});
     }, error => {
       this.notify.error({text: 'Failed to delete raid group. ' + error});
     });
   }
   updateRaidGroupSchedule(raidGroupId: number, schedule: WeeklyRaidTime[]) {
-    this.wlService.updateRaidGroupsRaidTimes(raidGroupId, schedule).subscribe(raidTimes => {
+    this.raidGroupService.updateRaidGroupsRaidTimes(raidGroupId, schedule).subscribe(raidTimes => {
       // Update hasSchedule on the raid group
       const existingGroupIndex = findIndex(this.raidGroups, {id: raidGroupId});
       this.raidGroups[existingGroupIndex].hasSchedule = raidTimes.length > 0;

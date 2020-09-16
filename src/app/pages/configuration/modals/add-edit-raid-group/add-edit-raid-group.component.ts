@@ -12,8 +12,7 @@ import { RaidGroupCharacter } from 'src/app/shared/api/xiv-raid-hub/models/raid-
 @Component({
   selector: 'app-add-edit-raid-group',
   templateUrl: './add-edit-raid-group.component.html',
-  styleUrls: ['./add-edit-raid-group.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./add-edit-raid-group.component.css']
 })
 export class AddEditRaidGroupComponent implements OnInit {
   faInfoCircle = faInfoCircle;

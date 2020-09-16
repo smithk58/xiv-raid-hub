@@ -13,6 +13,7 @@ import { ConfigCharactersComponent } from './config-characters/config-characters
 import { ConfigRaidGroupsComponent } from 'src/app/pages/configuration/config-raid-groups/config-raid-groups.component';
 import { RaidGroupCardComponent } from './config-raid-groups/raid-group-card/raid-group-card.component';
 import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler/scheduler.component';
+import { ConfirmCharacterComponent } from './modals/confirm-character/confirm-character.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler
     ConfigCharactersComponent,
     ConfigRaidGroupsComponent,
     RaidGroupCardComponent,
-    SchedulerComponent
+    SchedulerComponent,
+    ConfirmCharacterComponent
   ],
   entryComponents: [AddEditCharacterComponent, AddEditRaidGroupComponent]
 })

@@ -30,4 +30,10 @@ export class RaidGroupService {
   getRaidTimes() {
     return this.http.get<WeeklyRaidTime[]>('/raidTimes');
   }
+  getRaidGroupsRaidTimes(raidGroupId: number) {
+    return this.http.get<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/raidTimes');
+  }
+  updateRaidGroupsRaidTimes(raidGroupId: number, weeklyRaidTimes: WeeklyRaidTime[]) {
+    return this.http.put<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/raidTimes', weeklyRaidTimes);
+  }
 }

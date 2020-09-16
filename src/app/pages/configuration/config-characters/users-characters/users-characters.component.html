@@ -8,36 +8,44 @@
       </button>
     </div>
   </div>
-  <div class="card-body">
-    <p [hidden]="characters.length > 0" class="m-0 text-center">You haven't added any characters yet.</p>
+  <div class="card-body position-relative">
+    <fa-icon [hidden]="isLoaded" [icon]="faSpinner" class="center-absolute" spin="true" size="2x" aria-hidden="true"></fa-icon>
+    <p [hidden]="!isLoaded || characters.length > 0" class="m-0 text-center">You haven't added any characters yet.</p>
     <ul class="list-group">
-      <li *ngFor="let character of characters" class="list-group-item d-flex">
+      <li *ngFor="let userCharacter of characters" class="list-group-item d-flex">
         <div class="text-ellipsis-container mr-2">
           <img class="class-icon mr-1" aria-hidden="true"
-               [alt]="character.defaultClass" [src]="'assets/class-icons/'+character.defaultClass+'.png'"
-               [ngClass]="classToRole[character.defaultClass] + '-bg'"
-               [ngbTooltip]="character.defaultClass"
+               [alt]="userCharacter.defaultClass" [src]="'assets/class-icons/'+userCharacter.defaultClass+'.png'"
+               [ngClass]="classToRole[userCharacter.defaultClass] + '-bg'"
+               [ngbTooltip]="userCharacter.defaultClass"
           />
-          <span class="wrap-flex-overflow" [ngbTooltip]="character.name">{{character.name}}</span>
-          <span class="badge badge-info">{{character.server}}</span>
+          <span class="wrap-flex-overflow" [ngbTooltip]="userCharacter.character.name">{{userCharacter.character.name}}</span>
+          <span class="badge badge-info">{{userCharacter.character.server}}</span>
+          <span *ngIf="userCharacter.isOwner" class="badge badge-success" ngbTooltip="You've successfully confirmed that this character belongs to you!">Confirmed</span>
+          <span *ngIf="!userCharacter.isOwner" class="badge badge-warning cursor-pointer" [ngbTooltip]="unconfirmedPopover" tooltipClass="md-popover">Unconfirmed</span>
         </div>
         <div class="ml-auto actions-container">
-          <button class="btn-svg" (click)="goToFFlogs(character)"
+          <button class="btn-svg" (click)="goToFFlogs(userCharacter.character)"
                   aria-label="Open this character's FF logs profile"
                   ngbTooltip="Open this character's FF logs profile">
             <img src="assets/fflogs.png" class="logo-img" aria-hidden="true"/>
+          </button>
+          <button *ngIf="!userCharacter.isOwner" class="btn-svg" (click)="confirmCharacter(userCharacter.characterId)"
+                  aria-label="Attempts to confirm this character as yours"
+                  ngbTooltip="Confirm this character as yours">
+            <fa-icon [icon]="faCheck" size="xl" aria-hidden="true"></fa-icon>
           </button>
           <!--<button class="btn-svg" (click)="analyzeCharacter(character)"
                   aria-label="Analyze this character"
                   ngbTooltip="Analyze this character">
             <fa-icon [icon]="faChartBar" size="xl" aria-hidden="true"></fa-icon>
           </button>-->
-          <button class="btn-svg" (click)="addEditCharacterModal(character)"
+          <button class="btn-svg" (click)="addEditCharacterModal(userCharacter)"
                   aria-label="Edits the current character"
                   ngbTooltip="Edit this character">
             <fa-icon [icon]="faEdit" size="xl" aria-hidden="true"></fa-icon>
           </button>
-          <button class="btn-svg" (click)="deleteCharacter(character)"
+          <button class="btn-svg" (click)="deleteCharacter(userCharacter)"
                   aria-label="Deletes the current character"
                   ngbTooltip="Remove this character">
             <fa-icon [icon]="faTrash" size="xl" aria-hidden="true"></fa-icon>
@@ -47,3 +55,6 @@
     </ul>
   </div>
 </div>
+<ng-template #unconfirmedPopover>
+  <p class="m-0">Click the <fa-icon [icon]="faCheck" size="xl" class="mx-1" aria-label="calendar"></fa-icon> icon to the right to begin the claim process!</p>
+</ng-template>

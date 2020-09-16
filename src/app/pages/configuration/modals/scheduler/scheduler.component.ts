@@ -9,9 +9,9 @@ import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time-st
 // tslint:disable-next-line:max-line-length
 import { calculateDaysInWeekMask, WeeklyRaidTime, daysInWeekMaskToBools } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 import { UserService } from 'src/app/shared/api/xiv-raid-hub/user.service';
-import { ConfigurationService } from 'src/app/pages/configuration/configuration.service';
 
 import { DaysOfWeek } from 'src/app/shared/DaysUtils';
+import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 
 @Component({
   selector: 'app-scheduler',
@@ -28,7 +28,7 @@ export class SchedulerComponent implements OnInit {
   timezone: string;
   isLoaded = false;
   constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private userService: UserService,
-              private wlService: ConfigurationService
+              private raidGroupService: RaidGroupService
   ) { }
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class SchedulerComponent implements OnInit {
     this.scheduleForm = this.formBuilder.group({
       weeklyRaidTimes: this.weeklyRaidTimes
     });
-    this.wlService.getRaidGroupsRaidTimes(this.raidGroupId).subscribe((raidTimes) => {
+    this.raidGroupService.getRaidGroupsRaidTimes(this.raidGroupId).subscribe((raidTimes) => {
       for (const raidTime of raidTimes) {
         this.addWeeklyRaidTime(raidTime);
       }

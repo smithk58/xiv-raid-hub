@@ -1,11 +1,6 @@
-/* NOTE This component has view encapsulation off for .sharing-popover to be usable by a popover, scope any CSS in here
-very carefully, since it's now global*/
 .members-container {
   max-height: calc(100vh - 325px);
   min-height: 200px;
   overflow-y: auto;
   overflow-x: hidden;
-}
-.sharing-popover {
-  width: 300px;
 }

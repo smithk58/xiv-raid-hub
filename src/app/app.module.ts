@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { XivapiClientModule } from '@xivapi/angular-client';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
@@ -17,11 +18,11 @@ import { YesNoModalComponent } from './shared/utility-components/modals/yes-no-m
 import { httpInterceptorProviders } from 'src/app/shared/interceptors';
 import { BASE_API_URL } from 'src/app/api-injection-token';
 import { IsAuthedGuard } from 'src/app/shared/IsAuthedGuard';
-import { NgbTimeAdapter } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RoutingModule,
     SharedModule,
     XivapiClientModule.forRoot(),

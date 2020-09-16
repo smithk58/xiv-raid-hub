@@ -7,9 +7,6 @@ import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
 import { StorageKeys } from 'src/app/shared/importExport/StorageKeys';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { Utils } from 'src/app/shared/Utils';
-import { HttpClient } from '@angular/common/http';
-import { UserSession } from 'src/app/shared/api/xiv-raid-hub/models/user-session';
-import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 
 @Injectable({
   providedIn: 'root'
@@ -20,25 +17,7 @@ export class ConfigurationService {
   friendStatics: BehaviorSubject<RaidGroup[]>;
   comparisonTargets: BehaviorSubject<Character[]>;
   comparisonStatics: BehaviorSubject<RaidGroup[]>;
-  constructor(private http: HttpClient) { }
-  getUsersCharacters() {
-    return this.usersCharacters = this.getHelper(this.usersCharacters, StorageKeys.usersCharacters);
-  }
-  addUserCharacter(character: Character) {
-    this.addHelper(character, this.usersCharacters, StorageKeys.usersCharacters, true);
-  }
-  updateUserCharacter(character: Character) {
-    return this.updateHelper(character, this.usersCharacters, StorageKeys.usersCharacters);
-  }
-  deleteUserCharacter(characterId: number) {
-    return this.deleteHelper(characterId, this.usersCharacters, StorageKeys.usersCharacters);
-  }
-  getRaidGroupsRaidTimes(raidGroupId: number) {
-    return this.http.get<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/raidTimes');
-  }
-  updateRaidGroupsRaidTimes(raidGroupId: number, weeklyRaidTimes: WeeklyRaidTime[]) {
-    return this.http.put<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/raidTimes', weeklyRaidTimes);
-  }
+  constructor() { }
   /**
    * Returns a particular character from your friends, otherwise
    * @param characterId - The character id of the friend to return.
