@@ -14,6 +14,7 @@ import { YesNoModalComponent } from 'src/app/shared/utility-components/modals/ye
 import { ConfirmCharacterComponent } from 'src/app/pages/configuration/modals/confirm-character/confirm-character.component';
 import { CharacterService } from 'src/app/shared/api/xiv-raid-hub/character.service';
 import { UserCharacter } from 'src/app/shared/api/xiv-raid-hub/models/user-character';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users-characters',
@@ -30,9 +31,12 @@ export class UsersCharactersComponent implements OnInit {
               private router: Router, private ffLogsAPi: FFLogsApiService, private characterService: CharacterService) { }
 
   ngOnInit() {
-    this.characterService.getUsersCharacters().subscribe(characters => {
+    this.characterService.getUsersCharacters().pipe(
+      finalize(() => {this.isLoaded = true; })
+    ).subscribe(characters => {
       this.characters = characters;
-      this.isLoaded = true;
+    }, (error) => {
+      this.notify.error({text: 'Failed to get characters. ' + error});
     });
   }
   /**

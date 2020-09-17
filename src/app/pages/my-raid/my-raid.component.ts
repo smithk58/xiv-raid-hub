@@ -5,6 +5,8 @@ import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { dayToRaidTimesMap, RaidTime, WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 import { forkJoin } from 'rxjs';
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
+import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-my-raid',
@@ -18,16 +20,19 @@ export class MyRaidComponent implements OnInit {
   raidGroups: RaidGroup[];
   dayToRaidTimes: Map<number, RaidTime[]>;
   isLoaded = false;
-  constructor(private raidGroupService: RaidGroupService) { }
+  constructor(private raidGroupService: RaidGroupService, private notify: PNotifyService) { }
 
   ngOnInit(): void {
     forkJoin([
       this.raidGroupService.getRaidGroups(),
       this.raidGroupService.getRaidTimes()
-    ]).subscribe((res) => {
+    ]).pipe(
+      finalize(() => {this.isLoaded = true; })
+    ).subscribe((res) => {
       this.raidGroups = res[0];
       this.dayToRaidTimes = dayToRaidTimesMap(res[1]);
-      this.isLoaded = true;
+    }, (error) => {
+      this.notify.error({text: 'Failed to get raid groups and times. ' + error});
     });
   }
 }

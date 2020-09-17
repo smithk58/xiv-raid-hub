@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import findIndex from 'lodash/findIndex';
 
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
-import { ConfigurationService } from 'src/app/pages/configuration/configuration.service';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
@@ -20,6 +19,8 @@ export class ConfigRaidGroupsComponent implements OnInit {
   ngOnInit() {
     this.raidGroupService.getRaidGroups().subscribe(raidGroups => {
       this.raidGroups = raidGroups;
+    }, (error) => {
+      this.notify.error({text: 'Failed to get raid groups. ' + error});
     });
   }
   addUserRaidGroup(newRaidGroup: RaidGroup) {

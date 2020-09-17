@@ -12,6 +12,8 @@ import { UserService } from 'src/app/shared/api/xiv-raid-hub/user.service';
 
 import { DaysOfWeek } from 'src/app/shared/DaysUtils';
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
+import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-scheduler',
@@ -28,7 +30,7 @@ export class SchedulerComponent implements OnInit {
   timezone: string;
   isLoaded = false;
   constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private userService: UserService,
-              private raidGroupService: RaidGroupService
+              private raidGroupService: RaidGroupService, private notify: PNotifyService
   ) { }
 
   ngOnInit(): void {
@@ -40,11 +42,14 @@ export class SchedulerComponent implements OnInit {
     this.scheduleForm = this.formBuilder.group({
       weeklyRaidTimes: this.weeklyRaidTimes
     });
-    this.raidGroupService.getRaidGroupsRaidTimes(this.raidGroupId).subscribe((raidTimes) => {
+    this.raidGroupService.getRaidGroupsRaidTimes(this.raidGroupId).pipe(
+      finalize(() => {this.isLoaded = true; })
+    ).subscribe((raidTimes) => {
       for (const raidTime of raidTimes) {
         this.addWeeklyRaidTime(raidTime);
       }
-      this.isLoaded = true;
+    }, (error) => {
+      this.notify.error({text: 'Failed to get raid times. ' + error});
     });
     // Get the users time zone for display purposes
     this.userService.getUserSession().subscribe((user) => {
