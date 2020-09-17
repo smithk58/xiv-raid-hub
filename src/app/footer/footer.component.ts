@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 import { faGithub  } from '@fortawesome/free-brands-svg-icons';
 
@@ -8,6 +8,7 @@ import { faGithub  } from '@fortawesome/free-brands-svg-icons';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
+  @HostBinding('class.footer') footer = true;
   gitHubIcon = faGithub;
   constructor() { }
 }

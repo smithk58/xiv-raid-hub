@@ -1,3 +1,14 @@
+.navbar {
+  padding: 0;
+}
+.footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.6);
+}
+.sidebar {
+  top: 65px;
+  bottom: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
 .scroll-shadow::after {
   background: $modal-content-bg;
 }

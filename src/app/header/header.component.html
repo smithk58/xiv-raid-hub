@@ -33,16 +33,18 @@
         </a>
       </li>
       <!--User tools if logged in-->
+      <li *ngIf="session && session.isLoggedIn" class="nav-item sm-collapse" [routerLinkActive]="['active']" ngbTooltip="My Raid">
+        <a class="nav-link" routerLink="/configuration/h" aria-label="Navigate to configuration">
+          <fa-icon [icon]="faCog" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
+          <span class="d-none d-sm-inline">Config</span>
+        </a>
+      </li>
       <li *ngIf="session.isLoggedIn" ngbDropdown #utd="ngbDropdown" id="userToolsDropdown" display="dynamic" placement="bottom-right" class="nav-item sm-collapse">
         <a ngbDropdownToggle (keyup.enter)="utd.toggle()" class="nav-link" role="button" tabindex="0">
           <img class="avatar" [src]="session.user.avatarURL" aria-hidden="true">
           <span class="align-middle ml-2 d-none d-md-inline">{{session.user.username}}</span>
         </a>
         <div ngbDropdownMenu aria-labelledby="userToolsDropdown">
-          <a ngbDropdownItem href="/configuration/h">
-            <fa-icon [icon]="faWrench" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
-            App Config
-          </a>
           <a ngbDropdownItem href="/settings">
             <fa-icon [icon]="faUserCog" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
             User Settings

@@ -1,0 +1,7 @@
+// Adjust sidebar heights/colors
+.sidebar {
+  top: 64px;
+  bottom: 33px;
+  border-top: $border-width solid $border-color;
+  border-bottom: $border-width solid $border-color;
+}

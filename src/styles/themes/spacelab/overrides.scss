@@ -1,0 +1,9 @@
+// Make our footer match the gradient theme
+.footer.bg-primary {
+  @include btn-shadow(map-get($theme-colors, "primary"));
+}
+// Adjust sidebar heights/colors
+.sidebar {
+  top: 66px;
+  bottom: 36px;
+}
