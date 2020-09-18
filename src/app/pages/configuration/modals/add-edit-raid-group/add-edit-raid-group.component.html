@@ -1,4 +1,4 @@
-<app-modal-header [title]="isEdit ? 'Edit Raid Group' : 'Add Raid Group'"></app-modal-header>
+<app-modal-header [title]="isEdit ? (canEdit ? 'Edit':'View')+' Raid Group' : 'Add Raid Group'"></app-modal-header>
 <div class="modal-body pb-0">
   <form #form="ngForm" [formGroup]="raidGroupForm"(ngSubmit)="saveRaidGroup()" [class.ng-was-validated]="isSubmitted">
     <div class="row">
@@ -50,7 +50,7 @@
     </div>
   </form>
 </div>
-<app-modal-footer mode="save" (save)="form.ngSubmit.emit()">
+<app-modal-footer [mode]="canEdit ? 'save' : 'close'" (save)="form.ngSubmit.emit()">
   <div pre-content class="mr-auto mb-0">
     <div class="form-check form-check-inline">
       <input id="sharedCb" class="form-check-input" type="checkbox" [formControl]="getShareCheckbox">

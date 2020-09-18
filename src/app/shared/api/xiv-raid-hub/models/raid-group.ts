@@ -2,10 +2,11 @@ import { RaidGroupCharacter } from 'src/app/shared/api/xiv-raid-hub/models/raid-
 
 export interface RaidGroup {
   id?: number;
-  owner?: any; // TODO maybe isOwner: boolean instead
+  ownerId?: number;
   name: string;
   purpose?: string;
   hasSchedule?: boolean;
   share: boolean;
-  characters: RaidGroupCharacter[];
+  characters?: RaidGroupCharacter[];
+  isOwner?: boolean; /*calculated by FE*/
 }

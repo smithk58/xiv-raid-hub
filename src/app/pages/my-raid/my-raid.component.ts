@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { dayToRaidTimesMap, RaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
+import { forkJoin } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+
 import { MyRaidTab } from 'src/app/pages/my-raid/MyRaidTab';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
-import { dayToRaidTimesMap, RaidTime, WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
-import { forkJoin } from 'rxjs';
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
-import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-my-raid',

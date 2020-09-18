@@ -21,6 +21,7 @@ export class AddEditRaidGroupComponent implements OnInit {
   requiredCharacters = 8; // The amount of members that will be generated on the form
   isSubmitted = false;
   isEdit = false;
+  canEdit = true;
   raidGroup: RaidGroup;
   existingCharacterIds: Record<number, number> = {}; /*id -> howManyTimesItsUsed*/
   indexToCharacterId: Record<number, number> = {}; /*index -> number*/
@@ -43,6 +44,10 @@ export class AddEditRaidGroupComponent implements OnInit {
       share: [shared],
       characters: this.characterControls
     });
+    // Disable form if can't edit
+    if (!this.canEdit) {
+      this.raidGroupForm.disable();
+    }
   }
   /**
    * Builds the form controls for each required character

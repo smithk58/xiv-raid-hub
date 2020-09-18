@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 import findIndex from 'lodash/findIndex';
+import { concatMap } from 'rxjs/operators';
 
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
+import { UserService } from 'src/app/shared/api/xiv-raid-hub/user.service';
 
 @Component({
   selector: 'app-config-raid-groups',
@@ -14,10 +16,14 @@ import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.ser
 })
 export class ConfigRaidGroupsComponent implements OnInit {
   raidGroups: RaidGroup[];
-  constructor(private notify: PNotifyService, private raidGroupService: RaidGroupService) { }
+  constructor(private notify: PNotifyService, private raidGroupService: RaidGroupService, private userService: UserService) { }
 
   ngOnInit() {
-    this.raidGroupService.getRaidGroups().subscribe(raidGroups => {
+    this.userService.getUserSession().pipe(
+      concatMap(session => {
+        return this.raidGroupService.getRaidGroups(session.user.id);
+      })
+    ).subscribe((raidGroups) => {
       this.raidGroups = raidGroups;
     }, (error) => {
       this.notify.error({text: 'Failed to get raid groups. ' + error});

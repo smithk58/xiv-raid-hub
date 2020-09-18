@@ -28,24 +28,25 @@ export class RaidGroupCardComponent {
   @Output() updateRaidGroup: EventEmitter<RaidGroup> = new EventEmitter();
   @Output() deleteRaidGroup: EventEmitter<number> = new EventEmitter();
   @Output() updateSchedule: EventEmitter<{ raidGroupId: number, weeklyRaidTimes: WeeklyRaidTime[]}> = new EventEmitter();
-  constructor(private wlService: ConfigurationService, private modalService: NgbModal, private raidGroupService: RaidGroupService) { }
-  addEditScheduleModal(raidGroupId: number) {
+  constructor(private modalService: NgbModal, private raidGroupService: RaidGroupService) { }
+  addEditScheduleModal(raidGroup: RaidGroup) {
     const modal = this.modalService.open(SchedulerComponent,  {backdrop: 'static', size: 'lg'});
-    modal.componentInstance.raidGroupId = raidGroupId;
+    modal.componentInstance.raidGroupId = raidGroup.id;
     modal.result.then((weeklyRaidTimes: WeeklyRaidTime[]) => {
-      this.updateSchedule.emit({raidGroupId, weeklyRaidTimes});
+      this.updateSchedule.emit({raidGroupId: raidGroup.id, weeklyRaidTimes});
     }, () => {}); // They aborted, do nothing
   }
-  editRaidGroup(raidGroupId: number) {
+  editRaidGroup(raidGroup: RaidGroup) {
     // TODO refactor to get raid group characters instead of full group, which are then appended on to the existing raid group definition
     //  we have, API call should be generic to all raid group types so component is still reusable
-    this.raidGroupService.getRaidGroup(raidGroupId).subscribe((raidGroup) => {
-      this.openRaidGroupModal(raidGroup);
+    this.raidGroupService.getRaidGroup(raidGroup.id).subscribe((detailedRaidGroup) => {
+      this.openRaidGroupModal(detailedRaidGroup);
     });
   }
   openRaidGroupModal(raidGroup?: RaidGroup) {
     const isInsert = typeof(raidGroup) === 'undefined';
     const modal = this.modalService.open(AddEditRaidGroupComponent, {backdrop: 'static', size: 'lg'});
+    modal.componentInstance.canEdit = isInsert ? true : raidGroup.isOwner;
     modal.componentInstance.raidGroup = raidGroup;
     modal.result.then((modalRaidGroup: RaidGroup) => {
       if (isInsert) {
