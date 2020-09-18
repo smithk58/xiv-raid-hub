@@ -24,6 +24,7 @@ export class SchedulerComponent implements OnInit {
   faTrash = faTrashAlt; faPlus = faPlus; faSpinner = faSpinner;
   daysOfWeek = DaysOfWeek;
   @Input() raidGroupId: number;
+  @Input() canEdit = true;
   scheduleForm: FormGroup;
   weeklyRaidTimes: FormArray;
   isSubmitted = false;
@@ -47,6 +48,9 @@ export class SchedulerComponent implements OnInit {
     ).subscribe((raidTimes) => {
       for (const raidTime of raidTimes) {
         this.addWeeklyRaidTime(raidTime);
+      }
+      if (!this.canEdit) {
+        this.scheduleForm.disable();
       }
     }, (error) => {
       this.notify.error({text: 'Failed to get raid times. ' + error});

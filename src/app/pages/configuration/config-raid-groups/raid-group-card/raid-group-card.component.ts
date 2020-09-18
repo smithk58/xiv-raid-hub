@@ -4,7 +4,6 @@ import { faCalendarAlt, faInfoCircle, faPen, faPlus, faTrashAlt, faAngry, faSpin
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
-import { ConfigurationService } from 'src/app/pages/configuration/configuration.service';
 import { AddEditRaidGroupComponent } from 'src/app/pages/configuration/modals/add-edit-raid-group/add-edit-raid-group.component';
 import { YesNoModalComponent } from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
 import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler/scheduler.component';
@@ -31,6 +30,7 @@ export class RaidGroupCardComponent {
   constructor(private modalService: NgbModal, private raidGroupService: RaidGroupService) { }
   addEditScheduleModal(raidGroup: RaidGroup) {
     const modal = this.modalService.open(SchedulerComponent,  {backdrop: 'static', size: 'lg'});
+    modal.componentInstance.canEdit = raidGroup.isOwner;
     modal.componentInstance.raidGroupId = raidGroup.id;
     modal.result.then((weeklyRaidTimes: WeeklyRaidTime[]) => {
       this.updateSchedule.emit({raidGroupId: raidGroup.id, weeklyRaidTimes});
@@ -61,7 +61,11 @@ export class RaidGroupCardComponent {
   deleteRaidGroupModal(raidGroup: RaidGroup) {
     const modal = this.modalService.open(YesNoModalComponent);
     modal.componentInstance.modalTitle = 'Delete?';
-    modal.componentInstance.modalText = 'Are you sure you want to delete ' + raidGroup.name + ' from your ' + this.cardSubject + 's?';
+    let modalText = 'Are you sure you want to delete ' + raidGroup.name + ' from your ' + this.cardSubject + 's?';
+    if (!raidGroup.isOwner) {
+      modalText += '<p class="mt-2">Since you\'re not the owner of this group you will only be removing yourself from the group.</p>';
+    }
+    modal.componentInstance.modalText = modalText;
     modal.result.then(doDelete => {
       if (doDelete) {
         this.deleteRaidGroup.emit(raidGroup.id);

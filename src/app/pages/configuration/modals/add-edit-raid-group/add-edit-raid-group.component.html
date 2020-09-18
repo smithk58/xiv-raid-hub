@@ -1,5 +1,8 @@
 <app-modal-header [title]="isEdit ? (canEdit ? 'Edit':'View')+' Raid Group' : 'Add Raid Group'"></app-modal-header>
 <div class="modal-body pb-0">
+  <div *ngIf="!canEdit" class="alert alert-info" role="alert">
+    You can view details, but only the owner can change them.
+  </div>
   <form #form="ngForm" [formGroup]="raidGroupForm"(ngSubmit)="saveRaidGroup()" [class.ng-was-validated]="isSubmitted">
     <div class="row">
       <!--Raid group name-->

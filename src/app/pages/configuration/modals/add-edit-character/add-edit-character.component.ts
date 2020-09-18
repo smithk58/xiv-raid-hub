@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +17,9 @@ export class AddEditCharacterComponent implements OnInit {
   characterForm: FormGroup;
   characterControl: FormControl;
   isSubmitted = false;
+  @Input()
   isEdit = false;
+  @Input()
   characterToEdit: Character;
   existingCharacterIds: Record<number, boolean>;
   constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder) { }

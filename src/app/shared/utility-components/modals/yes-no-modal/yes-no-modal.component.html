@@ -1,5 +1,5 @@
 <app-modal-header [title]="modalTitle"></app-modal-header>
 <div class="modal-body">
-  <p>{{modalText}}</p>
+  <div [innerHTML]="modalText"></div>
 </div>
 <app-modal-footer mode="confirm" (confirm)="closeModal($event.result)"></app-modal-footer>

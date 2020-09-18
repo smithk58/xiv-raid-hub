@@ -17,7 +17,7 @@ export class RaidGroupService {
   getRaidGroups(userIdForOwnerCalculation?: number) {
     return this.http.get<RaidGroup[]>('/raid-groups').pipe(
       tap(raidGroups => { // TODO kill this dumb stuff when typeorm addSelectAndMap releases in 0.3.0
-        raidGroups.forEach((raidGroup) => raidGroup.isOwner = false); // raidGroup.ownerId === userIdForOwnerCalculation);
+        raidGroups.forEach((raidGroup) => raidGroup.isOwner = raidGroup.ownerId === userIdForOwnerCalculation);
       })
     );
   }

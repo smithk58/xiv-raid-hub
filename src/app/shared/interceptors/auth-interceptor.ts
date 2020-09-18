@@ -21,9 +21,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
   /**
    * Checks an http error for a 401 on internal http calls and kills the front end session if found.
-   * @param response
-   * @param request
-   * @param next
+   * @param response -
+   * @param request -
+   * @param next -
    */
   handleAuthenticationError(response: HttpErrorResponse, request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (response.status === 401) {
