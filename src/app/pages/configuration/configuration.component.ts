@@ -9,14 +9,25 @@ import { ConfigurationPaths } from 'src/app/pages/configuration/ConfigurationPat
   styleUrls: ['./configuration.component.css']
 })
 export class ConfigurationComponent implements OnInit {
-  tabToSelect: string;
   public Paths = ConfigurationPaths;
-  charactersRoute = ['/configuration/h/', {outlets: { tab: ConfigurationPaths.Characters}}];
-  raidGroupsRoute = ['/configuration/h/', {outlets: { tab: ConfigurationPaths.RaidGroups}}];
+  configRoutes = [
+    {
+      id: ConfigurationPaths.Characters,
+      label: 'Characters',
+      route: ['/configuration/h/', {outlets: { tab: ConfigurationPaths.Characters}}]
+    },
+    {
+      id: ConfigurationPaths.RaidGroups,
+      label: 'Raid Groups',
+      route: ['/configuration/h/', {outlets: { tab: ConfigurationPaths.RaidGroups}}]
+    }
+  ];
+  selectedRoute: string;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // First child should be the subroute we're on and its path should match our ConfigurationPaths enum
-    this.tabToSelect = this.route.snapshot.firstChild.routeConfig.path;
+    // First child should be the subroute we're on and its path should match our ConfigurationPaths enum, needed for active sub route
+    // selection to work after page refresh
+    this.selectedRoute = this.route.snapshot.firstChild.routeConfig.path;
   }
 }

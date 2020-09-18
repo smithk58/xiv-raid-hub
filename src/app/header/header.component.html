@@ -3,19 +3,19 @@
   <div class="collapse navbar-collapse">
     <!--Left aligned nav-->
     <ul class="navbar-nav mr-auto text-uppercase">
-      <li class="nav-item sm-collapse" [routerLinkActive]="['active']" ngbTooltip="Home">
+      <li class="nav-item sm-collapse" routerLinkActive="active" ngbTooltip="Home">
         <a class="nav-link" routerLink="/home" aria-label="Navigate to home">
           <fa-icon [icon]="faHome" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
           <span class="d-none d-sm-inline">Home</span>
         </a>
       </li>
-      <li *ngIf="session && session.isLoggedIn" class="nav-item sm-collapse" [routerLinkActive]="['active']" ngbTooltip="My Raid">
+      <li *ngIf="session && session.isLoggedIn" class="nav-item sm-collapse" routerLinkActive="active" ngbTooltip="My Raid">
         <a class="nav-link" routerLink="/my-raid" aria-label="Navigate to my raid">
           <fa-icon [icon]="faUser" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
           <span class="d-none d-sm-inline">My Raid</span>
         </a>
       </li>
-      <!--<li class="nav-item sm-collapse" [routerLinkActive]="['active']" ngbTooltip="Analyze">
+      <!--<li class="nav-item sm-collapse" routerLinkActive="active" ngbTooltip="Analyze">
         <a class="nav-link" routerLink="/analyze" aria-label="Navigate to analyze">
           <fa-icon [icon]="faChartBar" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
           <span class="d-none d-sm-inline">Analyze</span>
@@ -33,7 +33,7 @@
         </a>
       </li>
       <!--User tools if logged in-->
-      <li *ngIf="session && session.isLoggedIn" class="nav-item sm-collapse" [routerLinkActive]="['active']" ngbTooltip="My Raid">
+      <li *ngIf="session && session.isLoggedIn" class="nav-item sm-collapse" routerLinkActive="active" ngbTooltip="My Raid">
         <a class="nav-link" routerLink="/configuration/h" aria-label="Navigate to configuration">
           <fa-icon [icon]="faCog" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
           <span class="d-none d-sm-inline">Config</span>

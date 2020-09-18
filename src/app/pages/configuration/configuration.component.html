@@ -1,11 +1,13 @@
-<div class="container-fluid">
-  <ul ngbNav [(activeId)]="tabToSelect" class="nav-tabs mt-3">
-    <li [ngbNavItem]="Paths.Characters">
-      <a ngbNavLink [routerLink]="charactersRoute">Characters</a>
-    </li>
-    <li [ngbNavItem]="Paths.RaidGroups">
-      <a ngbNavLink [routerLink]="raidGroupsRoute">Raid Groups</a>
+<nav class="navbar-expand navbar-dark bg-primary sidebar">
+  <ul ngbNav [(activeId)]="selectedRoute" class="navbar-nav flex-column">
+    <li *ngFor="let configRoute of configRoutes" [ngbNavItem]="configRoute.id">
+      <a ngbNavLink [routerLink]="configRoute.route" routerLinkActive="active">
+        {{configRoute.label}}
+      </a>
     </li>
   </ul>
+</nav>
+<div class="container-fluid">
   <router-outlet name="tab"></router-outlet>
 </div>
+

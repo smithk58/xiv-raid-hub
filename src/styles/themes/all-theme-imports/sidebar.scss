@@ -1,8 +1,17 @@
+$sidebar-width: 150px;
 // Note each theme implements their own top/bottom
 .sidebar {
   position: fixed;
   left: 0;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-  width: 150px;
+  width: $sidebar-width;
   overflow-y: auto;
+}
+.sidebar + *, .sidebar + router-outlet + * {
+  position: relative;
+  left: $sidebar-width;
+}
+.sidebar .nav-link {
+  font-size: 1rem;
+  padding-left: 0.75rem !important;
 }
