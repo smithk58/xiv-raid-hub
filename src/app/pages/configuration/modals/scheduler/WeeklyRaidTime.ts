@@ -5,7 +5,9 @@ export interface WeeklyRaidTime {
   id?: number;
   raidGroupId: number;
   weekMask: number;
-  startTime: string; /*technically a date, but should only use the time off of it*/
+  utcHour: number;
+  utcMinute: number;
+  localTime?: Date; /*Has to manually be set by FE*/
 }
 export interface RaidTime {
   raidGroupId: number;
@@ -51,7 +53,10 @@ export function dayToRaidTimesMap(weeklyRaidTimes: WeeklyRaidTime[]): Map<number
     for (const day of DaysOfWeek.values()) {
       // tslint:disable-next-line:no-bitwise - I do what I want >:(
       if (weeklyRaidTime.weekMask & day.bit) {
-        const startTime = parseISO(weeklyRaidTime.startTime);
+        const startTime = new Date();
+        startTime.setUTCHours(weeklyRaidTime.utcHour);
+        startTime.setUTCMinutes(weeklyRaidTime.utcMinute);
+        startTime.setUTCSeconds(0);
         if (!dayToTimes.has(day.jsDay)) {
           dayToTimes.set(day.jsDay, [{raidGroupId: weeklyRaidTime.raidGroupId, startTime}]);
         } else {

@@ -75,8 +75,11 @@ export class SchedulerComponent implements OnInit {
     );
     let initialTime: NgbTimeStruct;
     if (raidTime) {
-      const isoTime = parseISO(raidTime.startTime);
-      initialTime = {hour: isoTime.getHours(), minute: isoTime.getMinutes(), second: 0};
+      const time = new Date();
+      time.setUTCHours(raidTime.utcHour);
+      time.setUTCMinutes(raidTime.utcMinute);
+      time.setUTCSeconds(0);
+      initialTime = {hour: time.getHours(), minute: time.getMinutes(), second: 0};
     } else {
       initialTime = {hour: 12, minute: 0, second: 0}; // 12pm default
     }
@@ -100,7 +103,8 @@ export class SchedulerComponent implements OnInit {
         startTime.setSeconds(0);
         raidTimes.push({
           raidGroupId: this.raidGroupId,
-          startTime: startTime.toISOString(),
+          utcHour: startTime.getUTCHours(),
+          utcMinute: startTime.getUTCMinutes(),
           weekMask: calculateDaysInWeekMask(raidTime.daysOfWeek)
         });
       }

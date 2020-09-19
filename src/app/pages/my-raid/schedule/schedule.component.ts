@@ -8,7 +8,6 @@ import { RaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRai
 import { RaidDayDisplay, RaidTimeDisplay } from 'src/app/pages/my-raid/schedule/raid-time-display';
 import { DaysOfWeek } from 'src/app/shared/DaysUtils';
 
-
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
