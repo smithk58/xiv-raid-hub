@@ -3,7 +3,6 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Valid
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { faTrashAlt, faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import parseISO from 'date-fns/parseISO';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time-struct';
 
 // tslint:disable-next-line:max-line-length
