@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Valid
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { faTrashAlt, faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time-struct';
+import { finalize } from 'rxjs/operators';
 
 // tslint:disable-next-line:max-line-length
 import { calculateDaysInWeekMask, WeeklyRaidTime, daysInWeekMaskToBools } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
@@ -12,7 +13,7 @@ import { UserService } from 'src/app/shared/api/xiv-raid-hub/user.service';
 import { DaysOfWeek } from 'src/app/shared/DaysUtils';
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
-import { finalize } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-scheduler',
