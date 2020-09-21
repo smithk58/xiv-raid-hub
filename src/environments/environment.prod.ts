@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseHref: 'http://api.xivraidhub.com'
+  baseHref: 'http://api.xivraidhub.com/'
 };
