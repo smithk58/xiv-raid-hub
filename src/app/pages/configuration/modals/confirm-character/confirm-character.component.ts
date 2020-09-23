@@ -38,7 +38,7 @@ export class ConfirmCharacterComponent implements OnInit {
   chevronDown = faMinus; chevronUp = faPlus;
   showWhy = false;
   showHow = false;
-  showDebugging = true;
+  showDebugging = false;
   failedToFindCode = false;
   attemptingClaim = false;
   session: UserSession;
