@@ -1,11 +1,9 @@
 const Koa = require('koa');
 const serve = require('koa-static');
 const send = require('koa-send');
-const path = require('path');
 
 const app = new Koa();
-const staticDirPath = path.join(__dirname, 'xiv-raid-hub');
-app.use(serve(staticDirPath));
+app.use(serve(__dirname));
 // Redirect any 401s to index, so the angular frontend can handle them
 app.use(async (ctx, next) => {
   await next();
