@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { XivapiClientModule, XivapiService } from '@xivapi/angular-client';
 
 import { AddEditCharacterComponent } from './add-edit-character.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('AddEditCharacterComponent', () => {
   let component: AddEditCharacterComponent;
@@ -8,7 +14,14 @@ describe('AddEditCharacterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddEditCharacterComponent ]
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        SharedModule,
+        XivapiClientModule.forRoot()
+      ],
+      declarations: [ AddEditCharacterComponent ],
+      providers: [NgbActiveModal, XivapiService]
     })
     .compileComponents();
   }));

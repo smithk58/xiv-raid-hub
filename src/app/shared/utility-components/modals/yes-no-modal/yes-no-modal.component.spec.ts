@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { YesNoModalComponent } from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('YesNoModalComponent', () => {
   let component: YesNoModalComponent;
@@ -8,7 +11,9 @@ describe('YesNoModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YesNoModalComponent ]
+      imports: [SharedModule],
+      declarations: [ YesNoModalComponent ],
+      providers: [NgbActiveModal]
     })
     .compileComponents();
   }));

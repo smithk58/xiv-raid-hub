@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { ClassSearchComponent } from './class-search.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { FormControl } from '@angular/forms';
 
 describe('ClassSearchComponent', () => {
   let component: ClassSearchComponent;
@@ -8,6 +12,7 @@ describe('ClassSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, SharedModule],
       declarations: [ ClassSearchComponent ]
     })
     .compileComponents();
@@ -16,6 +21,7 @@ describe('ClassSearchComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ClassSearchComponent);
     component = fixture.componentInstance;
+    component.fControl = new FormControl('');
     fixture.detectChanges();
   });
 

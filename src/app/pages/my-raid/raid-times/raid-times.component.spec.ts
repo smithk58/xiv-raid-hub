@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RaidTimesComponent } from './raid-times.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('RaidTimesComponent', () => {
   let component: RaidTimesComponent;
@@ -8,6 +9,7 @@ describe('RaidTimesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [SharedModule],
       declarations: [ RaidTimesComponent ]
     })
     .compileComponents();

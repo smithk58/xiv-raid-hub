@@ -48,7 +48,7 @@ export class AnalyzeCharacterComponent implements OnInit, OnDestroy {
     this.wlService.getFriend(characterId).subscribe(character => {
       this.atCharacter = character;
       // Update the class filter to the current characters default class
-      this.atClassFilter.setValue(this.atCharacter.defaultClass);
+      this.atClassFilter.setValue(this.atCharacter?.defaultClass);
     });
   }
   /**

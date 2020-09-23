@@ -28,6 +28,6 @@ export class ConfigurationComponent implements OnInit {
   ngOnInit(): void {
     // First child should be the subroute we're on and its path should match our ConfigurationPaths enum, needed for active sub route
     // selection to work after page refresh
-    this.selectedRoute = this.route.snapshot.firstChild.routeConfig.path;
+    this.selectedRoute = this.route.snapshot.firstChild?.routeConfig.path;
   }
 }

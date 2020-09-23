@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ReportLinksComponent } from './report-links.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('ReportLinksComponent', () => {
   let component: ReportLinksComponent;
@@ -8,6 +10,7 @@ describe('ReportLinksComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, SharedModule],
       declarations: [ ReportLinksComponent ]
     })
     .compileComponents();

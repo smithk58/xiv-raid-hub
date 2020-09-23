@@ -110,9 +110,28 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
+              {
+                "input": "src/styles/themes/default/index.scss",
+                "lazy": true,
+                "bundleName": "default-theme"
+              },
+              {
+                "input": "src/styles/themes/slate/index.scss",
+                "lazy": true,
+                "bundleName": "slate-theme"
+              },
+              {
+                "input": "src/styles/themes/spacelab/index.scss",
+                "lazy": true,
+                "bundleName": "spacelab-theme"
+              },
+              "node_modules/pnotify/dist/PNotifyBrightTheme.css",
               "src/styles/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "./node_modules/pnotify/dist/iife/PNotify.js",
+              "./node_modules/pnotify/dist/iife/PNotifyButtons.js"
+            ],
             "assets": [
               "src/assets"
             ]

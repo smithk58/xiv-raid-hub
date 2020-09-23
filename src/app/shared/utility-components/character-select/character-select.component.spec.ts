@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CharacterSelectComponent } from './character-select.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('CharacterSelectComponent', () => {
   let component: CharacterSelectComponent;
@@ -8,6 +9,7 @@ describe('CharacterSelectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [SharedModule],
       declarations: [ CharacterSelectComponent ]
     })
     .compileComponents();

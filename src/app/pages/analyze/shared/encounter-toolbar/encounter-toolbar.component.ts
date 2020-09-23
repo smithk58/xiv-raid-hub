@@ -11,7 +11,7 @@ import {ZoneEncounter} from 'src/app/pages/analyze/shared/encounter-toolbar/Zone
   templateUrl: './encounter-toolbar.component.html',
   styleUrls: ['./encounter-toolbar.component.css']
 })
-export class EncounterToolbarComponent implements OnInit {
+export class  EncounterToolbarComponent implements OnInit {
   @Output() selected: EventEmitter<ZoneEncounter> = new EventEmitter();
   selectedExpansion: string;
   expansions: string[];
