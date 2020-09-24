@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const serve = require('koa-static');
 const send = require('koa-send');
-const forceHTTPS = require('koa-force-https');
+const forceHTTPS = require('./force-https');
 const helmet = require("koa-helmet");
 
 const app = new Koa();
