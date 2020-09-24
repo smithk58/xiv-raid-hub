@@ -1,8 +1,13 @@
 const Koa = require('koa');
 const serve = require('koa-static');
 const send = require('koa-send');
+const forceHTTPS = require('koa-force-https');
+import * as Helmet from 'koa-helmet';
 
 const app = new Koa();
+app.use(Helmet());
+// Redirect http -> https
+app.use(forceHTTPS());
 app.use(serve(__dirname));
 // Redirect any 401s to index, so the angular frontend can handle them
 app.use(async (ctx, next) => {

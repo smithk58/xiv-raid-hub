@@ -43,6 +43,8 @@
     "date-fns": "^2.16.1",
     "date-fns-tz": "^1.0.10",
     "koa": "^2.13.0",
+    "koa-force-https": "^2.0.1",
+    "koa-helmet": "^5.2.0",
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0",
     "lodash": "^4.17.20",
