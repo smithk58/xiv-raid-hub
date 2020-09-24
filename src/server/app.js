@@ -2,10 +2,10 @@ const Koa = require('koa');
 const serve = require('koa-static');
 const send = require('koa-send');
 const forceHTTPS = require('koa-force-https');
-import * as Helmet from 'koa-helmet';
+const helmet = require("koa-helmet");
 
 const app = new Koa();
-app.use(Helmet());
+app.use(helmet());
 // Redirect http -> https
 app.use(forceHTTPS());
 app.use(serve(__dirname));
