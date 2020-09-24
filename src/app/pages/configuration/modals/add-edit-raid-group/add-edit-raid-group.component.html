@@ -39,7 +39,7 @@
               <div *ngIf="ctrlGrp.controls.character.errors.required">A character is required.</div>
               <div *ngIf="ctrlGrp.controls.character.errors.notUnique">You can't add a character that you have already added.</div>
             </div>
-            <label [for]="'class_'+i" class="mt-3">Class</label>
+            <label [for]="'class_'+i" class="mt-3">Job</label>
             <app-class-search [fControl]="ctrlGrp.controls.comparisonClass"
                               [labelForId]="'class_'+i"
                               appendTo=".modal-body">
