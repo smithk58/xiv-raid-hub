@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 
-import { faCalendarAlt, faInfoCircle, faPen, faPlus, faTrashAlt, faAngry, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faInfoCircle, faPen, faPlus, faTrashAlt, faAngry, faSpinner, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
@@ -18,13 +18,14 @@ import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.ser
 })
 export class RaidGroupCardComponent {
   faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faCalendar = faCalendarAlt; faAngry = faAngry;
-  faSpinner = faSpinner;
+  faSpinner = faSpinner; faCopy = faCopy;
   @Input() cardSubject: string;
   @Input() tooltip: string;
   @Input() raidGroups: RaidGroup[];
   @Input() isLoaded = false;
   @Output() addRaidGroup: EventEmitter<RaidGroup> = new EventEmitter();
   @Output() updateRaidGroup: EventEmitter<RaidGroup> = new EventEmitter();
+  @Output() copyRaidGroup: EventEmitter<number> = new EventEmitter();
   @Output() deleteRaidGroup: EventEmitter<number> = new EventEmitter();
   @Output() updateSchedule: EventEmitter<{ raidGroupId: number, weeklyRaidTimes: WeeklyRaidTime[]}> = new EventEmitter();
   constructor(private modalService: NgbModal, private raidGroupService: RaidGroupService) { }
@@ -42,6 +43,19 @@ export class RaidGroupCardComponent {
     this.raidGroupService.getRaidGroup(raidGroup.id).subscribe((detailedRaidGroup) => {
       this.openRaidGroupModal(detailedRaidGroup);
     });
+  }
+  makeCopyOfRaidGroup(raidGroup: RaidGroup) {
+    const modalText = 'Are you sure you want to create a copy of <span class="font-weight-bold">' + raidGroup.name + '</span>?'
+      + '<p class="mt-2">This will only copy the properties found in the add/edit of a raid group, except sharing will be turned off.</p>';
+
+    const modal = this.modalService.open(YesNoModalComponent);
+    modal.componentInstance.modalTitle = 'Make a Copy?';
+    modal.componentInstance.modalText = modalText;
+    modal.result.then(doCopy => {
+      if (doCopy) {
+        this.copyRaidGroup.emit(raidGroup.id);
+      }
+    }, () => {});
   }
   openRaidGroupModal(raidGroup?: RaidGroup) {
     const isInsert = typeof(raidGroup) === 'undefined';

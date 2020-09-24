@@ -48,6 +48,14 @@ export class ConfigRaidGroupsComponent implements OnInit {
       this.notify.error({text: 'Failed to update raid group. ' + error});
     });
   }
+  copyUserRaidGroup(raidGroupId: number) {
+    this.raidGroupService.copyRaidGroup(raidGroupId).subscribe((raidGroup) => {
+      this.raidGroups.push(raidGroup);
+      this.notify.success({text: 'Raid group was successfully copied!'});
+    }, error => {
+      this.notify.error({text: 'Failed to copy raid group. ' + error});
+    });
+  }
   deleteUserRaidGroup(raidGroupId: number) {
     this.raidGroupService.deleteRaidGroup(raidGroupId).subscribe((res) => {
       const existingGroupIndex = findIndex(this.raidGroups, {id: raidGroupId});

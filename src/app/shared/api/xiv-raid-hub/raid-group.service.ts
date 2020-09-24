@@ -30,6 +30,9 @@ export class RaidGroupService {
   updateRaidGroup(raidGroup: RaidGroup) {
     return this.http.put<RaidGroup>('/raid-groups/' + raidGroup.id, raidGroup);
   }
+  copyRaidGroup(raidGroupId: number) {
+    return this.http.post<RaidGroup>('/raid-groups/' + raidGroupId, {});
+  }
   deleteRaidGroup(raidGroupId: number) {
     return this.http.delete('/raid-groups/' + raidGroupId);
   }

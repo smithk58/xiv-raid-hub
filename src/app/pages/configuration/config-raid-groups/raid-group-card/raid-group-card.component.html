@@ -40,6 +40,11 @@
                   [ngbTooltip]="(raidGroup.isOwner ? 'Edit' : 'View')+' this '+cardSubject">
             <fa-icon [icon]="faEdit" size="xl" aria-hidden="true"></fa-icon>
           </button>
+          <button class="btn-svg" (click)="makeCopyOfRaidGroup(raidGroup)"
+                  aria-label="Copy the current {{cardSubject}}"
+                  ngbTooltip="Copy this {{cardSubject}}">
+            <fa-icon [icon]="faCopy" size="xl" aria-hidden="true"></fa-icon>
+          </button>
           <button class="btn-svg" (click)="deleteRaidGroupModal(raidGroup)"
                   aria-label="Deletes the current {{cardSubject}}"
                   ngbTooltip="Remove this {{cardSubject}}">
