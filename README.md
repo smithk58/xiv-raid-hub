@@ -1,6 +1,6 @@
 # XivRaidHub
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3. If you're interested in contributing you can find more information on the about page.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3. If you're interested in contributing you can find more information on the [about page.](http://www.xivraidhub.com/about)
 
 ## Development server
 
