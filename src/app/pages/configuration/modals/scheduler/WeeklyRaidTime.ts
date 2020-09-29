@@ -1,4 +1,3 @@
-import parseISO from 'date-fns/parseISO';
 import { DaysOfWeek } from 'src/app/shared/DaysUtils';
 
 export interface WeeklyRaidTime {

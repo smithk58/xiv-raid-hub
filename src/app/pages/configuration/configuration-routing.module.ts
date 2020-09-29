@@ -5,6 +5,7 @@ import { ConfigurationComponent } from './configuration.component';
 import { ConfigCharactersComponent } from 'src/app/pages/configuration/config-characters/config-characters.component';
 import { ConfigRaidGroupsComponent } from 'src/app/pages/configuration/config-raid-groups/config-raid-groups.component';
 import { ConfigurationPaths } from 'src/app/pages/configuration/ConfigurationPaths';
+import { ConfigAlarmsComponent } from 'src/app/pages/configuration/config-alarms/config-alarms.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
         path: ConfigurationPaths.RaidGroups,
         outlet: 'tab',
         component: ConfigRaidGroupsComponent
+      },
+      {
+        path: ConfigurationPaths.Alarms,
+        outlet: 'tab',
+        component: ConfigAlarmsComponent
       }
     ]
   }

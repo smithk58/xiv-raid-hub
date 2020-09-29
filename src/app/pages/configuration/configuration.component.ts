@@ -20,6 +20,11 @@ export class ConfigurationComponent implements OnInit {
       id: ConfigurationPaths.RaidGroups,
       label: 'Raid Groups',
       route: ['/configuration/h/', {outlets: { tab: ConfigurationPaths.RaidGroups}}]
+    },
+    {
+      id: ConfigurationPaths.Alarms,
+      label: 'Alarms',
+      route: ['/configuration/h/', {outlets: { tab: ConfigurationPaths.Alarms}}]
     }
   ];
   selectedRoute: string;

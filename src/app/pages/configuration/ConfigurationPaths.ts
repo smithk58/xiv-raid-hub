@@ -1,4 +1,5 @@
 export enum ConfigurationPaths {
   Characters = 'characters',
-  RaidGroups = 'raid-groups'
+  RaidGroups = 'raid-groups',
+  Alarms = 'alarms'
 }

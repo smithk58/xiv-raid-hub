@@ -37,7 +37,7 @@ export class RaidGroupService {
     return this.http.delete('/raid-groups/' + raidGroupId);
   }
   getRaidTimes() {
-    return this.http.get<WeeklyRaidTime[]>('/raidTimes').pipe(
+    return this.http.get<WeeklyRaidTime[]>('/raid-times').pipe(
       map(raidTimes => {
         const currentDay = new Date().getDate();
         // Generate the local time via the utc hours/minutes
@@ -58,9 +58,9 @@ export class RaidGroupService {
     );
   }
   getRaidGroupsRaidTimes(raidGroupId: number) {
-    return this.http.get<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/raidTimes');
+    return this.http.get<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/raid-times');
   }
   updateRaidGroupsRaidTimes(raidGroupId: number, weeklyRaidTimes: WeeklyRaidTime[]) {
-    return this.http.put<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/raidTimes', weeklyRaidTimes);
+    return this.http.put<WeeklyRaidTime[]>('/raid-groups/' + raidGroupId + '/raid-times', weeklyRaidTimes);
   }
 }
