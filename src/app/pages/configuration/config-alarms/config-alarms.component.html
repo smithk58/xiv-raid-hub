@@ -1,1 +1,42 @@
 <p class="mt-3">Adding alarms will give you a way to alert either yourself or your entire raid group about raid times.</p>
+<div class="row">
+  <div class="col-lg-6 col">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <span class="text-capitalize">Alarms</span>
+          <!--Add alarm-->
+          <button class="btn btn-primary ml-4 text-nowrap" (click)="openAlarmModal()" aria-label="Add new alarm">
+            <fa-icon [icon]="faPlus" class="mr-1" aria-hidden="true"></fa-icon>Add
+          </button>
+        </div>
+      </div>
+      <div class="card-body position-relative">
+        <fa-icon [hidden]="isLoaded" [icon]="faSpinner" class="center-absolute" spin="true" size="2x" aria-hidden="true"></fa-icon>
+        <p [hidden]="!isLoaded || alarms.length > 0" class="m-0 text-center">You haven't added any alarms yet.</p>
+        <ul class="list-group" *ngIf="isLoaded">
+          <li *ngFor="let alarm of alarms; index as i;" class="list-group-item d-flex">
+            <div class="text-ellipsis-container pr-2">
+              <span class="font-weight-bold flex-shrink-0">{{alarm.offsetHour}} hrs and {{alarm.offsetMinute}} mins</span>
+              <span>before</span>
+              <span class="wrap-flex-overflow" [ngbTooltip]="alarm.raidGroup.name">{{alarm.raidGroup.name}}</span>
+              <span class="flex-shrink-0">meets for</span>
+              <span class="font-weight-bold wrap-flex-overflow" [ngbTooltip]="alarm.raidGroup.purpose">{{alarm.raidGroup.purpose || 'raiding'}}</span>
+            </div>
+            <div class="ml-auto actions-container">
+              <button class="btn-svg" (click)="openAlarmModal(alarm)"
+                      aria-label="Edit the current alarm">
+                <fa-icon [icon]="faEdit" size="xl" aria-hidden="true"></fa-icon>
+              </button>
+              <button class="btn-svg" (click)="deleteAlarm(alarm)"
+                      aria-label="Deletes the current alarm"
+                      ngbTooltip="Remove this alarm">
+                <fa-icon [icon]="faTrash" size="xl" aria-hidden="true"></fa-icon>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

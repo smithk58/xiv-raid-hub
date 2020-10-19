@@ -1,0 +1,141 @@
+<app-modal-header [title]="isEdit ? 'Edit Alarm' : 'Add Alarm'"></app-modal-header>
+<div class="modal-body">
+  <form #form="ngForm" [formGroup]="alarmForm" (ngSubmit)="saveAlarm()" [class.ng-was-validated]="isSubmitted">
+    <!--enabled section-->
+    <div class="form-check form-check-inline mb-3">
+      <input id="alarmEnabled" class="form-check-input" type="checkbox" formControlName="isEnabled">
+      <label class="form-check-label" for="alarmEnabled">Alarm Enabled</label>
+    </div>
+    <!--hours/minutes section-->
+    <div class="form-group">
+      <div>
+        <span class="pr-2">Send alert</span>
+        <div class="d-inline-block">
+          <label for="alarmHours" class="sr-only">Number of hours before raid</label>
+          <input id="alarmHours" type="text" formControlName="hours" class="form-control hours-minutes-input">
+        </div>
+        <span class="px-2">hours and</span>
+        <div class="d-inline-block">
+          <label for="alarmMinutes" class="sr-only">Number of minutes before raid.</label>
+          <input id="alarmMinutes" type="text" formControlName="minutes" class="form-control hours-minutes-input">
+        </div>
+        <span class="pl-2">minutes before raid.</span>
+      </div>
+      <!--hours/minutes errors-->
+      <div *ngIf="(f.hours.errors || f.minutes.errors)" class="invalid-feedback" [class.d-block]="isSubmitted">
+        <div *ngIf="f.hours.errors">Hours must be a number between 0 and 23.</div>
+        <div *ngIf="f.minutes.errors">Minutes must be a number between 0 and 59.</div>
+      </div>
+    </div>
+    <!--raid group section-->
+    <div class="form-group">
+      <label for="alarmRaidGroup">Raid Group</label>
+      <ng-select [items]="raidGroups"
+                 [formControl]="f.raidGroup"
+                 [clearable]="false"
+                 [loading]="raidGroupsLoading"
+                 bindValue="id"
+                 labelForId="alarmRaidGroup"
+                 placeholder="Select a raid group"
+      >
+        <ng-template ng-option-tmp let-item="item">
+          <span [title]="item.name" class="ng-option-label">
+            {{item.name}}
+            <span class="badge badge-secondary">{{item.purpose}}</span>
+          </span>
+        </ng-template>
+        <ng-template ng-label-tmp let-item="item">
+          <span [title]="item.name" class="ng-option-label">
+            {{item.name}}
+            <span class="badge badge-secondary">{{item.purpose}}</span>
+          </span>
+        </ng-template>
+      </ng-select>
+      <div *ngIf="f.raidGroup.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
+        <div *ngIf="f.raidGroup.errors.required">A raid group is required.</div>
+      </div>
+    </div>
+    <!--alert target-->
+    <div class="form-group">
+      <label for="targetType">Type</label>
+      <ng-select [items]="targetTypes"
+                 [formControl]="f.type"
+                 [clearable]="false"
+                 labelForId="targetType"
+                 bindValue="value"
+                 placeholder="Select an alert type"
+      >
+      </ng-select>
+      <div *ngIf="f.type.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
+        <div *ngIf="f.type.errors.required">A alarm type is required.</div>
+      </div>
+      <div [hidden]="f.type?.value !== userAlarmType" class="ml-2">* You must be in a server that the XIV Raid Bot is in, otherwise it isn't allowed to DM you.</div>
+    </div>
+    <div class="form-group" [hidden]="f.type.value !== channelAlarmType">
+      <label for="alarmTargetDisplay">Target Server / Channel</label>
+      <fa-icon [icon]="faInfoCircle" class="ml-1" [hidden]="editTargetMode"
+               ngbTooltip="The server/channel name displayed below is saved from when you last selected them. They may appear wrong if you changed the server/channel name since then, but will still work as long as you didn't delete and recreate the server or channel."
+               placement="left"
+      ></fa-icon>
+      <!--Display the alarm target server/channel by default, hide it when we're in target edit mode-->
+      <div [hidden]="editTargetMode" [class.d-flex]="!editTargetMode">
+        <button type="button" class="btn-svg mr-2" (click)="this.toggleEditTargetMode()"
+                aria-label="Actives edit for for the target server/channel of this alarm"
+                ngbTooltip="Edit this alarms target server/channel">
+          <fa-icon [icon]="faEdit" size="lg" aria-hidden="true"></fa-icon>
+        </button>
+        <input id="alarmTargetDisplay" class="form-control" type="text" formControlName="targetName" readonly placeholder="Select a server and channel">
+      </div>
+      <div *ngIf="f.targetName.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
+        <div *ngIf="f.targetName.errors.required">A target server/channel is required.</div>
+      </div>
+    </div>
+  </form>
+  <!--This form handles the user changing a server/channel target-->
+  <form #form="ngForm" [formGroup]="targetForm" (ngSubmit)="saveServerChannel()" [class.ng-was-validated]="targetIsSubmitted">
+    <!--Discord server/channel, show if channel type and we're in target mode-->
+    <div [hidden]="f.type.value !== channelAlarmType || !editTargetMode" class="ml-3">
+      <div class="row">
+        <div class="form-group col">
+          <label for="alarmServer">Discord Server</label>
+          <fa-icon [icon]="faInfoCircle" class="ml-1"
+                   ngbTooltip="This is a list of servers the bot has been added to that you have Manage Server permission in."
+                   placement="left"
+          ></fa-icon>
+          <ng-select [items]="discordServers"
+                     [formControl]="t.targetServer"
+                     [clearable]="false"
+                     (change)="getGuildChannels($event)"
+                     [loading]="discordServersLoading"
+                     bindValue="id"
+                     bindLabel="name"
+                     labelForId="alarmServer"
+                     placeholder="Select a server"
+          ></ng-select>
+          <div *ngIf="t.targetServer.errors" class="invalid-feedback" [class.d-block]="targetIsSubmitted">
+            <div *ngIf="t.targetServer.errors.required">A server is required.</div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="alarmChannel">Channel</label>
+          <ng-select [items]="discordChannels"
+                     [formControl]="t.targetChannel"
+                     [clearable]="false"
+                     [loading]="discordChannelsLoading"
+                     bindValue="id"
+                     bindLabel="name"
+                     labelForId="alarmChannel"
+                     placeholder="Select a channel"
+          ></ng-select>
+          <div *ngIf="t.targetChannel.errors" class="invalid-feedback" [class.d-block]="targetIsSubmitted">
+            <div *ngIf="t.targetChannel.errors.required">A channel is required.</div>
+          </div>
+        </div>
+      </div>
+      <button type="button" (click)="this.toggleEditTargetMode()" class="btn btn-link mr-3">Cancel</button>
+      <button class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</div>
+<!--TODO Send test alert button in footer-->
+<app-modal-footer mode="save" (save)="form.ngSubmit.emit()" [disabled]=""></app-modal-footer>

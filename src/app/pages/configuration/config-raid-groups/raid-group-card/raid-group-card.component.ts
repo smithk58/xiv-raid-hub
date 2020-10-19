@@ -58,15 +58,15 @@ export class RaidGroupCardComponent {
     }, () => {});
   }
   openRaidGroupModal(raidGroup?: RaidGroup) {
-    const isInsert = typeof(raidGroup) === 'undefined';
+    const isEdit = typeof(raidGroup) !== 'undefined';
     const modal = this.modalService.open(AddEditRaidGroupComponent, {backdrop: 'static', size: 'lg'});
-    modal.componentInstance.canEdit = isInsert ? true : raidGroup.isOwner;
+    modal.componentInstance.canEdit = isEdit ? raidGroup.isOwner : true;
     modal.componentInstance.raidGroup = raidGroup;
     modal.result.then((modalRaidGroup: RaidGroup) => {
-      if (isInsert) {
-        this.addRaidGroup.emit(modalRaidGroup);
-      } else {
+      if (isEdit) {
         this.updateRaidGroup.emit(modalRaidGroup);
+      } else {
+        this.addRaidGroup.emit(modalRaidGroup);
       }
     },
       () => {} // They aborted modal, do nothing

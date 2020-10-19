@@ -15,6 +15,7 @@ import { RaidGroupCardComponent } from './config-raid-groups/raid-group-card/rai
 import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler/scheduler.component';
 import { ConfirmCharacterComponent } from './modals/confirm-character/confirm-character.component';
 import { ConfigAlarmsComponent } from './config-alarms/config-alarms.component';
+import { AddEditAlarmComponent } from './modals/add-edit-alarm/add-edit-alarm.component';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { ConfigAlarmsComponent } from './config-alarms/config-alarms.component';
     RaidGroupCardComponent,
     SchedulerComponent,
     ConfirmCharacterComponent,
-    ConfigAlarmsComponent
+    ConfigAlarmsComponent,
+    AddEditAlarmComponent
   ],
   entryComponents: [AddEditCharacterComponent, AddEditRaidGroupComponent]
 })

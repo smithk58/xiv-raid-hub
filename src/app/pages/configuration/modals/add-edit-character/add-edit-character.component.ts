@@ -14,21 +14,20 @@ import { CharacterSearchResultRow } from '@xivapi/angular-client';
 })
 export class AddEditCharacterComponent implements OnInit {
   faInfoCircle = faInfoCircle;
+  @Input()
+  characterToEdit: Character;
   characterForm: FormGroup;
   characterControl: FormControl;
   isSubmitted = false;
-  @Input()
   isEdit = false;
-  @Input()
-  characterToEdit: Character;
   existingCharacterIds: Record<number, boolean>;
   constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder) { }
   ngOnInit() {
+    this.isEdit = typeof(this.characterToEdit) !== 'undefined';
     // Prepopulate values from characterToEdit if provided
     let character = null;
     let defaultClass = null;
     if (this.characterToEdit) {
-      this.isEdit = true;
       character = {
         ID: this.characterToEdit.id,
         Name: this.characterToEdit.name,
