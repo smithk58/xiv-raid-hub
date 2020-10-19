@@ -22,6 +22,7 @@
               <span class="wrap-flex-overflow" [ngbTooltip]="alarm.raidGroup.name">{{alarm.raidGroup.name}}</span>
               <span class="flex-shrink-0">meets for</span>
               <span class="font-weight-bold wrap-flex-overflow" [ngbTooltip]="alarm.raidGroup.purpose">{{alarm.raidGroup.purpose || 'raiding'}}</span>
+              <span class="badge badge-info">{{alarm.type === userAlarmType ? 'DM' : 'Channel'}}</span>
             </div>
             <div class="ml-auto actions-container">
               <button class="btn-svg" (click)="openAlarmModal(alarm)"

@@ -5,7 +5,7 @@ import findIndex from 'lodash/findIndex';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
-import { Alarm } from 'src/app/shared/api/xiv-raid-hub/models/alarm';
+import { Alarm, AlarmType } from 'src/app/shared/api/xiv-raid-hub/models/alarm';
 import { AddEditAlarmComponent } from 'src/app/pages/configuration/modals/add-edit-alarm/add-edit-alarm.component';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { YesNoModalComponent } from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
@@ -18,6 +18,7 @@ import { AlarmService } from 'src/app/shared/api/xiv-raid-hub/alarm.service';
 })
 export class ConfigAlarmsComponent implements OnInit {
   faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faSpinner = faSpinner;
+  userAlarmType = AlarmType.user;
   alarms: Alarm[];
   isLoaded = false;
   constructor(private modalService: NgbModal, private raidGroupService: RaidGroupService, private notify: PNotifyService,
