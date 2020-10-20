@@ -27,10 +27,13 @@
         <!--start time-->
         <div class="form-group">
           <label [for]="'sd' + wrtIndex" class="d-block">Start time</label>
-          <ngb-timepicker [id]="'sd' + wrtIndex" class="d-inline-block" [formControl]="wrt.controls.startTime" meridian="true" [spinners]="false"></ngb-timepicker>
+          <ngb-timepicker [id]="'sd' + wrtIndex" class="d-inline-block" [formControl]="wrt.controls.startTime"
+                          meridian="true" [minuteStep]="15" [spinners]="false">
+          </ngb-timepicker>
           <span class="d-inline-block ml-2">{{timezone}}</span>
-          <div *ngIf="wrt.controls.startTime.errors?.required" class="invalid-feedback" [class.d-block]="isSubmitted">
-            A fully defined time is required.
+          <div *ngIf="wrt.controls.startTime.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
+            <div  *ngIf="wrt.controls.startTime.errors.required">A fully defined time is required.</div>
+            <div  *ngIf="wrt.controls.startTime.errors.not15Increment">Minutes must be 0, 15, 30, or 45.</div>
           </div>
         </div>
       </div>

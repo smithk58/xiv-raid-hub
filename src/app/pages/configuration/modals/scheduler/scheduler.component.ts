@@ -14,7 +14,6 @@ import { DaysOfWeek } from 'src/app/shared/DaysUtils';
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 
-
 @Component({
   selector: 'app-scheduler',
   templateUrl: './scheduler.component.html',
@@ -86,7 +85,13 @@ export class SchedulerComponent implements OnInit {
     // Build a group of controls with start/end times, and days of week
     const group = new FormGroup({
       // Initialize start time to existing value if available, otherwise 12pm
-      startTime: new FormControl(initialTime, Validators.required),
+      startTime: new FormControl(initialTime, [Validators.required, (formControl: FormControl) => {
+        const time = formControl.value;
+        if (time.minute % 15 !== 0) {
+          return {not15Increment: true};
+        }
+        return null;
+      }]),
       daysOfWeek
     });
     this.weeklyRaidTimes.push(group);

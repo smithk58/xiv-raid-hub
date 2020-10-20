@@ -54,7 +54,9 @@ export class AddEditAlarmComponent implements OnInit {
       type,
       raidGroup: [this.isEdit ? this.alarm.raidGroupId : undefined, Validators.required],
       hours: [this.isEdit ? this.alarm.offsetHour : 0, [Validators.required, Validators.min(0), Validators.max(23)]],
-      minutes: [this.isEdit ? this.alarm.offsetMinute : 0, [Validators.required, Validators.min(0), Validators.max(59)]],
+      minutes: [this.isEdit ? this.alarm.offsetMinute : 0,
+        [Validators.required, Validators.min(0), Validators.max(59), this.mustBeIncrementOf15]
+      ],
       isEnabled: [this.isEdit ? this.alarm.isEnabled : true, Validators.required],
       targetName: [this.isEdit ? this.alarm.targetName : undefined]
     });
@@ -148,6 +150,13 @@ export class AddEditAlarmComponent implements OnInit {
   targetRequiredIfChannel(formGroup: FormGroup) {
     if (formGroup.controls.type?.value === AlarmType.channel) {
       return Validators.required(formGroup.controls.targetName);
+    }
+    return null;
+  }
+  mustBeIncrementOf15(formControl: FormControl) {
+    const minute = formControl.value;
+    if (minute % 15 !== 0) {
+      return {not15Increment: true};
     }
     return null;
   }
