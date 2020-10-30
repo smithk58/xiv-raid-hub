@@ -34,7 +34,6 @@ export class AddEditAlarmComponent implements OnInit {
   // Target type
   targetTypes = [{label: 'Message Discord Channel', value: AlarmType.channel}, {label: 'Direct Message Me', value: AlarmType.user}];
   channelAlarmType = AlarmType.channel;
-  userAlarmType = AlarmType.user;
   // Servers/channels
   discordServers: {id: string, name: string}[];
   discordServersLoading = false;
@@ -58,16 +57,15 @@ export class AddEditAlarmComponent implements OnInit {
         [Validators.required, Validators.min(0), Validators.max(59), this.mustBeIncrementOf15]
       ],
       isEnabled: [this.isEdit ? this.alarm.isEnabled : true, Validators.required],
-      targetName: [this.isEdit ? this.alarm.targetName : undefined]
+      targetName: [this.isEdit ? this.alarm.targetName: undefined, Validators.required]
     });
-    this.alarmForm.setValidators(this.targetRequiredIfChannel);
-    // Initialize target form
-    const setTarget = this.isEdit && type.value === AlarmType.channel;
+    // Initialize target channel form
+    const setChannel = this.isEdit && type.value === AlarmType.channel;
     this.targetForm = this.formBuilder.group({
-      targetServer: [setTarget ? this.alarm.targetId.split('_')[0] : undefined, Validators.required],
-      targetChannel: [setTarget ? this.alarm.targetId.split('_')[1] : undefined, Validators.required],
+      targetServer: [this.isEdit ? this.alarm.targetGuildId : undefined, Validators.required],
+      targetChannel: [setChannel ? this.alarm.targetId : undefined],
     });
-
+    this.targetForm.setValidators(this.channelRequiredIfChannelMode(this.alarmForm));
     this.raidGroupService.getRaidGroups().pipe(
       finalize(() => {this.raidGroupsLoading = false; })
     ).subscribe((raidGroups) => {
@@ -113,7 +111,11 @@ export class AddEditAlarmComponent implements OnInit {
     if (this.targetForm.valid) {
       const server = this.discordServers.find(srv => srv.id === this.targetForm.controls.targetServer.value);
       const channel = this.discordChannels.find(chn => chn.id === this.targetForm.controls.targetChannel.value);
-      this.alarmForm.controls.targetName.setValue(server.name + ' / ' + channel.name);
+      let targetName = server.name;
+      if (channel) {
+        targetName += (' / ' + channel.name);
+      }
+      this.alarmForm.controls.targetName.setValue(targetName);
       this.editTargetMode = false;
     }
   }
@@ -124,12 +126,13 @@ export class AddEditAlarmComponent implements OnInit {
       // Only set targetID if it's a channel, otherwise backend handles it
       let targetId;
       if (type === AlarmType.channel) {
-        targetId = this.targetForm.get('targetServer').value + '_' + this.targetForm.get('targetChannel').value;
+        targetId = this.targetForm.get('targetChannel').value;
       }
       const alarm: Alarm = {
         id: this.isEdit ? this.alarm.id : undefined,
         type,
         targetId,
+        targetGuildId: this.targetForm.get('targetServer').value,
         offsetHour: parseInt(this.alarmForm.get('hours').value, 10),
         offsetMinute: parseInt(this.alarmForm.get('minutes').value, 10),
         isEnabled: this.alarmForm.get('isEnabled').value,
@@ -147,11 +150,18 @@ export class AddEditAlarmComponent implements OnInit {
       });
     }
   }
-  targetRequiredIfChannel(formGroup: FormGroup) {
-    if (formGroup.controls.type?.value === AlarmType.channel) {
+  channelRequiredIfChannelMode(alarmGroup: FormGroup) {
+    return (formGroup: FormGroup) => {
+      // Require targetChannel if the alarm group type is set to channel
+      if (alarmGroup.controls.type?.value === AlarmType.channel) {
+        return Validators.required(formGroup.controls.targetChannel);
+      }
+      return null;
+    };
+    /*if (formGroup.controls.type?.value === AlarmType.channel) {
       return Validators.required(formGroup.controls.targetName);
     }
-    return null;
+    return null;*/
   }
   mustBeIncrementOf15(formControl: FormControl) {
     const minute = formControl.value;

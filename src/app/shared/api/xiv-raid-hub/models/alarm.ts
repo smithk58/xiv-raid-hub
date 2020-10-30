@@ -7,6 +7,7 @@ export enum AlarmType {
 export interface Alarm {
   id?: number;
   type: AlarmType;
+  targetGuildId: string;
   targetId: string;
   targetName?: string;
   offsetHour: number;

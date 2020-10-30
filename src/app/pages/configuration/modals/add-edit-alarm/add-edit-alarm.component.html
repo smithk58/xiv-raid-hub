@@ -56,7 +56,7 @@
         <div *ngIf="f.raidGroup.errors.required">A raid group is required.</div>
       </div>
     </div>
-    <!--alert target-->
+    <!--alert type-->
     <div class="form-group">
       <label for="targetType">Type</label>
       <ng-select [items]="targetTypes"
@@ -70,34 +70,34 @@
       <div *ngIf="f.type.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
         <div *ngIf="f.type.errors.required">A alarm type is required.</div>
       </div>
-      <div [hidden]="f.type?.value !== userAlarmType" class="ml-2">* You must be in a server that the XIV Raid Bot is in, otherwise it isn't allowed to DM you.</div>
     </div>
-    <div class="form-group" [hidden]="f.type.value !== channelAlarmType">
-      <label for="alarmTargetDisplay">Target Server / Channel</label>
+    <!--Display server and/or channel target-->
+    <div class="form-group" [hidden]="!f.type.value">
+      <label for="channelTargetDisplay">Target</label>
       <fa-icon [icon]="faInfoCircle" class="ml-1" [hidden]="editTargetMode"
-               ngbTooltip="The server/channel name displayed below is saved from when you last selected them. They may appear wrong if you changed the server/channel name since then, but will still work as long as you didn't delete and recreate the server or channel."
+               ngbTooltip="The server and/or channel name displayed below is saved from when you last selected them. They may appear wrong if you changed the name since then, but will still work as long as you didn't delete and recreate the server and/or channel."
                placement="left"
       ></fa-icon>
-      <!--Display the alarm target server/channel by default, hide it when we're in target edit mode-->
+      <!--Display the alarm target server and/or channel by default, hide it when we're in target edit mode-->
       <div [hidden]="editTargetMode" [class.d-flex]="!editTargetMode">
         <button type="button" class="btn-svg mr-2" (click)="this.toggleEditTargetMode()"
-                aria-label="Actives edit for for the target server/channel of this alarm"
-                ngbTooltip="Edit this alarms target server/channel">
+                aria-label="Actives edit for for the target of this alarm"
+                ngbTooltip="Edit this alarms target">
           <fa-icon [icon]="faEdit" size="lg" aria-hidden="true"></fa-icon>
         </button>
-        <input id="alarmTargetDisplay" class="form-control" type="text" formControlName="targetName" readonly placeholder="Select a server and channel">
+        <input id="channelTargetDisplay" class="form-control" type="text" formControlName="targetName" readonly placeholder="No target selected">
       </div>
       <div *ngIf="f.targetName.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
-        <div *ngIf="f.targetName.errors.required">A target server/channel is required.</div>
+        <div *ngIf="f.targetName.errors.required">A target is required.</div>
       </div>
     </div>
   </form>
-  <!--This form handles the user changing a server/channel target-->
+  <!--This form handles the user changing a server and/or channel target-->
   <form #form="ngForm" [formGroup]="targetForm" (ngSubmit)="saveServerChannel()" [class.ng-was-validated]="targetIsSubmitted">
     <!--Discord server/channel, show if channel type and we're in target mode-->
-    <div [hidden]="f.type.value !== channelAlarmType || !editTargetMode" class="ml-3">
+    <div [hidden]="!editTargetMode" class="ml-3">
       <div class="row">
-        <div class="form-group col">
+        <div class="form-group col-6">
           <label for="alarmServer">Discord Server</label>
           <fa-icon [icon]="faInfoCircle" class="ml-1"
                    ngbTooltip="This is a list of servers the bot has been added to that you have Manage Server permission in."
@@ -105,7 +105,6 @@
           ></fa-icon>
           <ng-select [items]="discordServers"
                      [formControl]="t.targetServer"
-                     [clearable]="false"
                      (change)="getGuildChannels($event)"
                      [loading]="discordServersLoading"
                      bindValue="id"
@@ -117,7 +116,7 @@
             <div *ngIf="t.targetServer.errors.required">A server is required.</div>
           </div>
         </div>
-        <div class="form-group col">
+        <div class="form-group col-6" [hidden]="f.type.value !== channelAlarmType">
           <label for="alarmChannel">Channel</label>
           <ng-select [items]="discordChannels"
                      [formControl]="t.targetChannel"
