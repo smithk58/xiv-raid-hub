@@ -17,7 +17,7 @@
         <ul class="list-group" *ngIf="isLoaded">
           <li *ngFor="let alarm of alarms; index as i;" class="list-group-item d-flex">
             <div class="text-ellipsis-container pr-2">
-              <span class="font-weight-bold flex-shrink-0">{{alarm.offsetHour}} hrs and {{alarm.offsetMinute}} mins</span>
+              <span class="font-weight-bold flex-shrink-0">{{alarm.offsetHour}} hrs</span>
               <span>before</span>
               <span class="wrap-flex-overflow" [ngbTooltip]="alarm.raidGroup.name">{{alarm.raidGroup.name}}</span>
               <span class="flex-shrink-0">meets for</span>

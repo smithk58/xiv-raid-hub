@@ -6,26 +6,19 @@
       <input id="alarmEnabled" class="form-check-input" type="checkbox" formControlName="isEnabled">
       <label class="form-check-label" for="alarmEnabled">Alarm Enabled</label>
     </div>
-    <!--hours/minutes section-->
+    <!--hours section-->
     <div class="form-group">
       <div>
         <span class="pr-2">Send alert</span>
         <div class="d-inline-block">
           <label for="alarmHours" class="sr-only">Number of hours before raid</label>
-          <input id="alarmHours" type="number" formControlName="hours" class="form-control hours-minutes-input">
+          <input id="alarmHours" type="number" formControlName="hours" class="form-control hours-input">
         </div>
-        <span class="px-2">hours and</span>
-        <div class="d-inline-block">
-          <label for="alarmMinutes" class="sr-only">Number of minutes before raid.</label>
-          <input id="alarmMinutes" type="number" step="15" formControlName="minutes" class="form-control hours-minutes-input">
-        </div>
-        <span class="pl-2">minutes before raid.</span>
+        <span class="px-2">hours before raid.</span>
       </div>
-      <!--hours/minutes errors-->
-      <div *ngIf="(f.hours.errors || f.minutes.errors)" class="invalid-feedback" [class.d-block]="isSubmitted">
+      <!--hours errors-->
+      <div *ngIf="f.hours.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
         <div *ngIf="f.hours.errors">Hours must be a number between 0 and 23.</div>
-        <div *ngIf="f.minutes.errors.min || f.minutes.errors.max">Minutes must be a number between 0 and 59.</div>
-        <div *ngIf="f.minutes.errors.not15Increment">Minutes must be 0, 15, 30, or 45.</div>
       </div>
     </div>
     <!--raid group section-->

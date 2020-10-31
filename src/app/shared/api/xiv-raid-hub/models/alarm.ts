@@ -11,7 +11,6 @@ export interface Alarm {
   targetId: string;
   targetName?: string;
   offsetHour: number;
-  offsetMinute: number;
   isEnabled: boolean;
   raidGroupId: number;
   raidGroup?: RaidGroup;
