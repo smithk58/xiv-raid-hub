@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { faInfoCircle, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 import find from 'lodash/find';
 
 import { GuildsService } from 'src/app/shared/api/xiv-raid-hub/guilds.service';
@@ -19,7 +19,7 @@ import { AlarmService } from 'src/app/shared/api/xiv-raid-hub/alarm.service';
   styleUrls: ['./add-edit-alarm.component.scss']
 })
 export class AddEditAlarmComponent implements OnInit {
-  faInfoCircle = faInfoCircle; faEdit = faPen;
+  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus;
   alarm: Alarm;
   isEdit = false;
   // Alarm form
@@ -154,6 +154,9 @@ export class AddEditAlarmComponent implements OnInit {
       }
       return null;
     };
+  }
+  inviteBot() {
+    window.open('https://discord.com/oauth2/authorize?client_id=746485131534925974&scope=bot&permissions=3072', '_blank');
   }
   // convenience getter for easy access to form fields
   get f() { return this.alarmForm.controls; }

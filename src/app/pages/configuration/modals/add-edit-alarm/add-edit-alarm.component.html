@@ -130,5 +130,10 @@
     </div>
   </form>
 </div>
-<!--TODO Send test alert button in footer-->
-<app-modal-footer mode="save" (save)="form.ngSubmit.emit()" [disabled]=""></app-modal-footer>
+<app-modal-footer mode="save" (save)="form.ngSubmit.emit()" [disabled]="">
+  <div pre-content class="mr-auto">
+    <button class="btn btn-secondary" (click)="inviteBot()"container="body">
+      <fa-icon [icon]="faPlus" class="mr-1" aria-hidden="true"></fa-icon>Invite Bot
+    </button>
+  </div>
+</app-modal-footer>
