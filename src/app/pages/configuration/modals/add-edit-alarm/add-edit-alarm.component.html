@@ -8,14 +8,12 @@
     </div>
     <!--hours section-->
     <div class="form-group">
-      <div>
-        <span class="pr-2">Send alert</span>
-        <div class="d-inline-block">
-          <label for="alarmHours" class="sr-only">Number of hours before raid</label>
-          <input id="alarmHours" type="number" formControlName="hours" class="form-control hours-input">
-        </div>
-        <span class="px-2">hours before raid.</span>
+      <span class="pr-2">Send alert</span>
+      <div class="d-inline-block">
+        <label for="alarmHours" class="sr-only">Number of hours before raid</label>
+        <input id="alarmHours" type="number" formControlName="hours" class="form-control hours-input">
       </div>
+      <span class="px-2">hours before raid.</span>
       <!--hours errors-->
       <div *ngIf="f.hours.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
         <div *ngIf="f.hours.errors">Hours must be a number between 0 and 23.</div>

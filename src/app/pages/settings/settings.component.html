@@ -1,8 +1,27 @@
-This is where your user settings would be, IF YOU HAD ANY.
-
-<ul>
-  <li>Opt out of being added to raid groups others made</li>
-  <li>Opt in to emails/DMs about things (e.g. added to new raid group, raid times changes, etc.)</li>
-  <li>Ability to delete your account</li>
-  <li>??</li>
-</ul>
+<div class="container">
+  <div class="row mt-3">
+    <div class="mx-auto col-12 col-md-10 col-lg-8">
+      <div class="card">
+        <div class="card-header">User Settings</div>
+        <div class="card-body">
+          <fa-icon [hidden]="!settingsLoading" [icon]="faSpinner" class="center-absolute" spin="true" size="2x" aria-hidden="true"></fa-icon>
+          <form #form="ngForm" [formGroup]="settingsForm" (ngSubmit)="saveSettings()" [class.ng-was-validated]="isSubmitted" [hidden]="settingsLoading">
+            <!--enabled section-->
+            <div class="form-check form-check-inline mb-3">
+              <input id="allowRaidGroupAdd" class="form-check-input" type="checkbox" formControlName="allowAddToRaidGroup">
+              <label class="form-check-label" for="allowRaidGroupAdd">Allow others to add me to raid groups</label>
+              <fa-icon [icon]="faInfoCircle" class="ml-1"
+                       ngbTooltip="You may want to disable this if you're popular enough for lame people to attempt to annoy you by adding you to fake groups."
+                       placement="left"
+              ></fa-icon>
+            </div>
+            <div class="d-flex justify-content-end">
+              <button type="button" [disabled]="formIsSaving" (click)="initializeSettings()" class="btn btn-link mr-3">Cancel</button>
+              <button type="button" [disabled]="formIsSaving" (click)="saveSettings()" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

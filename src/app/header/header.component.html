@@ -33,7 +33,7 @@
         </a>
       </li>
       <!--User tools if logged in-->
-      <li *ngIf="session && session.isLoggedIn" class="nav-item sm-collapse" routerLinkActive="active" ngbTooltip="My Raid">
+      <li *ngIf="session && session.isLoggedIn" class="nav-item sm-collapse" routerLinkActive="active" ngbTooltip="Config">
         <a class="nav-link" routerLink="/configuration/h" aria-label="Navigate to configuration">
           <fa-icon [icon]="faCog" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
           <span class="d-none d-sm-inline">Config</span>

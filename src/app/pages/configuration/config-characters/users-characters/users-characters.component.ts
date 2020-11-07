@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { faChartBar, faCheckSquare, faInfoCircle, faPen, faPlus, faSpinner, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import findIndex from 'lodash/findIndex';
+import { finalize } from 'rxjs/operators';
 
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { FFLogsApiService } from 'src/app/shared/api/fflogs/fflogs-api.service';
@@ -14,7 +15,6 @@ import { YesNoModalComponent } from 'src/app/shared/utility-components/modals/ye
 import { ConfirmCharacterComponent } from 'src/app/pages/configuration/modals/confirm-character/confirm-character.component';
 import { CharacterService } from 'src/app/shared/api/xiv-raid-hub/character.service';
 import { UserCharacter } from 'src/app/shared/api/xiv-raid-hub/models/user-character';
-import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users-characters',
