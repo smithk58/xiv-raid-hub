@@ -16,6 +16,7 @@ import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler
 import { ConfirmCharacterComponent } from './modals/confirm-character/confirm-character.component';
 import { ConfigAlarmsComponent } from './config-alarms/config-alarms.component';
 import { AddEditAlarmComponent } from './modals/add-edit-alarm/add-edit-alarm.component';
+import { AlarmTargetComponent } from './modals/add-edit-alarm/alarm-target/alarm-target.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { AddEditAlarmComponent } from './modals/add-edit-alarm/add-edit-alarm.co
     SchedulerComponent,
     ConfirmCharacterComponent,
     ConfigAlarmsComponent,
-    AddEditAlarmComponent
+    AddEditAlarmComponent,
+    AlarmTargetComponent
   ],
   entryComponents: [AddEditCharacterComponent, AddEditRaidGroupComponent]
 })

@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { faInfoCircle, faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
-import find from 'lodash/find';
+import { faInfoCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { GuildsService } from 'src/app/shared/api/xiv-raid-hub/guilds.service';
 import { Alarm, AlarmType } from 'src/app/shared/api/xiv-raid-hub/models/alarm';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 import { AlarmService } from 'src/app/shared/api/xiv-raid-hub/alarm.service';
+import { AlarmTarget } from 'src/app/pages/configuration/modals/add-edit-alarm/alarm-target/alarm-target';
 
 @Component({
   selector: 'app-add-edit-alarm',
@@ -19,117 +18,58 @@ import { AlarmService } from 'src/app/shared/api/xiv-raid-hub/alarm.service';
   styleUrls: ['./add-edit-alarm.component.scss']
 })
 export class AddEditAlarmComponent implements OnInit {
-  faInfoCircle = faInfoCircle; faEdit = faPen; faPlus = faPlus;
+  faInfoCircle = faInfoCircle; faPlus = faPlus;
   alarm: Alarm;
   isEdit = false;
   // Alarm form
   isSubmitted = false;
   alarmForm: FormGroup;
-  // Target form
-  targetForm: FormGroup;
-  targetIsSubmitted = false;
   // Raid group
   raidGroups: RaidGroup[] = [];
   raidGroupsLoading = true;
-  // Target type
+  // Target
   targetTypes = [{label: 'Message Discord Channel', value: AlarmType.channel}, {label: 'Direct Message Me', value: AlarmType.user}];
-  channelAlarmType = AlarmType.channel;
-  // Servers/channels
-  discordServers: {id: string, name: string}[];
-  discordServersLoading = false;
-  discordChannels: {id: string, name: string}[];
-  discordChannelsLoading = false;
-  editTargetMode = false;
   alarmSaving = false;
-  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private guildsService: GuildsService,
+  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder,
               private notify: PNotifyService, private raidGroupService: RaidGroupService, private alarmService: AlarmService
   ) { }
 
   ngOnInit(): void {
     this.isEdit = typeof(this.alarm) !== 'undefined';
     // Initialize alarm form
-    const type = new FormControl(this.isEdit ? this.alarm.type : undefined, Validators.required);
+    const target: AlarmTarget = this.isEdit ? {
+      targetServerId: this.alarm.targetGuildId,
+      targetChannelId: this.alarm.type === AlarmType.channel ? this.alarm.targetId : undefined,
+      targetName: this.alarm.targetName
+    } : undefined;
     this.alarmForm = this.formBuilder.group({
-      type,
+      type: [this.isEdit ? this.alarm.type : undefined, Validators.required],
       raidGroup: [this.isEdit ? this.alarm.raidGroupId : undefined, Validators.required],
       hours: [this.isEdit ? this.alarm.offsetHour : 0, [Validators.required, Validators.min(0), Validators.max(23)]],
       isEnabled: [this.isEdit ? this.alarm.isEnabled : true, Validators.required],
-      targetName: [this.isEdit ? this.alarm.targetName : undefined, Validators.required]
+      target: [target, Validators.required]
     });
-    // Initialize target channel form
-    const setChannel = this.isEdit && type.value === AlarmType.channel;
-    this.targetForm = this.formBuilder.group({
-      targetServer: [this.isEdit ? this.alarm.targetGuildId : undefined, Validators.required],
-      targetChannel: [setChannel ? this.alarm.targetId : undefined],
-    });
-    this.targetForm.setValidators(this.channelRequiredIfChannelMode(this.alarmForm));
     this.raidGroupService.getRaidGroups().pipe(
       finalize(() => {this.raidGroupsLoading = false; })
     ).subscribe((raidGroups) => {
       this.raidGroups = raidGroups;
     });
   }
-  getAvailableGuilds(targetGuildId?: string) {
-    this.discordServersLoading = true;
-    this.guildsService.getGuilds(targetGuildId).pipe(
-      finalize(() => {this.discordServersLoading = false; })
-    ).subscribe(servers => {
-      this.discordServers = servers;
-      // Grab channels for the target guild id
-      if (targetGuildId) {
-        const targetGuild = find(servers, {id: targetGuildId});
-        this.discordChannels = (targetGuild && targetGuild.channels) ? targetGuild.channels : [];
-      }
-    }, (error) => {
-      this.notify.error({text: 'Unable to get servers. ' + error});
-    });
-  }
-  toggleEditTargetMode() {
-    this.editTargetMode = !this.editTargetMode;
-    if (this.editTargetMode) {
-      // Only attempt to load the guilds if they haven't already been loaded
-      if (!this.discordServers) {
-        this.getAvailableGuilds(this.targetForm.controls.targetServer.value);
-      }
-    }
-  }
-  getGuildChannels(guild: {id: string}) {
-    this.discordChannelsLoading = true;
-    this.guildsService.getGuildChannels(guild.id).pipe(
-      finalize(() => {this.discordChannelsLoading = false; })
-    ).subscribe(channels => {
-        this.discordChannels = channels;
-    }, (error) => {
-      this.notify.error({text: 'Unable to get channels for the specified server. ' + error});
-    });
-  }
-  saveServerChannel() {
-    this.targetIsSubmitted = true;
-    if (this.targetForm.valid) {
-      const server = this.discordServers.find(srv => srv.id === this.targetForm.controls.targetServer.value);
-      const channel = this.discordChannels.find(chn => chn.id === this.targetForm.controls.targetChannel.value);
-      let targetName = server.name;
-      if (channel) {
-        targetName += (' / ' + channel.name);
-      }
-      this.alarmForm.controls.targetName.setValue(targetName);
-      this.editTargetMode = false;
-    }
-  }
   saveAlarm() {
     this.isSubmitted = true;
     if (this.alarmForm.valid) {
       const type = this.alarmForm.get('type').value;
+      const target = this.alarmForm.get('target').value;
       // Only set targetID if it's a channel, otherwise backend handles it
       let targetId;
       if (type === AlarmType.channel) {
-        targetId = this.targetForm.get('targetChannel').value;
+        targetId = target.targetChannelId;
       }
       const alarm: Alarm = {
         id: this.isEdit ? this.alarm.id : undefined,
         type,
         targetId,
-        targetGuildId: this.targetForm.get('targetServer').value,
+        targetGuildId: target.targetServerId,
         offsetHour: parseInt(this.alarmForm.get('hours').value, 10),
         isEnabled: this.alarmForm.get('isEnabled').value,
         raidGroupId: this.alarmForm.get('raidGroup').value
@@ -146,19 +86,12 @@ export class AddEditAlarmComponent implements OnInit {
       });
     }
   }
-  channelRequiredIfChannelMode(alarmGroup: FormGroup) {
-    return (formGroup: FormGroup) => {
-      // Require targetChannel if the alarm group type is set to channel
-      if (alarmGroup.controls.type?.value === AlarmType.channel) {
-        return Validators.required(formGroup.controls.targetChannel);
-      }
-      return null;
-    };
+  targetChanged(newTarget: AlarmTarget) {
+    this.alarmForm.controls.target.setValue(newTarget);
   }
   inviteBot() {
     window.open('https://discord.com/oauth2/authorize?client_id=746485131534925974&scope=bot&permissions=3072', '_blank');
   }
   // convenience getter for easy access to form fields
   get f() { return this.alarmForm.controls; }
-  get t() { return this.targetForm.controls; }
 }

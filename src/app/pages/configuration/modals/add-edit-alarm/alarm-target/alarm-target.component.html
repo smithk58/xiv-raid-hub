@@ -1,0 +1,61 @@
+<form [formGroup]="targetForm" (ngSubmit)="saveTarget()" [class.ng-was-validated]="targetIsSubmitted">
+  <!--Display server and/or channel target-->
+  <div class="form-group" [hidden]="!currentAlarmType">
+    <label for="channelTargetDisplay">Target</label>
+    <fa-icon [icon]="faInfoCircle" class="ml-1" [hidden]="editTargetMode"
+             ngbTooltip="The server and/or channel name displayed below is saved from when you last selected them. They may appear wrong if you changed the name since then, but will still work as long as you didn't delete and recreate the server and/or channel."
+             placement="left"
+    ></fa-icon>
+    <!--Display the alarm target server and/or channel by default, hide it when we're in target edit mode-->
+    <div [hidden]="editTargetMode" [class.d-flex]="!editTargetMode">
+      <button type="button" class="btn-svg mr-2" (click)="this.toggleEditTargetMode()"
+              aria-label="Actives edit for for the target of this alarm"
+              ngbTooltip="Edit this alarms target">
+        <fa-icon [icon]="faEdit" size="lg" aria-hidden="true"></fa-icon>
+      </button>
+      <input id="channelTargetDisplay" class="form-control" type="text" formControlName="targetName" readonly placeholder="No target selected">
+    </div>
+  </div>
+  <!--Discord server/channel, show if channel type and we're in target mode-->
+  <div [hidden]="!editTargetMode" class="ml-3">
+    <div class="row">
+      <div class="form-group col-6">
+        <label for="alarmServer">Discord Server</label>
+        <fa-icon [icon]="faInfoCircle" class="ml-1"
+                 ngbTooltip="This is a list of servers the bot has been added to that you have Manage Server permission in."
+                 placement="left"
+        ></fa-icon>
+        <ng-select [items]="discordServers"
+                   [formControl]="f.targetServer"
+                   [clearable]="false"
+                   (change)="getGuildChannels($event)"
+                   [loading]="discordServersLoading"
+                   bindValue="id"
+                   bindLabel="name"
+                   labelForId="alarmServer"
+                   placeholder="Select a server"
+        ></ng-select>
+        <div *ngIf="f.targetServer.errors" class="invalid-feedback" [class.d-block]="targetIsSubmitted">
+          <div *ngIf="f.targetServer.errors.required">A server is required.</div>
+        </div>
+      </div>
+      <div class="form-group col-6" [hidden]="currentAlarmType !== channelAlarmType">
+        <label for="alarmChannel">Channel</label>
+        <ng-select [items]="discordChannels"
+                   [formControl]="f.targetChannel"
+                   [clearable]="false"
+                   [loading]="discordChannelsLoading"
+                   bindValue="id"
+                   bindLabel="name"
+                   labelForId="alarmChannel"
+                   placeholder="Select a channel"
+        ></ng-select>
+        <div *ngIf="f.targetChannel.errors" class="invalid-feedback" [class.d-block]="targetIsSubmitted">
+          <div *ngIf="f.targetChannel.errors.required">A channel is required.</div>
+        </div>
+      </div>
+    </div>
+    <button type="button" (click)="this.toggleEditTargetMode()" class="btn btn-link mr-3">Cancel</button>
+    <button class="btn btn-primary" type="submit">Save</button>
+  </div>
+</form>
