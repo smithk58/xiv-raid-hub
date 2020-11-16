@@ -63,15 +63,24 @@
       </div>
     </div>
   </form>
-  <app-alarm-target [alarm]="alarm" [alarmType]="f.type.value" (targetChange)="targetChanged($event)"></app-alarm-target>
+  <app-alarm-target [alarm]="alarm"
+                    [alarmType]="f.type.value"
+                    (targetChange)="targetChanged($event)">
+  </app-alarm-target>
   <!--Actual target displayed by app-alarm-target, but this form still tracks if it's set-->
   <div *ngIf="f.type.value && f.target.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
     <div *ngIf="f.target.errors.required">A target is required.</div>
   </div>
+  <app-alarm-target-role [alarm]="alarm"
+                         [alarmType]="f.type.value"
+                         [guildId]="f.target.value?.targetServerId"
+                         (roleChange)="roleChanged($event)"
+                         [hidden]="f.type.value !== channelAlarmType || !f.target.value"
+  ></app-alarm-target-role>
 </div>
 <app-modal-footer mode="save" (save)="form.ngSubmit.emit()" [disabled]="">
   <div pre-content class="mr-auto">
-    <button class="btn btn-secondary" (click)="inviteBot()"container="body">
+    <button class="btn btn-secondary" (click)="inviteBot()" container="body">
       <fa-icon [icon]="faPlus" class="mr-1" aria-hidden="true"></fa-icon>Invite Bot
     </button>
   </div>

@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { AlarmTargetComponent } from './alarm-target.component';
+import { AlarmTargetRoleComponent } from './alarm-target-role.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-describe('AlarmTargetComponent', () => {
-  let component: AlarmTargetComponent;
-  let fixture: ComponentFixture<AlarmTargetComponent>;
+describe('AlarmTargetRoleComponent', () => {
+  let component: AlarmTargetRoleComponent;
+  let fixture: ComponentFixture<AlarmTargetRoleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule, SharedModule ],
-      declarations: [ AlarmTargetComponent ]
+      declarations: [ AlarmTargetRoleComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AlarmTargetComponent);
+    fixture = TestBed.createComponent(AlarmTargetRoleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

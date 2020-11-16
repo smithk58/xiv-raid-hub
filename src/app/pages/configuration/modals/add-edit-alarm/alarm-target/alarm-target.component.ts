@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { finalize } from 'rxjs/operators';
 import { faInfoCircle, faPen } from '@fortawesome/free-solid-svg-icons';
-import find from 'lodash/find';
 
 import { GuildsService } from 'src/app/shared/api/xiv-raid-hub/guilds.service';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
@@ -19,10 +18,13 @@ export class AlarmTargetComponent implements OnInit {
   @Input() alarm: Alarm;
   currentAlarmType: AlarmType;
   @Input() set alarmType(alarmType: AlarmType) {
-    this.currentAlarmType = alarmType;
-    // Toggle channel required status and clear target in case they have an invalid one selected for the new alarm type
+    // Clear the target if they change the alarm type
+    if (this.currentAlarmType) { // Don't clear on initial set, only on change
+      this.setTarget(undefined);
+    }
+    // Toggle channel required status
     this.setIfChannelRequired(alarmType);
-    this.setTarget(undefined);
+    this.currentAlarmType = alarmType;
   }
   @Output() targetChange: EventEmitter<AlarmTarget> = new EventEmitter();
   editTargetMode = false;
@@ -107,7 +109,7 @@ export class AlarmTargetComponent implements OnInit {
       this.discordServers = servers;
       // Grab channels for the target guild id
       if (targetGuildId) {
-        const targetGuild = find(servers, {id: targetGuildId});
+        const targetGuild = servers.find(s => s.id === targetGuildId);
         this.discordChannels = (targetGuild && targetGuild.channels) ? targetGuild.channels : [];
       }
     }, (error) => {

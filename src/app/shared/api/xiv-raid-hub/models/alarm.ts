@@ -10,6 +10,8 @@ export interface Alarm {
   targetGuildId: string;
   targetId: string;
   targetName?: string;
+  targetRoleId?: string;
+  targetRoleName?: string;
   offsetHour: number;
   isEnabled: boolean;
   raidGroupId: number;

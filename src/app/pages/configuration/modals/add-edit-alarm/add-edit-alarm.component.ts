@@ -11,6 +11,7 @@ import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
 import { AlarmService } from 'src/app/shared/api/xiv-raid-hub/alarm.service';
 import { AlarmTarget } from 'src/app/pages/configuration/modals/add-edit-alarm/alarm-target/alarm-target';
+import { AlarmTargetRole } from 'src/app/pages/configuration/modals/add-edit-alarm/alarm-target-role/alarm-target-role';
 
 @Component({
   selector: 'app-add-edit-alarm',
@@ -19,6 +20,7 @@ import { AlarmTarget } from 'src/app/pages/configuration/modals/add-edit-alarm/a
 })
 export class AddEditAlarmComponent implements OnInit {
   faInfoCircle = faInfoCircle; faPlus = faPlus;
+  channelAlarmType = AlarmType.channel;
   alarm: Alarm;
   isEdit = false;
   // Alarm form
@@ -42,13 +44,20 @@ export class AddEditAlarmComponent implements OnInit {
       targetChannelId: this.alarm.type === AlarmType.channel ? this.alarm.targetId : undefined,
       targetName: this.alarm.targetName
     } : undefined;
+    const role: AlarmTargetRole = this.isEdit ? {
+        id: this.alarm.targetRoleId,
+        name: this.alarm.targetRoleName
+    } : undefined;
+
     this.alarmForm = this.formBuilder.group({
       type: [this.isEdit ? this.alarm.type : undefined, Validators.required],
       raidGroup: [this.isEdit ? this.alarm.raidGroupId : undefined, Validators.required],
       hours: [this.isEdit ? this.alarm.offsetHour : 0, [Validators.required, Validators.min(0), Validators.max(23)]],
       isEnabled: [this.isEdit ? this.alarm.isEnabled : true, Validators.required],
-      target: [target, Validators.required]
+      target: [target, Validators.required],
+      role: [role]
     });
+
     this.raidGroupService.getRaidGroups().pipe(
       finalize(() => {this.raidGroupsLoading = false; })
     ).subscribe((raidGroups) => {
@@ -65,11 +74,18 @@ export class AddEditAlarmComponent implements OnInit {
       if (type === AlarmType.channel) {
         targetId = target.targetChannelId;
       }
+      // Only set roleID if it's a channel and they selected a role
+      const role = this.alarmForm.get('role').value as AlarmTargetRole;
+      let roleId;
+      if (type === AlarmType.channel && role) {
+        roleId = role.id;
+      }
       const alarm: Alarm = {
         id: this.isEdit ? this.alarm.id : undefined,
         type,
         targetId,
         targetGuildId: target.targetServerId,
+        targetRoleId: roleId,
         offsetHour: parseInt(this.alarmForm.get('hours').value, 10),
         isEnabled: this.alarmForm.get('isEnabled').value,
         raidGroupId: this.alarmForm.get('raidGroup').value
@@ -86,8 +102,21 @@ export class AddEditAlarmComponent implements OnInit {
       });
     }
   }
+
+  /**
+   * Called with a new target when the user saves a new target via the alarm-target component.
+   * @param newTarget -
+   */
   targetChanged(newTarget: AlarmTarget) {
     this.alarmForm.controls.target.setValue(newTarget);
+  }
+
+  /**
+   * Called with a new role when the user saves a new role via the alar-target-role component.
+   * @param newRole -
+   */
+  roleChanged(newRole: AlarmTargetRole) {
+    this.alarmForm.controls.role.setValue(newRole);
   }
   inviteBot() {
     window.open('https://discord.com/oauth2/authorize?client_id=746485131534925974&scope=bot&permissions=3072', '_blank');

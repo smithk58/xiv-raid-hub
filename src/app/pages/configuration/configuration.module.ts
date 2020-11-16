@@ -17,6 +17,7 @@ import { ConfirmCharacterComponent } from './modals/confirm-character/confirm-ch
 import { ConfigAlarmsComponent } from './config-alarms/config-alarms.component';
 import { AddEditAlarmComponent } from './modals/add-edit-alarm/add-edit-alarm.component';
 import { AlarmTargetComponent } from './modals/add-edit-alarm/alarm-target/alarm-target.component';
+import { AlarmTargetRoleComponent } from './modals/add-edit-alarm/alarm-target-role/alarm-target-role.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { AlarmTargetComponent } from './modals/add-edit-alarm/alarm-target/alarm
     ConfirmCharacterComponent,
     ConfigAlarmsComponent,
     AddEditAlarmComponent,
-    AlarmTargetComponent
+    AlarmTargetComponent,
+    AlarmTargetRoleComponent
   ],
   entryComponents: [AddEditCharacterComponent, AddEditRaidGroupComponent]
 })
