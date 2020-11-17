@@ -8,8 +8,7 @@ $sidebar-width: 150px;
   overflow-y: auto;
 }
 .sidebar + *, .sidebar + router-outlet + * {
-  position: relative;
-  left: $sidebar-width;
+  padding-left: $sidebar-width + 15; // Using padding ensures the container/row/cols fit the page correctly
 }
 .sidebar .nav-link {
   font-size: 1rem;
