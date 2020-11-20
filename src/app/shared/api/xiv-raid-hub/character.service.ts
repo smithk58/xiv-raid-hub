@@ -26,4 +26,7 @@ export class CharacterService {
   confirmCharacter(characterId: number) {
     return this.http.get<boolean>('characters/' + characterId + '/claim');
   }
+  refreshCharacterInfo(characterId: number) {
+    return this.http.get<{name?: string, server?: string}>('/characters/' + characterId + '/lodestone');
+  }
 }

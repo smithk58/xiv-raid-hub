@@ -3,12 +3,12 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { finalize } from 'rxjs/operators';
 
 import { UserService } from 'src/app/shared/api/xiv-raid-hub/user.service';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { UserSession } from 'src/app/shared/api/xiv-raid-hub/models/user-session';
 import { CharacterService } from 'src/app/shared/api/xiv-raid-hub/character.service';
-import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-confirm-character',

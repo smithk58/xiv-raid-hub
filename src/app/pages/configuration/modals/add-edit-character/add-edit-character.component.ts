@@ -2,10 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faSync } from '@fortawesome/free-solid-svg-icons';
 
 import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
 import { CharacterSearchResultRow } from '@xivapi/angular-client';
+import { CharacterService } from 'src/app/shared/api/xiv-raid-hub/character.service';
+import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-edit-character',
@@ -13,15 +16,18 @@ import { CharacterSearchResultRow } from '@xivapi/angular-client';
   styleUrls: ['./add-edit-character.component.css']
 })
 export class AddEditCharacterComponent implements OnInit {
-  faInfoCircle = faInfoCircle;
+  faInfoCircle = faInfoCircle; faSync = faSync;
   @Input()
   characterToEdit: Character;
   characterForm: FormGroup;
   characterControl: FormControl;
   isSubmitted = false;
   isEdit = false;
+  attemptingRefresh = false;
   existingCharacterIds: Record<number, boolean>;
-  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder) { }
+  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private characterService: CharacterService,
+              private notify: PNotifyService
+  ) { }
   ngOnInit() {
     this.isEdit = typeof(this.characterToEdit) !== 'undefined';
     // Prepopulate values from characterToEdit if provided
@@ -72,6 +78,17 @@ export class AddEditCharacterComponent implements OnInit {
       };
       this.modal.close(character);
     }
+  }
+  refreshCharacterInfo() {
+    this.characterService.refreshCharacterInfo(this.characterToEdit.id).pipe(
+      finalize(() => {this.attemptingRefresh = false; })
+    ).subscribe((characterInfo) => {
+      this.characterForm.controls.character.value.Name = characterInfo.name;
+      this.characterForm.controls.character.value.Server = characterInfo.server;
+
+    }, (error) => {
+      this.notify.error({text: 'Unable to refresh character name and server. ' + error});
+    });
   }
   // convenience getter for easy access to form fields
   get f() { return this.characterForm.controls; }

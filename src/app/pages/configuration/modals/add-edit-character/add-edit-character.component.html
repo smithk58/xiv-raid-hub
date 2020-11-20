@@ -3,10 +3,18 @@
   <form #form="ngForm" [formGroup]="characterForm" (ngSubmit)="saveCharacter()" [class.ng-was-validated]="isSubmitted">
     <div class="form-group">
       <label for="characterLabel">Character</label>
-      <app-character-search class="ml-2"
-                  labelForId="characterLabel"
-                  [fControl]="characterControl"
-      ></app-character-search>
+      <div class="d-flex">
+        <app-character-search class="min-flex"
+                              labelForId="characterLabel"
+                              [fControl]="characterControl"
+        ></app-character-search>
+        <button *ngIf="isEdit" [disabled]="attemptingRefresh"
+                class="btn-svg ml-2 p-2" (click)="refreshCharacterInfo()" type="button"
+                aria-label="Refresh character name and server"
+                ngbTooltip="Refresh character name and server">
+          <fa-icon [icon]="faSync" size="xl" aria-hidden="true"></fa-icon>
+        </button>
+      </div>
       <div *ngIf="f.character.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
         <div *ngIf="f.character.errors.required">A character is required.</div>
         <div *ngIf="f.character.errors.notUnique">You can't add a character that you have already added.</div>
