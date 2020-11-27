@@ -80,6 +80,7 @@ export class AddEditCharacterComponent implements OnInit {
     }
   }
   refreshCharacterInfo() {
+    this.attemptingRefresh = true;
     this.characterService.refreshCharacterInfo(this.characterToEdit.id).pipe(
       finalize(() => {this.attemptingRefresh = false; })
     ).subscribe((characterInfo) => {
