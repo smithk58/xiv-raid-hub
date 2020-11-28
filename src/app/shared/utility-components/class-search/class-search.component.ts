@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { ClassSearchService } from './class-search.service';
 import { ClassToRole } from 'src/app/shared/Utils';
+import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
+import { FFLogsApiService } from 'src/app/shared/api/fflogs/fflogs-api.service';
 
 @Component({
   selector: 'app-class-search',
@@ -15,11 +16,13 @@ export class ClassSearchComponent implements OnInit {
   @Input() fControl: FormControl;
   @Input() appendTo: string;
   classes = [];
-  constructor(private clService: ClassSearchService) { }
+  constructor(private notify: PNotifyService, private fflogsService: FFLogsApiService) { }
   ngOnInit() {
     // Populate the list of available classes
-    this.clService.getClasses().subscribe((classes) => {
+    this.fflogsService.getClasses().subscribe((classes) => {
       this.classes = classes;
+    }, (error) => {
+      this.notify.error({text: 'Unable to get classes ' + error});
     });
   }
 

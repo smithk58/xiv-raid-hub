@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { catchError, map } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { ClassWrapper } from './models/Class';
+import { Class } from './models/Class';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { RankingPagesWrapper } from './models/Ranking';
 import { Zone } from './models/Zone';
@@ -21,27 +20,11 @@ export class FFLogsApiService {
   apiURL = this.baseURL + '/v1/';
   apiKey = '8c71f14062c29d33ac7f247580b1c903';
   constructor(private http: HttpClient, private notify: PNotifyService, private xivApi2: XivApiService2) { }
-
   /**
    * Returns a list of the available classes in FF14.
    */
   getClasses() {
-    const params = this.getDefaultParams();
-    return this.http.get<ClassWrapper[]>(this.apiURL + 'classes', {params}).pipe(
-      map(wrapper => {
-        // We want to return the list of specs off the class wrapper, since the concept of a "Global" class is useless to us.
-        // We also don't care about their class IDs, so we'll grab name off of it
-        if (wrapper.length > 0) {
-          return wrapper[0].specs.map(c => c.name).sort((a, b) => (a > b) ? 1 : ((b > a) ? -1 : 0));
-        } else {
-          return [];
-        }
-      }),
-      catchError(error => {
-        this.notify.error({text: 'Unable to get classes ' + error});
-        return throwError(error);
-      })
-    );
+    return this.http.get<Class[]>('/fflogs/classes');
   }
 
   /**
