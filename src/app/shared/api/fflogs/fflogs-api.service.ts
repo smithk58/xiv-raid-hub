@@ -24,7 +24,11 @@ export class FFLogsApiService {
    * Returns a list of the available classes in FF14.
    */
   getClasses() {
-    return this.http.get<Class[]>('/fflogs/classes');
+    return this.http.get<Class[]>('/fflogs/classes').pipe(
+      map((classes) => {
+        return classes.map((ffClass) => ffClass.name);
+      })
+    );
   }
 
   /**
