@@ -1,0 +1,20 @@
+/*Utility classes for FF classes/roles*/
+.tank-bg {
+  background-color: #3A4DAA; /*blue*/
+}
+.healer-bg {
+  background-color: #457737; /*green*/
+}
+.dps-bg {
+  background-color: #813B3C; /*red*/
+}
+.class-icon {
+  height: 25px;
+  width: 25px;
+  border: 2px solid #E0C984; /*gold*/
+  border-radius: 5px
+}
+/*Make icon look disabled in a disabled ng-select control*/
+.ng-select-disabled .class-icon {
+  opacity: 0.7;
+}

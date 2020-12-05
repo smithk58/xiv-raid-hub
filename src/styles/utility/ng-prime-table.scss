@@ -1,0 +1,8 @@
+/*Add to the tr's of a p-table with [autoLayout]="true" to make columns fit content, include empty column at end*/
+.fit-content > * {
+  width: 1%;
+  white-space: nowrap;
+}
+.fit-content > *:last-child {
+  width: 99%;
+}

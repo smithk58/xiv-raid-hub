@@ -1,0 +1,100 @@
+/*Needed for responsive flex containers*/
+.min-flex {
+  flex: 1 1 0px;
+  min-width: 0px;
+}
+
+/*Prevents flex content from wrapping and instead does ellipsis*/
+.wrap-flex-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;;
+  min-width: 0px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.center-absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*For a container of multiple text elements, where one has .wrap-flex-overflow and will ellipsis when shrunk*/
+.text-ellipsis-container {
+  display: flex;
+  overflow: hidden;
+  > * {
+    margin-right: 0.25rem;
+    align-self: center;
+  }
+}
+.scroll-shadow {
+  position: relative; /*Required to "contain" the absolutely positioned ::after*/
+}
+/*Adds a small shadow at the top of the container when scrolled*/
+.scroll-shadow::before {
+  content: '';
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 1px;
+  background: #aec4d0;
+  z-index: 1;
+}
+/*Covers the "shadow" when the container is scrolled all the way to the top*/
+.scroll-shadow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: white; /*Overridden in slate theme*/
+  z-index: 2;
+}
+
+/* For wrapping svgs/images in <button>'s*/
+.btn-svg {
+  all: unset;
+}
+.btn-svg .logo-img {
+  margin-top: -5px; /*Fixes vertical alignment on images in button vs fa icons*/
+}
+.btn-svg:hover > fa-icon {
+  color: var(--primary) !important;
+}
+
+/* For a container element with child action buttons*/
+.actions-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.actions-container > button:not(:first-child) { /*TODO Apply to other action lists*/
+  margin-left: 1rem;
+}
+
+/*More space for a popover with a lot of content*/
+.md-popover {
+  width: 300px;
+}
+
+/*Allows ag-grid cell text to be highlighted*/
+.ag-cell-value {
+  user-select: initial;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -webkit-user-select: text;
+}
+
+/*For display FFlogs logo for linking to the site*/
+.logo-img {
+  height: 22px;
+}
+.logo-img:hover {
+  opacity: 0.6;
+}
