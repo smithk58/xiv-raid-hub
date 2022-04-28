@@ -1,0 +1,63 @@
+<p-table [value]="rankings" dataKey="name" [autoLayout]="true">
+  <ng-template pTemplate="header">
+    <tr class="fit-content">
+      <th style="width: 3rem"></th>
+      <th pSortableColumn="name">Tier <p-sortIcon icon="fa fa-chevron-right" field="name"></p-sortIcon></th>
+      <th pSortableColumn="expansion">Expansion <p-sortIcon field="expansion"></p-sortIcon></th>
+      <th pSortableColumn="bestPerfAvg">Best % Avg <p-sortIcon field="bestPerfAvg"></p-sortIcon></th>
+      <th pSortableColumn="medianPerfAvg">Median % Avg <p-sortIcon field="medianPerfAvg"></p-sortIcon></th>
+      <th pSortableColumn="totalKills">Total Kills <p-sortIcon field="totalKills"></p-sortIcon></th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-ranking let-expanded="expanded">
+    <tr class="fit-content">
+      <td>
+        <button type="button" class="btn-svg" [pRowToggler]="ranking"
+                aria-label="Expands/collapses this tier to view specific boss statistics">
+          <fa-icon [icon]="expanded ? faChevronDown : faChevronRight" size="lg" aria-hidden="true"></fa-icon>
+        </button>
+      </td>
+      <td>{{ranking.name}}</td>
+      <td>{{ranking.expansion}}</td>
+      <td>{{ranking.bestPerfAvg}}</td>
+      <td>{{ranking.medianPerfAvg}}</td>
+      <td>{{ranking.totalKills}}</td>
+      <td></td>
+    </tr>
+  </ng-template>
+  <!--Template for expanded row-->
+  <ng-template pTemplate="rowexpansion" let-ranking>
+    <tr>
+      <td colspan="7">
+        <div class="pl-4">
+          <p-table [value]="ranking.encounters" dataKey="name" styleClass="p-datatable-gridlines" [autoLayout]="true">
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="name">Boss <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="bestPercent">Best % <p-sortIcon field="bestPercent"></p-sortIcon></th>
+                <th pSortableColumn="medPercent">Med % <p-sortIcon field="medPercent"></p-sortIcon></th>
+                <th pSortableColumn="totalKills">Kills <p-sortIcon field="totalKills"></p-sortIcon></th>
+                <th pSortableColumn="highestRDPS">Highest RDPS <p-sortIcon field="highestRDPS"></p-sortIcon></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-encounter>
+              <tr>
+                <td>{{encounter.name}}</td>
+                <td>{{encounter.bestPercent}}</td>
+                <td>{{encounter.medPercent}}</td>
+                <td>{{encounter.totalKills}}</td>
+                <td>{{encounter.highestRDPS}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="6">There aren't any rankings!</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

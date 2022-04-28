@@ -11,6 +11,8 @@ import { Parse } from 'src/app/shared/api/fflogs/models/Parse';
 import { Character } from 'src/app/shared/api/xiv-raid-hub/models/character';
 import { XivApiService2 } from 'src/app/shared/api/xivapi/xiv-api-2.service';
 import { DCToRegion } from 'src/app/shared/Utils';
+import { Server } from 'src/app/shared/api/fflogs/models/Server';
+import { Region } from 'src/app/shared/api/fflogs/models/Region';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +32,12 @@ export class FFLogsApiService {
       })
     );
   }
-
+  getRegions() {
+    return this.http.get<Region[]>('/fflogs/regions');
+  }
+  getServers() {
+    return this.http.get<Server[]>('/fflogs/servers');
+  }
   /**
    * Returns all of the available zones for parsing in FFlogs
    */

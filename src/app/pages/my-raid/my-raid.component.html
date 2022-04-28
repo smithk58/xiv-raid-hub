@@ -1,10 +1,15 @@
 <div class="container-fluid mt-3">
   <div class="row">
     <div class="col-md-6 col-12">
-      <app-raid-times [raidGroups]="raidGroups" [dayToRaidTimes]="dayToRaidTimes" [dataReady]="isLoaded"></app-raid-times>
+      <app-raid-times [raidGroups]="raidGroups" [dayToRaidTimes]="dayToRaidTimes" [dataReady]="isLoaded" class="h-100"></app-raid-times>
     </div>
     <div class="col-md-6 col-12">
-      <app-schedule [raidGroups]="raidGroups" [dayToRaidTimes]="dayToRaidTimes" [dataReady]="isLoaded"></app-schedule>
+      <app-schedule [raidGroups]="raidGroups" [dayToRaidTimes]="dayToRaidTimes" [dataReady]="isLoaded" class="h-100"></app-schedule>
     </div>
   </div>
+  <!--<div class="row mt-4">
+    <div class="col">
+      <app-fflogs-ranking></app-fflogs-ranking>
+    </div>
+  </div>-->
 </div>
