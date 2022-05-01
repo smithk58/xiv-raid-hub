@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { faInfoCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { Alarm, AlarmType } from 'src/app/shared/api/xiv-raid-hub/models/alarm';
+import { AlarmDefinition, AlarmType } from 'src/app/shared/api/xiv-raid-hub/models/alarmDefinition';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
@@ -21,7 +21,7 @@ import { AlarmTargetRole } from 'src/app/pages/configuration/modals/add-edit-ala
 export class AddEditAlarmComponent implements OnInit {
   faInfoCircle = faInfoCircle; faPlus = faPlus;
   channelAlarmType = AlarmType.channel;
-  alarm: Alarm;
+  alarm: AlarmDefinition;
   isEdit = false;
   // Alarm form
   isSubmitted = false;
@@ -80,7 +80,7 @@ export class AddEditAlarmComponent implements OnInit {
       if (type === AlarmType.channel && role) {
         roleId = role.id;
       }
-      const alarm: Alarm = {
+      const alarm: AlarmDefinition = {
         id: this.isEdit ? this.alarm.id : undefined,
         type,
         targetId,

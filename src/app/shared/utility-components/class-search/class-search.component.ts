@@ -15,7 +15,7 @@ export class ClassSearchComponent implements OnInit {
   @Input() labelForId: string;
   @Input() fControl: FormControl;
   @Input() appendTo: string;
-  classes = [];
+  classes: string[] = [];
   constructor(private notify: PNotifyService, private fflogsService: FFLogsApiService) { }
   ngOnInit() {
     // Populate the list of available classes

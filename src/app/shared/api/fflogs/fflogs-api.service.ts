@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
 
-import { Class } from './models/Class';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { RankingPagesWrapper } from './models/Ranking';
 import { Zone } from './models/Zone';
@@ -26,11 +25,7 @@ export class FFLogsApiService {
    * Returns a list of the available classes in FF14.
    */
   getClasses() {
-    return this.http.get<Class[]>('/fflogs/classes').pipe(
-      map((classes) => {
-        return classes.map((ffClass) => ffClass.name);
-      })
-    );
+    return this.http.get<string[]>('/fflogs/classes');
   }
   getRegions() {
     return this.http.get<Region[]>('/fflogs/regions');

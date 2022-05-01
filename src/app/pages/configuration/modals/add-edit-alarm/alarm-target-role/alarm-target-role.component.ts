@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { faPen, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
-import { Alarm, AlarmType } from 'src/app/shared/api/xiv-raid-hub/models/alarm';
+import { AlarmDefinition, AlarmType } from 'src/app/shared/api/xiv-raid-hub/models/alarmDefinition';
 import { AlarmTargetRole } from 'src/app/pages/configuration/modals/add-edit-alarm/alarm-target-role/alarm-target-role';
 import { GuildsService } from 'src/app/shared/api/xiv-raid-hub/guilds.service';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
@@ -17,7 +17,7 @@ import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.ser
 export class AlarmTargetRoleComponent implements OnInit {
   editRoleMode = false;
   faInfoCircle = faInfoCircle; faEdit = faPen;
-  @Input() alarm: Alarm;
+  @Input() alarm: AlarmDefinition;
   currentGuildId: string;
   @Input() set guildId(guildId: string) {
     // Clear the role/roles if they change the target guild, since the role will no longer be valid if it was for a previous guild

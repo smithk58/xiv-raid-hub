@@ -5,7 +5,7 @@ import findIndex from 'lodash/findIndex';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
-import { Alarm, AlarmType } from 'src/app/shared/api/xiv-raid-hub/models/alarm';
+import { AlarmDefinition, AlarmType } from 'src/app/shared/api/xiv-raid-hub/models/alarmDefinition';
 import { AddEditAlarmComponent } from 'src/app/pages/configuration/modals/add-edit-alarm/add-edit-alarm.component';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { YesNoModalComponent } from 'src/app/shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
@@ -19,7 +19,7 @@ import { AlarmService } from 'src/app/shared/api/xiv-raid-hub/alarm.service';
 export class ConfigAlarmsComponent implements OnInit {
   faEdit = faPen; faPlus = faPlus; faTrash = faTrashAlt; faSpinner = faSpinner;
   userAlarmType = AlarmType.user;
-  alarms: Alarm[];
+  alarms: AlarmDefinition[];
   isLoaded = false;
   constructor(private modalService: NgbModal, private raidGroupService: RaidGroupService, private notify: PNotifyService,
               private alarmService: AlarmService
@@ -31,12 +31,12 @@ export class ConfigAlarmsComponent implements OnInit {
       this.isLoaded = true;
     });
   }
-  openAlarmModal(alarm?: Alarm) {
+  openAlarmModal(alarm?: AlarmDefinition) {
     const isEdit = typeof(alarm) !== 'undefined';
     const modal = this.modalService.open(AddEditAlarmComponent, {backdrop: 'static', size: 'lg'});
     modal.componentInstance.isEdit = isEdit;
     modal.componentInstance.alarm = alarm;
-    modal.result.then((modalAlarm: Alarm) => {
+    modal.result.then((modalAlarm: AlarmDefinition) => {
         if (isEdit) {
           // Replace the old alarm and trigger a UI refresh via a new array
           const existingAlarmIndex = findIndex(this.alarms, {id: alarm.id});
@@ -49,7 +49,7 @@ export class ConfigAlarmsComponent implements OnInit {
       () => {} // They aborted modal, do nothing
     );
   }
-  deleteAlarm(alarm: Alarm) {
+  deleteAlarm(alarm: AlarmDefinition) {
     const modal = this.modalService.open(YesNoModalComponent);
     modal.componentInstance.modalTitle = 'Delete?';
     modal.componentInstance.modalText = 'Are you sure you want to delete this alarm?';

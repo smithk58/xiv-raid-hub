@@ -18,6 +18,7 @@ export enum ClassToRole {
   'Astrologian' = 'healer',
   'White Mage' = 'healer',
   'Scholar' = 'healer',
+  'Sage' = 'healer',
   'Warrior' = 'tank',
   'Paladin' = 'tank',
   'Dark Knight' = 'tank',
@@ -31,6 +32,7 @@ export enum ClassToRole {
   'Samurai' = 'dps',
   'Summoner' = 'dps',
   'Red Mage' = 'dps',
+  'Reaper' = 'dps',
   'Black Mage' = 'dps'
 }
 /*APIs y you no have this either >:(?? Maps XIVApis DC list to region*/

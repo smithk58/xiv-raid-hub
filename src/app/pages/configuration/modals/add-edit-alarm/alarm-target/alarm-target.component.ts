@@ -6,7 +6,7 @@ import { faInfoCircle, faPen } from '@fortawesome/free-solid-svg-icons';
 
 import { GuildsService } from 'src/app/shared/api/xiv-raid-hub/guilds.service';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
-import { Alarm, AlarmType } from 'src/app/shared/api/xiv-raid-hub/models/alarm';
+import { AlarmDefinition, AlarmType } from 'src/app/shared/api/xiv-raid-hub/models/alarmDefinition';
 import { AlarmTarget } from 'src/app/pages/configuration/modals/add-edit-alarm/alarm-target/alarm-target';
 
 @Component({
@@ -15,7 +15,7 @@ import { AlarmTarget } from 'src/app/pages/configuration/modals/add-edit-alarm/a
   styleUrls: ['./alarm-target.component.scss']
 })
 export class AlarmTargetComponent implements OnInit {
-  @Input() alarm: Alarm;
+  @Input() alarm: AlarmDefinition;
   currentAlarmType: AlarmType;
   @Input() set alarmType(alarmType: AlarmType) {
     // Clear the target if they change the alarm type

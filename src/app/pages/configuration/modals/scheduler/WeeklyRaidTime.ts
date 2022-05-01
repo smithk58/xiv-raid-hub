@@ -6,6 +6,7 @@ export interface WeeklyRaidTime {
   weekMask: number;
   utcHour: number;
   utcMinute: number;
+  utcTimezoneOffset: number;
   localTime?: Date; /*Has to manually be set by FE*/
 }
 export interface RaidTime {

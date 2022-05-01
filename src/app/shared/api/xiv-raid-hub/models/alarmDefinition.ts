@@ -4,7 +4,7 @@ export enum AlarmType {
   user = 'user',
   channel = 'channel'
 }
-export interface Alarm {
+export interface AlarmDefinition {
   id?: number;
   type: AlarmType;
   targetGuildId: string;

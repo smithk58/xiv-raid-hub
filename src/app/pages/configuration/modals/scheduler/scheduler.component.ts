@@ -110,7 +110,8 @@ export class SchedulerComponent implements OnInit {
           raidGroupId: this.raidGroupId,
           utcHour: startTime.getUTCHours(),
           utcMinute: startTime.getUTCMinutes(),
-          weekMask: calculateDaysInWeekMask(raidTime.daysOfWeek)
+          weekMask: calculateDaysInWeekMask(raidTime.daysOfWeek),
+          utcTimezoneOffset: startTime.getTimezoneOffset()
         });
       }
       this.modal.close(raidTimes);

@@ -7,7 +7,6 @@ import { map, tap } from 'rxjs/operators';
 import { BASE_API_URL } from 'src/app/api-injection-token';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
-import { Alarm } from 'src/app/shared/api/xiv-raid-hub/models/alarm';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +21,7 @@ export class RaidGroupService {
       })
     );
   }
-  getRaidGroup(raidGroupId: number, userIdForOwnerCalculation?: number) {
+  getRaidGroup(raidGroupId: number) {
     return this.http.get<RaidGroup>('/raid-groups/' + raidGroupId);
   }
   insertRaidGroup(raidGroup: RaidGroup) {
