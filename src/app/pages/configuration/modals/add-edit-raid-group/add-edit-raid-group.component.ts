@@ -40,7 +40,7 @@ export class AddEditRaidGroupComponent implements OnInit {
     this.characterControls = this.buildCharacterControlList(characters);
     this.raidGroupForm = this.formBuilder.group({
       name: [name, [Validators.required, Validators.maxLength(30)]],
-      purpose: [purpose, Validators.maxLength(10)],
+      purpose: [purpose, Validators.maxLength(12)],
       share: [shared],
       characters: this.characterControls
     });
