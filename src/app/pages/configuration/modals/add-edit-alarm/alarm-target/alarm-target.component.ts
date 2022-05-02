@@ -25,6 +25,12 @@ export class AlarmTargetComponent implements OnInit {
     // Toggle channel required status
     this.setIfChannelRequired(alarmType);
     this.currentAlarmType = alarmType;
+
+    // Populate channels if not already populated (i.e. if they already had a server selected with type user)
+    if (alarmType === AlarmType.channel) {
+      const guildId = this.targetForm.get('targetServer').value as string;
+      this.getGuildChannels({id: guildId});
+    }
   }
   @Output() targetChange: EventEmitter<AlarmTarget> = new EventEmitter();
   editTargetMode = false;
@@ -85,9 +91,14 @@ export class AlarmTargetComponent implements OnInit {
     this.targetIsSubmitted = true;
     if (this.targetForm.valid) {
       const server = this.discordServers.find(srv => srv.id === this.targetForm.controls.targetServer.value);
-      const channel = this.discordChannels.find(chn => chn.id === this.targetForm.controls.targetChannel.value);
       const isChannel = this.currentAlarmType === AlarmType.channel;
-      const targetName = server.name + ' / ' + (isChannel ? channel.name : 'DM to you');
+      let targetName = server.name + ' / '; //  + (isChannel ? channel.name : 'DM to you');
+      if (isChannel) {
+        const channel = this.discordChannels.find(chn => chn.id === this.targetForm.controls.targetChannel.value);
+        targetName += channel.name;
+      } else {
+        targetName += 'DM to you';
+      }
       // Only set targetID if it's a channel, otherwise backend handles it
       let targetChannelId;
       if (isChannel) {
@@ -117,6 +128,10 @@ export class AlarmTargetComponent implements OnInit {
     });
   }
   getGuildChannels(guild: {id: string}) {
+    // Don't get channels when it's a user alarm, since it doesn't need channels
+    if (this.currentAlarmType === AlarmType.user) {
+      return;
+    }
     this.discordChannelsLoading = true;
     this.guildsService.getGuildChannels(guild.id).pipe(
       finalize(() => {this.discordChannelsLoading = false; })
