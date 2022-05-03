@@ -18,11 +18,22 @@
         <label for="raidGroupPurpose">Purpose</label>
         <input id="raidGroupPurpose" type="text" formControlName="purpose" class="form-control" placeholder="e.g. Savage, UWU">
         <div *ngIf="f.purpose.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
-          <div *ngIf="f.purpose.errors.maxlength">Max length of 10 characters.</div>
+          <div *ngIf="f.purpose.errors.maxlength">Max length of 12 characters.</div>
         </div>
       </div>
     </div>
-    <div class="members-container scroll-shadow position-relative">
+    <div class="row">
+      <div class="form-group col">
+        <div class="form-check form-check-inline">
+          <input id="hasCharsCb" class="form-check-input" type="checkbox" formControlName="hasCharacters">
+          <label class="form-check-label" for="hasCharsCb">Add Members</label>
+          <fa-icon [icon]="faInfoCircle" class="ml-1"
+                   [ngbPopover]="addMembersPopover" popoverClass="md-popover" placement="bottom"
+          ></fa-icon>
+        </div>
+      </div>
+    </div>
+    <div class="members-container scroll-shadow position-relative" [hidden]="getAddMemberCheckbox.value === false">
       <div class="row mr-1">
         <!--Repeat the member fields-->
         <div *ngFor="let ctrlGrp of getCharacterControls; let i = index;" class="form-group col-6">
@@ -54,7 +65,7 @@
   </form>
 </div>
 <app-modal-footer [mode]="canEdit ? 'save' : 'close'" (save)="form.ngSubmit.emit()">
-  <div pre-content class="mr-auto mb-0">
+  <div pre-content class="mr-auto mb-0" *ngIf="getAddMemberCheckbox.value === true">
     <div class="form-check form-check-inline">
       <input id="sharedCb" class="form-check-input" type="checkbox" [formControl]="getShareCheckbox">
       <label class="form-check-label" for="sharedCb">Share with other members</label>
@@ -65,7 +76,11 @@
   </div>
 </app-modal-footer>
 <ng-template #sharingPopover>
-  <p>If enabled this raid group will show up to other raid group members, so they don't have to add it themselves.</p>
+  <p>If enabled this raid groups information will show up to other raid group members, so they don't have to add it themselves.</p>
   <p>They must have added their character in the <span class="font-weight-bold">Characters</span> list and have <span class="font-weight-bold">claimed</span> it as their character.</p>
   <p>They will <span class="font-weight-bold">NOT</span> be able to edit this group, but they can see all of the information.</p>
+</ng-template>
+<ng-template #addMembersPopover>
+  <p>Let's you specify the exact players in your raid group.</p>
+  <p>Adding members will allow you to share this raid group with them if you choose to, and possibly allow other functionality in the future.</p>
 </ng-template>

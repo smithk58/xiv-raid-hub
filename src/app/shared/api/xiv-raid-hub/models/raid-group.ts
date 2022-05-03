@@ -5,6 +5,7 @@ export interface RaidGroup {
   ownerId?: number;
   name: string;
   purpose?: string;
+  hasCharacters?: boolean;
   hasSchedule?: boolean;
   share: boolean;
   characters?: RaidGroupCharacter[];
