@@ -27,8 +27,8 @@ export class AlarmTargetComponent implements OnInit {
     this.currentAlarmType = alarmType;
 
     // Populate channels if not already populated (i.e. if they already had a server selected with type user)
-    if (alarmType === AlarmType.channel) {
-      const guildId = this.targetForm.get('targetServer').value as string;
+    const guildId = this.targetForm ? this.targetForm.get('targetServer').value as string : undefined;
+    if (alarmType === AlarmType.channel && guildId) {
       this.getGuildChannels({id: guildId});
     }
   }
