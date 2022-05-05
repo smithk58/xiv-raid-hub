@@ -1,10 +1,12 @@
-# XivRaidHub
+# Xiv Raid Hub
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3. If you're interested in contributing you can find more information on the [about page.](http://www.xivraidhub.com/about)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.12. If you're interested in contributing you can find more information on the [about page.](http://www.xivraidhub.com/about)
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+Development also requires running [XIV Raid Hub API](https://github.com/smithk58/xiv-raid-hub-api). May also require [XIV Raid Hub Bot](https://github.com/smithk58/xiv-raid-hub-bot) if you're touching functionality that requires the bot, such as alarms.
 
 ## Code scaffolding
 
