@@ -8,6 +8,20 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 Development also requires running [XIV Raid Hub API](https://github.com/smithk58/xiv-raid-hub-api). May also require [XIV Raid Hub Bot](https://github.com/smithk58/xiv-raid-hub-bot) if you're touching functionality that requires the bot, such as alarms.
 
+## Docker Image
+
+You can build a production ready docker image by running `docker build -t xiv-raid-hub .` on the root of the project.
+
+To test an image locally you can do the following:
+* Add a `.env` file under root with the following content:
+```
+NODE_ENV=development
+PORT=4200
+BACKEND_BASE_URL=http://localhost:3000
+```
+* Run the following command from the root of this project `docker run -p 4200:4200 --env-file .env xiv-raid-hub`.
+* After executing docker run you can view the result at `http://www.localhost:4200`, but will fail to fully work unless you have the backend server running as well.
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.

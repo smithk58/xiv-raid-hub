@@ -1,0 +1,11 @@
+node_modules
+dist
+# Misc config that we don't want invalidating layers
+Dockerfile
+README.md
+tslint.json
+.dockerignore
+.gitignore
+.github
+.editorconfig
+.env
