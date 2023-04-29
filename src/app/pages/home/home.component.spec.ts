@@ -3,8 +3,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { HomeComponent } from './home.component';
-import { BASE_API_URL } from 'src/app/api-injection-token';
-import { environment } from 'src/environments/environment';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('HomeComponent', () => {
@@ -19,9 +17,7 @@ describe('HomeComponent', () => {
         SharedModule
       ],
       declarations: [ HomeComponent ],
-      providers: [
-        { provide: BASE_API_URL, useValue: environment.baseHref }
-      ]
+      providers: []
     })
     .compileComponents();
   }));

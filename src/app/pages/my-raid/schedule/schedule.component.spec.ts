@@ -3,8 +3,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ScheduleComponent } from './schedule.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { BASE_API_URL } from 'src/app/api-injection-token';
-import { environment } from 'src/environments/environment';
 
 describe('ScheduleComponent', () => {
   let component: ScheduleComponent;
@@ -17,9 +15,7 @@ describe('ScheduleComponent', () => {
         SharedModule
       ],
       declarations: [ ScheduleComponent ],
-      providers: [
-        { provide: BASE_API_URL, useValue: environment.baseHref }
-      ]
+      providers: []
     })
     .compileComponents();
   }));

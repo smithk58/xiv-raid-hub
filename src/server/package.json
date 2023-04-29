@@ -10,10 +10,13 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@koa/router": "^10.1.1",
     "koa": "^2.13.0",
     "koa-helmet": "^6.1.0",
+    "koa-respond": "^2.1.0",
     "koa-send": "^5.0.1",
-    "koa-static": "^5.0.0"
+    "koa-static": "^5.0.0",
+    "dotenv": "^16.0.0"
   },
   "devDependencies": {}
 }

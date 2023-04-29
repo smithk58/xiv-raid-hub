@@ -27,6 +27,9 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false,
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    proxies: { // https://ievgen.de/2020/11/17/angular-tests-fail-docker/
+      '/assets/': '/src/assets/'
+    }
   });
 };

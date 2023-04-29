@@ -6,8 +6,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SchedulerComponent } from 'src/app/pages/configuration/modals/scheduler/scheduler.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { BASE_API_URL } from 'src/app/api-injection-token';
-import { environment } from 'src/environments/environment';
 
 describe('SchedulerComponent', () => {
   let component: SchedulerComponent;
@@ -22,8 +20,7 @@ describe('SchedulerComponent', () => {
       ],
       declarations: [ SchedulerComponent ],
       providers: [
-        NgbActiveModal,
-        { provide: BASE_API_URL, useValue: environment.baseHref }
+        NgbActiveModal
       ]
     })
     .compileComponents();

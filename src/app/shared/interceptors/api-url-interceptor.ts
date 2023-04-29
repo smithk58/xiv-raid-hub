@@ -1,12 +1,12 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpEvent, HttpRequest, HttpInterceptor, HttpHandler } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { BASE_API_URL } from 'src/app/api-injection-token';
+import { AppConfigService } from 'src/app/app-config.service';
 
 @Injectable()
 export class ApiUrlInterceptor implements HttpInterceptor {
-  constructor(@Inject(BASE_API_URL) private baseAPIUrl: string) { }
+  constructor(private appConfig: AppConfigService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     req = this.isAbsoluteUrl(req.url) ? req : req.clone({
@@ -22,7 +22,7 @@ export class ApiUrlInterceptor implements HttpInterceptor {
   }
 
   private prepareUrl(url: string): string {
-    url = this.baseAPIUrl + 'api/' + url;
+    url = this.appConfig.baseAPIURL + 'api/' + url;
     return url.replace(/([^:]\/)\/+/g, '$1');
   }
 }

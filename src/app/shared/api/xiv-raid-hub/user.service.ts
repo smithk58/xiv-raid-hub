@@ -6,15 +6,15 @@ import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { BASE_API_URL } from 'src/app/api-injection-token';
 import { UserSession } from 'src/app/shared/api/xiv-raid-hub/models/user-session';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
+import { AppConfigService } from 'src/app/app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(@Inject(DOCUMENT) private document: Document, @Inject(BASE_API_URL) private baseAPIUrl: string, private http: HttpClient,
+  constructor(@Inject(DOCUMENT) private document: Document, private appConfig: AppConfigService, private http: HttpClient,
               private notify: PNotifyService, private router: Router
   ) { }
   private userSession$ = new ReplaySubject<UserSession>(1);
@@ -22,7 +22,7 @@ export class UserService {
    * Redirect the user to discords authentication
    */
   login() {
-    this.document.location.href = this.baseAPIUrl + 'connect/discord';
+    this.document.location.href = this.appConfig.baseAPIURL + 'connect/discord';
   }
   logout() {
     return this.http.get('/session/logout').pipe(tap(() => {

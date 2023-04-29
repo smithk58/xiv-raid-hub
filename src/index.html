@@ -8,6 +8,8 @@
   <link rel="icon" type="image/x-icon" href="/assets/atom-solid.png">
   <script type="text/javascript">
     (function initializeTheme(){
+      // If you change the content of this script tag you have to recalculate its SHA-256 and add it to the web servers
+      // CSP (script-src), otherwise the browser will refuse to execute it.
       const theme = (localStorage.getItem('theme') || 'default') + '-theme.css';
       const lazyStyleElement = document.createElement('link');
       lazyStyleElement.id = 'bootstrap-theme';

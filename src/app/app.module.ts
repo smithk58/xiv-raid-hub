@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { XivapiClientModule } from '@xivapi/angular-client';
@@ -12,12 +12,18 @@ import { RoutingModule } from './routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AboutComponent } from './pages/about/about.component';
-import { environment } from '../environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { YesNoModalComponent } from './shared/utility-components/modals/yes-no-modal/yes-no-modal.component';
 import { httpInterceptorProviders } from 'src/app/shared/interceptors';
-import { BASE_API_URL } from 'src/app/api-injection-token';
 import { IsAuthedGuard } from 'src/app/shared/IsAuthedGuard';
+import { AppConfigService } from 'src/app/app-config.service';
+import { HttpClient } from '@angular/common/http';
+
+export function baseAPIUrlConfig(config: AppConfigService) {
+  return () => {
+    return config.init();
+  };
+}
 
 @NgModule({
   imports: [
@@ -41,7 +47,12 @@ import { IsAuthedGuard } from 'src/app/shared/IsAuthedGuard';
   providers: [
     httpInterceptorProviders,
     IsAuthedGuard,
-    { provide: BASE_API_URL, useValue: environment.baseHref }
+    {
+      provide: APP_INITIALIZER,
+      useFactory: baseAPIUrlConfig,
+      deps: [AppConfigService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

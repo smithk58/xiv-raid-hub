@@ -4,15 +4,15 @@ import { HttpClient } from '@angular/common/http';
 
 import { map, tap } from 'rxjs/operators';
 
-import { BASE_API_URL } from 'src/app/api-injection-token';
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { WeeklyRaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
+import { AppConfigService } from 'src/app/app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RaidGroupService {
-  constructor(@Inject(DOCUMENT) private document: Document, @Inject(BASE_API_URL) private baseAPIUrl: string, private http: HttpClient
+  constructor(@Inject(DOCUMENT) private document: Document, private appConfig: AppConfigService, private http: HttpClient
   ) { }
   getRaidGroups(userIdForOwnerCalculation?: number) {
     return this.http.get<RaidGroup[]>('/raid-groups').pipe(

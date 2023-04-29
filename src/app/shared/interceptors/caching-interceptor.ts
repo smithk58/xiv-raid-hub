@@ -1,15 +1,15 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { RequestCacheService } from 'src/app/shared/api/caching/request-cache.service';
-import { BASE_API_URL } from 'src/app/api-injection-token';
+import { AppConfigService } from 'src/app/app-config.service';
 
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
-  constructor(private cache: RequestCacheService, @Inject(BASE_API_URL) private baseAPIUrl: string) {}
+  constructor(private cache: RequestCacheService, private appConfig: AppConfigService) {}
   // TODO We only want to cache a subset of get requests, but this works for now. Need an annotation on requests or something
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const cachedResponse = this.cache.get(req);
@@ -25,7 +25,7 @@ export class CachingInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       tap(event => {
         // Cache any http responses that don't come from our api
-        if (event instanceof HttpResponse && !req.url.startsWith(this.baseAPIUrl)) {
+        if (event instanceof HttpResponse && !req.url.startsWith(this.appConfig.baseAPIURL)) {
           cache.put(req, event);
         }
       })
