@@ -1,4 +1,4 @@
-import { DaysOfWeek } from 'src/app/shared/DaysUtils';
+import { Day, DaysOfWeek, DaysOfWeekByJsDay } from 'src/app/shared/DaysUtils';
 
 export interface WeeklyRaidTime {
   id?: number;
@@ -54,16 +54,36 @@ export function dayToRaidTimesMap(weeklyRaidTimes: WeeklyRaidTime[]): Map<number
       // tslint:disable-next-line:no-bitwise - I do what I want >:(
       if (weeklyRaidTime.utcWeekMask & day.bit) {
         const startTime = new Date();
-        startTime.setUTCHours(weeklyRaidTime.utcHour);
-        startTime.setUTCMinutes(weeklyRaidTime.utcMinute);
-        startTime.setUTCSeconds(0);
-        if (!dayToTimes.has(day.jsDay)) {
-          dayToTimes.set(day.jsDay, [{raidGroupId: weeklyRaidTime.raidGroupId, startTime}]);
+        startTime.setUTCHours(weeklyRaidTime.utcHour, weeklyRaidTime.utcMinute, 0);
+        // Have to potentially transform the day to equivalent local day, since the mask is UTC days
+        const localDay = raidDayToLocalDay(startTime, day);
+        if (!dayToTimes.has(localDay.jsDay)) {
+          dayToTimes.set(localDay.jsDay, [{raidGroupId: weeklyRaidTime.raidGroupId, startTime}]);
         } else {
-          dayToTimes.get(day.jsDay).push({raidGroupId: weeklyRaidTime.raidGroupId, startTime});
+          dayToTimes.get(localDay.jsDay).push({raidGroupId: weeklyRaidTime.raidGroupId, startTime});
         }
       }
     }
   }
   return dayToTimes;
+}
+
+/**
+ * Returns a local day for the specified raid day/time.
+ * @param raidTime - A date set to a raid time.
+ * @param utcDay - The UTC day that the raid time will take place on.
+ */
+export function raidDayToLocalDay(raidTime: Date, utcDay: Day) {
+  const dayDiff = raidTime.getDay() - raidTime.getUTCDay();
+  if (dayDiff === 0) { // utc day matches local day, so just return it
+    return utcDay;
+  }
+  // return the local day via subtracting the different between the day and utc day
+  let tDayIndex = utcDay.jsDay + dayDiff;
+  if (tDayIndex < 0) {
+    tDayIndex = DaysOfWeekByJsDay.size - 1;
+  } else if (tDayIndex === DaysOfWeekByJsDay.size) {
+    tDayIndex = 0;
+  }
+  return DaysOfWeekByJsDay.get(tDayIndex);
 }

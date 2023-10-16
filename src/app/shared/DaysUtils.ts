@@ -1,4 +1,4 @@
-interface Day {
+export interface Day {
   bit: number;
   dayShort: string;
   dayLong: string;

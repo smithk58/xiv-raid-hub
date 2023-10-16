@@ -74,9 +74,7 @@ export class SchedulerComponent implements OnInit {
     if (raidTime) {
       // Convert the time to the users local hours/minutes
       const time = new Date();
-      time.setUTCHours(raidTime.utcHour);
-      time.setUTCMinutes(raidTime.utcMinute);
-      time.setUTCSeconds(0);
+      time.setUTCHours(raidTime.utcHour, raidTime.utcMinute, 0);
       initialTime = {hour: time.getHours(), minute: time.getMinutes(), second: 0};
       // Convert the selected days from UTC to local users days
       const utcDaysInWeek = daysInWeekMaskToBools(raidTime.utcWeekMask);

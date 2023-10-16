@@ -43,9 +43,7 @@ export class RaidGroupService {
         // Generate the local time via the utc hours/minutes
         raidTimes.forEach(raidTime => {
           const startTime = new Date();
-          startTime.setUTCHours(raidTime.utcHour);
-          startTime.setUTCMinutes(raidTime.utcMinute);
-          startTime.setUTCSeconds(0);
+          startTime.setUTCHours(raidTime.utcHour, raidTime.utcMinute, 0);
           // Reset the day back to the current day, since setting UTC times can roll over to next/previous day
           startTime.setDate(currentDay);
           raidTime.localTime = startTime;
