@@ -3,7 +3,7 @@ import { DaysOfWeek } from 'src/app/shared/DaysUtils';
 export interface WeeklyRaidTime {
   id?: number;
   raidGroupId: number;
-  weekMask: number;
+  utcWeekMask: number;
   utcHour: number;
   utcMinute: number;
   utcTimezoneOffset: number;
@@ -52,7 +52,7 @@ export function dayToRaidTimesMap(weeklyRaidTimes: WeeklyRaidTime[]): Map<number
   for (const weeklyRaidTime of weeklyRaidTimes) {
     for (const day of DaysOfWeek.values()) {
       // tslint:disable-next-line:no-bitwise - I do what I want >:(
-      if (weeklyRaidTime.weekMask & day.bit) {
+      if (weeklyRaidTime.utcWeekMask & day.bit) {
         const startTime = new Date();
         startTime.setUTCHours(weeklyRaidTime.utcHour);
         startTime.setUTCMinutes(weeklyRaidTime.utcMinute);
