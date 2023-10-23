@@ -15,6 +15,8 @@ const defaultCSP = contentSecurityPolicy.getDefaultDirectives();
 defaultCSP['script-src'].push("'sha256-pcK1NxX+YPEGXy+W+q6zsqDZEXvktWdW4g/136GHXPM='");
 // Add our BE as a valid src for the FE
 defaultCSP['default-src'].push(process.env.BACKEND_BASE_URL);
+// Add discord avatars as a valid image src
+defaultCSP['img-src'].push('https://cdn.discordapp.com/avatars/');
 app.use(helmet({
   contentSecurityPolicy: defaultCSP
 }));
