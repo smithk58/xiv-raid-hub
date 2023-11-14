@@ -20,7 +20,10 @@ export class AppConfigService {
       xhr.addEventListener('readystatechange', () => {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
           const config = JSON.parse(xhr.responseText);
-          this.baseApiUrl = config.baseApiUrl;
+          this.baseApiUrl = config.baseApiUrl || '';
+          if (!config.baseApiUrl) {
+            console.error('The API url wasn\'t provided to the server.');
+          }
           resolve();
         } else if (xhr.readyState === XMLHttpRequest.DONE) {
           reject('Failed to get application configuration.');
