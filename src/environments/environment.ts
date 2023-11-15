@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseHref: 'http://localhost:3000/'
+  baseHref: 'http://localhost:3000'
 };
 
 /*

@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 
 import { ClassToRole } from 'src/app/shared/Utils';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
-import { FFLogsApiService } from 'src/app/shared/api/fflogs/fflogs-api.service';
+import { FFService } from 'src/app/shared/api/xiv-raid-hub/ff.service';
 
 @Component({
   selector: 'app-class-search',
@@ -16,10 +16,10 @@ export class ClassSearchComponent implements OnInit {
   @Input() fControl: FormControl;
   @Input() appendTo: string;
   classes: string[] = [];
-  constructor(private notify: PNotifyService, private fflogsService: FFLogsApiService) { }
+  constructor(private notify: PNotifyService, private ffService: FFService) { }
   ngOnInit() {
     // Populate the list of available classes
-    this.fflogsService.getClasses().subscribe((classes) => {
+    this.ffService.getClasses().subscribe((classes) => {
       this.classes = classes;
     }, (error) => {
       this.notify.error({text: 'Unable to get classes ' + error});

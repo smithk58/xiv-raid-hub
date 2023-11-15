@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { map, shareReplay } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
 import { RankingPagesWrapper } from './models/Ranking';
@@ -12,7 +12,6 @@ import { XivApiService2 } from 'src/app/shared/api/xivapi/xiv-api-2.service';
 import { DCToRegion } from 'src/app/shared/Utils';
 import { Server } from 'src/app/shared/api/fflogs/models/Server';
 import { Region } from 'src/app/shared/api/fflogs/models/Region';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,19 +20,7 @@ export class FFLogsApiService {
   baseURL = 'https://www.fflogs.com';
   apiURL = this.baseURL + '/v1/';
   apiKey = '8c71f14062c29d33ac7f247580b1c903';
-  private getClasses$: Observable<string[]>;
   constructor(private http: HttpClient, private notify: PNotifyService, private xivApi2: XivApiService2) { }
-  /**
-   * Returns a list of the available classes in FF14.
-   */
-  getClasses() {
-    if (!this.getClasses$) {
-      this.getClasses$ = this.http.get<string[]>('/fflogs/classes').pipe(
-        shareReplay()
-      );
-    }
-    return this.getClasses$;
-  }
   getRegions() {
     return this.http.get<Region[]>('/fflogs/regions');
   }

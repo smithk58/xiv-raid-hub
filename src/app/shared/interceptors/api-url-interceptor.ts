@@ -22,7 +22,7 @@ export class ApiUrlInterceptor implements HttpInterceptor {
   }
 
   private prepareUrl(url: string): string {
-    url = this.appConfig.baseAPIURL + 'api/' + url;
+    url = this.appConfig.baseAPIURL + '/api/' + url;
     return url.replace(/([^:]\/)\/+/g, '$1');
   }
 }

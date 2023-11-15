@@ -22,7 +22,7 @@ export class UserService {
    * Redirect the user to discords authentication
    */
   login() {
-    this.document.location.href = this.appConfig.baseAPIURL + 'connect/discord';
+    this.document.location.href = this.appConfig.baseAPIURL + '/connect/discord';
   }
   logout() {
     return this.http.get('/session/logout').pipe(tap(() => {
