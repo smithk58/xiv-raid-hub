@@ -1,5 +1,5 @@
 # Build stage
-FROM node:14-alpine as build
+FROM node:16-alpine as build
 
 WORKDIR /app
 
@@ -17,7 +17,7 @@ WORKDIR /app/src/server
 RUN npm ci --omit=dev
 
 # Runtime stage
-FROM node:14-alpine
+FROM node:16-alpine
 
 WORKDIR /app
 
