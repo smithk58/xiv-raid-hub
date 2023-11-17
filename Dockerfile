@@ -1,23 +1,19 @@
 # Build stage
-FROM node:16-alpine as build
+FROM node:14-alpine as build
 
 WORKDIR /app
 
-# Build raid hub dependencies
+# Build raid hub dependencies, the koa server depends on its dependencies in prod so we separate them to keep the image size smaller
 COPY package*.json ./
-RUN npm ci --omit=dev
+COPY src/server/package*.json src/server/
+RUN npm ci
 
 # Build raid hub dist
 COPY . .
 RUN npm run build
 
-# Build raid hub server dependencies separately (the koa server depends on its node modules, so we build them separately
-# from the rest of the FE to keep the image size significantly smaller)
-WORKDIR /app/src/server
-RUN npm ci --omit=dev
-
 # Runtime stage
-FROM node:16-alpine
+FROM node:14-alpine
 
 WORKDIR /app
 
