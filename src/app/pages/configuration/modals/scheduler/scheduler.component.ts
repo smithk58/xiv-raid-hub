@@ -116,8 +116,6 @@ export class SchedulerComponent implements OnInit {
         startTime.setHours(raidTime.startTime.hour);
         startTime.setMinutes(raidTime.startTime.minute);
         startTime.setSeconds(0);
-        const dayOfWeek = startTime.getDay();
-        const dayOfWeekUTC = startTime.getUTCDay();
         // If the UTC day is different than the users day, then adjust the days array to match UTC days before saving
         let daysOfWeekUtc = raidTime.daysOfWeek;
         const shiftDir = this.getDayShiftDirection(startTime, 'utc');
@@ -162,13 +160,17 @@ export class SchedulerComponent implements OnInit {
   getDayShiftDirection(date: Date, target: 'local' | 'utc') {
     const dayOfWeek = date.getDay();
     const dayOfWeekUTC = date.getUTCDay();
-    if (dayOfWeekUTC - dayOfWeek === 0) {
+    if (dayOfWeekUTC === dayOfWeek) {
       return undefined;
     }
-    // If the UTC day is different than the users day then we want to shift; the target should be on the left for calculating diff since
-    // we want to shift "forward"(right) a day if the target day of week is larger
-    const difference = (target === 'utc') ? (dayOfWeekUTC - dayOfWeek) : (dayOfWeek - dayOfWeekUTC);
-    return difference > 0 ? 'right' : 'left';
+    // Positive timezone offset means local time is earlier than UTC (i.e. local + offset = utc)
+    const localTimeIsEarlier = date.getTimezoneOffset() > 0;
+    if (target === 'utc') {
+      // if local time is earlier, then UTC day must be equal to or greater than it, so we want to shift right
+      // i.e. if local day is monday, utc must be monday or tuesday if local time is earlier
+      return localTimeIsEarlier ? 'right' : 'left';
+    }
+    return localTimeIsEarlier ? 'left' : 'right';
   }
   /**
    * Shifts the trues in the boolean array left or right to handle local day -> UTC day or vice versa.
