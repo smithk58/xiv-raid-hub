@@ -26,7 +26,7 @@
                  placement="left"
         ></fa-icon>
         <ng-select [items]="discordServers"
-                   [formControl]="f.targetServer"
+                   [formControl]="f.targetServer | formControl"
                    [clearable]="false"
                    (change)="getGuildChannels($event)"
                    [loading]="discordServersLoading"
@@ -42,7 +42,7 @@
       <div class="form-group col-6" [hidden]="currentAlarmType !== channelAlarmType">
         <label for="alarmChannel">Channel</label>
         <ng-select [items]="discordChannels"
-                   [formControl]="f.targetChannel"
+                   [formControl]="f.targetChannel | formControl"
                    [clearable]="false"
                    [loading]="discordChannelsLoading"
                    bindValue="id"

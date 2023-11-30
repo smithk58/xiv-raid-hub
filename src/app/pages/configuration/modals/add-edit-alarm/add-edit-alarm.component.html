@@ -23,7 +23,7 @@
     <div class="form-group">
       <label for="alarmRaidGroup">Raid Group</label>
       <ng-select [items]="raidGroups"
-                 [formControl]="f.raidGroup"
+                 [formControl]="f.raidGroup | formControl"
                  [clearable]="false"
                  [loading]="raidGroupsLoading"
                  bindValue="id"
@@ -51,7 +51,7 @@
     <div class="form-group">
       <label for="targetType">Type</label>
       <ng-select [items]="targetTypes"
-                 [formControl]="f.type"
+                 [formControl]="f.type | formControl"
                  [clearable]="false"
                  labelForId="targetType"
                  bindValue="value"

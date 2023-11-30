@@ -12,6 +12,7 @@ import { ThemeSelectorComponent } from './utility-components/theme-selector/them
 import { CharacterSelectComponent } from './utility-components/character-select/character-select.component';
 import { ModalHeaderComponent } from 'src/app/shared/utility-components/modals/modal-header/modal-header.component';
 import { ModalFooterComponent } from 'src/app/shared/utility-components/modals/modal-footer/modal-footer.component';
+import { FormControlPipe } from './pipes/form-control.pipe';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { ModalFooterComponent } from 'src/app/shared/utility-components/modals/m
     ThemeSelectorComponent,
     CharacterSelectComponent,
     ModalHeaderComponent,
-    ModalFooterComponent
+    ModalFooterComponent,
+    FormControlPipe
   ],
   exports: [
     FormsModule,
@@ -41,7 +43,8 @@ import { ModalFooterComponent } from 'src/app/shared/utility-components/modals/m
     ThemeSelectorComponent,
     CharacterSelectComponent,
     ModalHeaderComponent,
-    ModalFooterComponent
+    ModalFooterComponent,
+    FormControlPipe
   ]
 })
 export class SharedModule { }

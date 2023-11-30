@@ -26,7 +26,7 @@
                  placement="left"
         ></fa-icon>
         <ng-select [items]="discordRoles"
-                   [formControl]="f.role"
+                   [formControl]="f.role | formControl"
                    [clearable]="true"
                    [loading]="discordRolesLoading"
                    bindValue="id"
