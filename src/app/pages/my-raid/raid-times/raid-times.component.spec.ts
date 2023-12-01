@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RaidTimesComponent } from './raid-times.component';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -7,7 +7,7 @@ describe('RaidTimesComponent', () => {
   let component: RaidTimesComponent;
   let fixture: ComponentFixture<RaidTimesComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule],
       declarations: [ RaidTimesComponent ]

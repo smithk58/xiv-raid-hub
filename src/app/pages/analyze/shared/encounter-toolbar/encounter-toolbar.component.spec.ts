@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { EncounterToolbarComponent } from './encounter-toolbar.component';
@@ -8,7 +8,7 @@ describe('EncounterToolbarComponent', () => {
   let component: EncounterToolbarComponent;
   let fixture: ComponentFixture<EncounterToolbarComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, SharedModule],
       declarations: [ EncounterToolbarComponent ]

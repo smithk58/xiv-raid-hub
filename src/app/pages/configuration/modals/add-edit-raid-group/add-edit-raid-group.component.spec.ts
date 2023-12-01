@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { XivapiClientModule, XivapiService } from '@xivapi/angular-client';
@@ -10,7 +10,7 @@ describe('AddEditRaidGroupComponent', () => {
   let component: AddEditRaidGroupComponent;
   let fixture: ComponentFixture<AddEditRaidGroupComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, XivapiClientModule.forRoot()],
       declarations: [ AddEditRaidGroupComponent ],

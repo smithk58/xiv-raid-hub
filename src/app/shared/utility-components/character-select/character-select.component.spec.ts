@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CharacterSelectComponent } from './character-select.component';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -7,7 +7,7 @@ describe('CharacterSelectComponent', () => {
   let component: CharacterSelectComponent;
   let fixture: ComponentFixture<CharacterSelectComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule],
       declarations: [ CharacterSelectComponent ]

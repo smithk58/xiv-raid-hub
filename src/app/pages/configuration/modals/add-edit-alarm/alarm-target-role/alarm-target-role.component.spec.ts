@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AlarmTargetRoleComponent } from './alarm-target-role.component';
@@ -8,7 +8,7 @@ describe('AlarmTargetRoleComponent', () => {
   let component: AlarmTargetRoleComponent;
   let fixture: ComponentFixture<AlarmTargetRoleComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule, SharedModule ],
       declarations: [ AlarmTargetRoleComponent ]

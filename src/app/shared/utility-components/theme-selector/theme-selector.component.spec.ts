@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ThemeSelectorComponent } from './theme-selector.component';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -7,7 +7,7 @@ describe('ThemeSelectorComponent', () => {
   let component: ThemeSelectorComponent;
   let fixture: ComponentFixture<ThemeSelectorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule],
       declarations: [ ThemeSelectorComponent ]

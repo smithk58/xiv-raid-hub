@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { XivapiClientModule, XivapiService } from '@xivapi/angular-client';
 
@@ -9,7 +9,7 @@ describe('CharacterSearchComponent', () => {
   let component: CharacterSearchComponent;
   let fixture: ComponentFixture<CharacterSearchComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [XivapiClientModule.forRoot(), SharedModule],
       declarations: [ CharacterSearchComponent ],

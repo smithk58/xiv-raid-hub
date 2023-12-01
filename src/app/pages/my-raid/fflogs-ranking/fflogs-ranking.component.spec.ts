@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FflogsRankingComponent } from './fflogs-ranking.component';
@@ -7,7 +7,7 @@ describe('FflogsRankingComponent', () => {
   let component: FflogsRankingComponent;
   let fixture: ComponentFixture<FflogsRankingComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [ FflogsRankingComponent ]
