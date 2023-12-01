@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import findIndex from 'lodash/findIndex';
 import { concatMap } from 'rxjs/operators';
 
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
@@ -40,7 +39,7 @@ export class ConfigRaidGroupsComponent implements OnInit {
   updateUserRaidGroup(raidGroup: RaidGroup) {
     this.raidGroupService.updateRaidGroup(raidGroup).subscribe((updatedRaidGroup) => {
       // Replace the old raidgroup and trigger a UI refresh via a new array
-      const existingGroupIndex = findIndex(this.raidGroups, {id: raidGroup.id});
+      const existingGroupIndex = this.raidGroups.findIndex((r) => r.id === raidGroup.id);
       this.raidGroups[existingGroupIndex] = updatedRaidGroup;
       this.raidGroups = [].concat(this.raidGroups);
       this.notify.success({text: '"' + updatedRaidGroup.name + '" was successfully updated!'});
@@ -58,7 +57,7 @@ export class ConfigRaidGroupsComponent implements OnInit {
   }
   deleteUserRaidGroup(raidGroupId: number) {
     this.raidGroupService.deleteRaidGroup(raidGroupId).subscribe((res) => {
-      const existingGroupIndex = findIndex(this.raidGroups, {id: raidGroupId});
+      const existingGroupIndex = this.raidGroups.findIndex((r) => r.id === raidGroupId);
       this.raidGroups.splice(existingGroupIndex, 1);
       this.notify.success({text: 'Raid group was successfully deleted!'});
     }, error => {
@@ -68,7 +67,7 @@ export class ConfigRaidGroupsComponent implements OnInit {
   updateRaidGroupSchedule(raidGroupId: number, schedule: WeeklyRaidTime[]) {
     this.raidGroupService.updateRaidGroupsRaidTimes(raidGroupId, schedule).subscribe(raidTimes => {
       // Update hasSchedule on the raid group
-      const existingGroupIndex = findIndex(this.raidGroups, {id: raidGroupId});
+      const existingGroupIndex = this.raidGroups.findIndex((r) => r.id === raidGroupId);
       this.raidGroups[existingGroupIndex].hasSchedule = raidTimes.length > 0;
       this.notify.success({text: 'Schedule successfully updated!'});
     }, (error) => {

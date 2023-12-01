@@ -13,7 +13,6 @@ import {
 import isPast from 'date-fns/isPast';
 import startOfTomorrow from 'date-fns/startOfTomorrow';
 import { Subscription, timer } from 'rxjs';
-import keyBy from 'lodash/keyBy';
 
 import { RaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 import { RaidDayDisplay, RaidTimeDisplay } from 'src/app/pages/my-raid/raid-times/raid-time-display';
@@ -55,7 +54,10 @@ export class RaidTimesComponent implements OnInit, OnDestroy {
    * @param raidTimesByDay - A map of days to raid times.
    */
   generateRaidTimeDisplays(raidGroups: RaidGroup[], raidTimesByDay: Map<number, RaidTime[]>) {
-    const raidGroupMap = keyBy(raidGroups, 'id');
+    const raidGroupMap = raidGroups.reduce((map, rGroup) =>  {
+      map[rGroup.id] = rGroup;
+      return map;
+    }, {});
     // Get next 6 dates from today
     const sevenDaysFromNow = addDays(Date.now(), 6);
     const nextSixDays = eachDayOfInterval({ start: new Date(), end: sevenDaysFromNow });

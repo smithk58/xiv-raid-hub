@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { faPen, faTrashAlt, faSpinner, faPlus } from '@fortawesome/free-solid-svg-icons';
-import findIndex from 'lodash/findIndex';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { RaidGroupService } from 'src/app/shared/api/xiv-raid-hub/raid-group.service';
@@ -39,7 +38,7 @@ export class ConfigAlarmsComponent implements OnInit {
     modal.result.then((modalAlarm: AlarmDefinition) => {
         if (isEdit) {
           // Replace the old alarm and trigger a UI refresh via a new array
-          const existingAlarmIndex = findIndex(this.alarms, {id: alarm.id});
+          const existingAlarmIndex = this.alarms.findIndex((a) => a.id === alarm.id);
           this.alarms[existingAlarmIndex] = modalAlarm;
           this.alarms = [].concat(this.alarms);
         } else {
@@ -56,7 +55,7 @@ export class ConfigAlarmsComponent implements OnInit {
     modal.result.then(doDelete => {
       if (doDelete) {
         this.alarmService.deleteAlarm(alarm.id).subscribe((res) => {
-          const existingAlarmIndex = findIndex(this.alarms, {id: alarm.id});
+          const existingAlarmIndex = this.alarms.findIndex((a) => a.id === alarm.id);
           this.alarms.splice(existingAlarmIndex, 1);
           this.notify.success({text: 'Alarm was successfully deleted!'});
         }, (error) => {

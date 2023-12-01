@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import keyBy from 'lodash/keyBy';
 
 import { RaidGroup } from 'src/app/shared/api/xiv-raid-hub/models/raid-group';
 import { RaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
@@ -30,7 +29,10 @@ export class ScheduleComponent {
   constructor() { }
 
   generateRaidTimeDisplays(raidGroups: RaidGroup[], raidTimes: Map<number, RaidTime[]>) {
-    const raidGroupMap = keyBy(raidGroups, 'id');
+    const raidGroupMap = raidGroups.reduce((map, rGroup) =>  {
+      map[rGroup.id] = rGroup;
+      return map;
+    }, {});
     const raidDayDisplays: RaidDayDisplay[] = [];
     for (const day of DaysOfWeek.values()) {
       const rTimes = raidTimes.get(day.jsDay);

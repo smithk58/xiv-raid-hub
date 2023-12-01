@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { faChartBar, faCheckSquare, faInfoCircle, faPen, faPlus, faSpinner, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import findIndex from 'lodash/findIndex';
 import { finalize } from 'rxjs/operators';
 
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
@@ -57,7 +56,7 @@ export class UsersCharactersComponent implements OnInit {
       action.subscribe((newUserCharacter) => {
         if (isEdit) {
           // Replace the old raidgroup and trigger a UI refresh via a new array
-          const existingCharacterIndex = findIndex(this.characters, {characterId: newUserCharacter.characterId});
+          const existingCharacterIndex = this.characters.findIndex((c) => c.characterId === newUserCharacter.characterId);
           this.characters[existingCharacterIndex] = newUserCharacter;
           this.characters = [].concat(this.characters);
         } else {
@@ -81,7 +80,7 @@ export class UsersCharactersComponent implements OnInit {
     modal.result.then(doDelete => {
       if (doDelete) {
         this.characterService.deleteUserCharacter(character.characterId).subscribe((res) => {
-          const existingCharacterIndex = findIndex(this.characters, {characterId: character.characterId});
+          const existingCharacterIndex = this.characters.findIndex((c) => c.characterId === character.characterId);
           this.characters.splice(existingCharacterIndex, 1);
           this.notify.success({text: character.character.name + ' was successfully deleted!'});
         }, (error) => {
@@ -112,7 +111,7 @@ export class UsersCharactersComponent implements OnInit {
     modal.componentInstance.characterId = characterId;
     modal.result.then(confirmSucceeded => {
       if (confirmSucceeded) {
-        const existingCharacterIndex = findIndex(this.characters, {characterId});
+        const existingCharacterIndex = this.characters.findIndex((c) => c.characterId === characterId);
         this.characters[existingCharacterIndex].isOwner = true;
       }
     }, () => {}); // They aborted, do nothing
