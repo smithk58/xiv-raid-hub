@@ -41,7 +41,6 @@ import { AlarmTargetRoleComponent } from './modals/add-edit-alarm/alarm-target-r
     AddEditAlarmComponent,
     AlarmTargetComponent,
     AlarmTargetRoleComponent
-  ],
-  entryComponents: [AddEditCharacterComponent, AddEditRaidGroupComponent]
+  ]
 })
 export class ConfigurationModule { }

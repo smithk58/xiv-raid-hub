@@ -43,7 +43,6 @@ export function baseAPIUrlConfig(config: AppConfigService) {
     AboutComponent,
     YesNoModalComponent
   ],
-  entryComponents: [YesNoModalComponent],
   providers: [
     httpInterceptorProviders,
     IsAuthedGuard,

@@ -47,7 +47,6 @@
     "date-fns": "^2.16.1",
     "date-fns-tz": "^1.0.10",
     "ngx-countdown": "^9.0.1",
-    "node": "^12.18.4",
     "pnotify": "^4.0.0",
     "primeicons": "^4.1.0",
     "primeng": "^10.0.3",
