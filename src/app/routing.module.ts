@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { ModuleWithProviders } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -24,6 +24,10 @@ const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: '**', component: NotFoundComponent}
 ];
-export const RoutingModule: ModuleWithProviders = RouterModule.forRoot(routes, {
-  onSameUrlNavigation: 'reload' /*Allows routes to rerun stuff if their same route is visited again (have to opt-in on your route)*/
-});
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
+  exports: [RouterModule]
+})
+export class RoutingModule { }
+

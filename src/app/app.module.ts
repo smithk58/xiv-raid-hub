@@ -17,7 +17,6 @@ import { YesNoModalComponent } from './shared/utility-components/modals/yes-no-m
 import { httpInterceptorProviders } from 'src/app/shared/interceptors';
 import { IsAuthedGuard } from 'src/app/shared/IsAuthedGuard';
 import { AppConfigService } from 'src/app/app-config.service';
-import { HttpClient } from '@angular/common/http';
 
 export function baseAPIUrlConfig(config: AppConfigService) {
   return () => {
@@ -31,7 +30,7 @@ export function baseAPIUrlConfig(config: AppConfigService) {
     BrowserAnimationsModule,
     RoutingModule,
     SharedModule,
-    XivapiClientModule.forRoot(),
+    XivapiClientModule,
     LoadingBarHttpClientModule
   ],
   declarations: [
