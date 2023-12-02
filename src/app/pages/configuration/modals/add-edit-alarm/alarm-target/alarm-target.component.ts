@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { finalize } from 'rxjs/operators';
 import { faInfoCircle, faPen } from '@fortawesome/free-solid-svg-icons';
@@ -37,7 +37,7 @@ export class AlarmTargetComponent implements OnInit {
   faInfoCircle = faInfoCircle; faEdit = faPen;
   channelAlarmType = AlarmType.channel;
   // Target form
-  targetForm: FormGroup;
+  targetForm: UntypedFormGroup;
   targetIsSubmitted = false;
   // Server
   discordServers: {id: string, name: string}[];
@@ -45,7 +45,7 @@ export class AlarmTargetComponent implements OnInit {
   // Channels
   discordChannels: {id: string, name: string}[];
   discordChannelsLoading = false;
-  constructor(private guildsService: GuildsService, private notify: PNotifyService, private formBuilder: FormBuilder) { }
+  constructor(private guildsService: GuildsService, private notify: PNotifyService, private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     // Initialize target form

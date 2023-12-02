@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, FormArray, FormControl } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators, UntypedFormArray, UntypedFormControl } from '@angular/forms';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CharacterSearchResultRow } from '@xivapi/angular-client';
@@ -16,15 +16,15 @@ import { RaidGroupCharacter } from 'src/app/shared/api/xiv-raid-hub/models/raid-
 })
 export class AddEditRaidGroupComponent implements OnInit {
   faInfoCircle = faInfoCircle;
-  raidGroupForm: FormGroup;
-  characterControls: FormArray;
+  raidGroupForm: UntypedFormGroup;
+  characterControls: UntypedFormArray;
   isSubmitted = false;
   isEdit = false;
   canEdit = true;
   raidGroup: RaidGroup;
   existingCharacterIds: Record<number, number> = {}; /*id -> howManyTimesItsUsed*/
   indexToCharacterId: Record<number, number> = {}; /*index -> number*/
-  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder) { }
+  constructor(private modal: NgbActiveModal, private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit() {
     this.isEdit = typeof(this.raidGroup) !== 'undefined';
@@ -84,7 +84,7 @@ export class AddEditRaidGroupComponent implements OnInit {
    * @param controls -
    * @param required -
    */
-  setIfCharactersRequired(controls: FormArray, required: boolean) {
+  setIfCharactersRequired(controls: UntypedFormArray, required: boolean) {
     controls.controls.forEach(characterControls => {
       const charControl = characterControls.get('character');
       const classControl = characterControls.get('comparisonClass');
@@ -170,7 +170,7 @@ export class AddEditRaidGroupComponent implements OnInit {
   }
   // convenience getter for easy access to form fields
   get f() { return this.raidGroupForm.controls; }
-  get getCharacterControls() { return (this.raidGroupForm.get('characters') as FormArray).controls; }
-  get getShareCheckbox() { return (this.raidGroupForm.get('share') as FormControl); }
-  get getAddMemberCheckbox() { return (this.raidGroupForm.get('hasCharacters') as FormControl); }
+  get getCharacterControls() { return (this.raidGroupForm.get('characters') as UntypedFormArray).controls; }
+  get getShareCheckbox() { return (this.raidGroupForm.get('share') as UntypedFormControl); }
+  get getAddMemberCheckbox() { return (this.raidGroupForm.get('hasCharacters') as UntypedFormControl); }
 }

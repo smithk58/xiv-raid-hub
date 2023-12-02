@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { ClassToRole } from 'src/app/shared/Utils';
 import { PNotifyService } from 'src/app/shared/notifications/pnotify-service.service';
@@ -13,7 +13,7 @@ import { FFService } from 'src/app/shared/api/xiv-raid-hub/ff.service';
 export class ClassSearchComponent implements OnInit {
   classToRole = ClassToRole;
   @Input() labelForId: string;
-  @Input() fControl: FormControl;
+  @Input() fControl: UntypedFormControl;
   @Input() appendTo: string;
   classes: string[] = [];
   constructor(private notify: PNotifyService, private ffService: FFService) { }

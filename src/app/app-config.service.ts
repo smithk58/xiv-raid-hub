@@ -13,7 +13,7 @@ export class AppConfigService {
       return;
     }
     // in prod we reach out to our prod server to get the base API from the env variables
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       // we use XMLHttpRequest because we have interceptors that depend on AppConfigService, which makes HttpClient unusable
       const xhr = new XMLHttpRequest();
       xhr.open('GET', '/api/config');

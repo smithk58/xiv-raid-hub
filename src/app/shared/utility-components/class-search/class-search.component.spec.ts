@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ClassSearchComponent } from './class-search.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 describe('ClassSearchComponent', () => {
   let component: ClassSearchComponent;
@@ -21,7 +21,7 @@ describe('ClassSearchComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ClassSearchComponent);
     component = fixture.componentInstance;
-    component.fControl = new FormControl('');
+    component.fControl = new UntypedFormControl('');
     fixture.detectChanges();
   });
 

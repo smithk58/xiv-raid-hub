@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { finalize } from 'rxjs/operators';
 import { faSpinner, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
@@ -17,8 +17,8 @@ export class SettingsComponent implements OnInit {
   isSubmitted = false;
   settingsLoading = true;
   formIsSaving = false;
-  settingsForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private settingsService: SettingsService, private pNotify: PNotifyService) { }
+  settingsForm: UntypedFormGroup;
+  constructor(private formBuilder: UntypedFormBuilder, private settingsService: SettingsService, private pNotify: PNotifyService) { }
 
   ngOnInit(): void {
     this.settingsForm = this.formBuilder.group({

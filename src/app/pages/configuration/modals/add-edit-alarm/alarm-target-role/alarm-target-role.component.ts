@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { finalize } from 'rxjs/operators';
 import { faPen, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
@@ -37,12 +37,12 @@ export class AlarmTargetRoleComponent implements OnInit {
   }
   @Output() roleChange: EventEmitter<AlarmTargetRole> = new EventEmitter();
   // Role form
-  roleForm: FormGroup;
+  roleForm: UntypedFormGroup;
   roleIsSubmitted = false;
   // Roles
   discordRoles: {id: string, name: string}[];
   discordRolesLoading = false;
-  constructor(private guildsService: GuildsService, private notify: PNotifyService, private formBuilder: FormBuilder) { }
+  constructor(private guildsService: GuildsService, private notify: PNotifyService, private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.roleForm = this.formBuilder.group({

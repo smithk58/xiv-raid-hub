@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {faCheck, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
@@ -20,7 +20,7 @@ export class AnalyzeCharacterComponent implements OnInit, OnDestroy {
   zoneEncounter: ZoneEncounter;
   /*Analysis target*/
   atCharacter: Character;
-  atClassFilter: FormControl; atClassFilter$;
+  atClassFilter: UntypedFormControl; atClassFilter$;
   atSelectedParse: Parse;
   /*Comparison target*/
   ctAvailableCharacters: Character[];
@@ -33,7 +33,7 @@ export class AnalyzeCharacterComponent implements OnInit, OnDestroy {
     // TODO Lookup character if they don't have it, send to error page if not found
     // TODO Watch params for characterID, reload character on change
     // Create a filter control for atCharacters and ctCharacter
-    this.atClassFilter = new FormControl(null);
+    this.atClassFilter = new UntypedFormControl(null);
     // Watch for class filter changes, filter the parses on the newly selected class
     this.atClassFilter$ = this.atClassFilter.valueChanges.subscribe( value => {
       // Save last selected class to display next comparison target and to filter parses with

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { faInfoCircle, faSync } from '@fortawesome/free-solid-svg-icons';
@@ -19,13 +19,13 @@ export class AddEditCharacterComponent implements OnInit {
   faInfoCircle = faInfoCircle; faSync = faSync;
   @Input()
   characterToEdit: Character;
-  characterForm: FormGroup;
-  characterControl: FormControl;
+  characterForm: UntypedFormGroup;
+  characterControl: UntypedFormControl;
   isSubmitted = false;
   isEdit = false;
   attemptingRefresh = false;
   existingCharacterIds: Record<number, boolean>;
-  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private characterService: CharacterService,
+  constructor(private modal: NgbActiveModal, private formBuilder: UntypedFormBuilder, private characterService: CharacterService,
               private notify: PNotifyService
   ) { }
   ngOnInit() {
@@ -42,7 +42,7 @@ export class AddEditCharacterComponent implements OnInit {
       defaultClass = this.characterToEdit.defaultClass;
     }
     // Build form (character control has to be separated so we can populate it from app-character-search on selection)
-    const characterControl = new FormControl({value: character, disabled: this.isEdit},
+    const characterControl = new UntypedFormControl({value: character, disabled: this.isEdit},
       {validators: [Validators.required, this.characterIsUnique.bind(this)]}
     );
     this.characterForm = this.formBuilder.group({

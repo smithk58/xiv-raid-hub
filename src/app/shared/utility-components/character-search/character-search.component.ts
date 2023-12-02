@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { CharacterSearchResult, CharacterSearchResultRow, Pagination } from '@xivapi/angular-client';
 import { Subject, of } from 'rxjs';
@@ -17,7 +17,7 @@ export class CharacterSearchComponent implements OnInit, OnDestroy {
   @Output() selected: EventEmitter<Character> = new EventEmitter();
   @Input() clearOnSelect = false;
   @Input() labelForId: string;
-  @Input() fControl: FormControl;
+  @Input() fControl: UntypedFormControl;
   @Input() appendTo: string;
   selectedCharacter: CharacterSearchResultRow;
   searchCharacterInput$ = new Subject<string>();

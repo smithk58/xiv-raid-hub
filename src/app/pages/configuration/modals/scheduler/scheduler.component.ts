@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { faTrashAlt, faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -28,12 +28,12 @@ export class SchedulerComponent implements OnInit {
   daysOfWeek = DaysOfWeek;
   @Input() raidGroupId: number;
   @Input() canEdit = true;
-  scheduleForm: FormGroup;
-  weeklyRaidTimes: FormArray;
+  scheduleForm: UntypedFormGroup;
+  weeklyRaidTimes: UntypedFormArray;
   isSubmitted = false;
   timezone: string;
   isLoaded = false;
-  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder, private userService: UserService,
+  constructor(private modal: NgbActiveModal, private formBuilder: UntypedFormBuilder, private userService: UserService,
               private raidGroupService: RaidGroupService, private notify: PNotifyService, private schedulerService: SchedulerService
   ) { }
 
@@ -42,7 +42,7 @@ export class SchedulerComponent implements OnInit {
   }
   initializeData() {
     // Build schedule form
-    this.weeklyRaidTimes = new FormArray([]);
+    this.weeklyRaidTimes = new UntypedFormArray([]);
     this.scheduleForm = this.formBuilder.group({
       weeklyRaidTimes: this.weeklyRaidTimes
     });
@@ -80,15 +80,15 @@ export class SchedulerComponent implements OnInit {
     } else {
       initialTime = {hour: 12, minute: 0, second: 0}; // 12pm default
     }
-    const daysOfWeek = new FormArray(
+    const daysOfWeek = new UntypedFormArray(
       // Initialize the checkboxes to the existing values if provided otherwise false
-      daysOfWeekArr.map((day, index) => new FormControl(initialDaysInWeek ? initialDaysInWeek[index] : false)),
+      daysOfWeekArr.map((day, index) => new UntypedFormControl(initialDaysInWeek ? initialDaysInWeek[index] : false)),
       this.atLeastOneCheckboxCheckedValidator.bind(this)
     );
     // Build a group of controls with start/end times, and days of week
-    const group = new FormGroup({
+    const group = new UntypedFormGroup({
       // Initialize start time to existing value if available, otherwise 12pm
-      startTime: new FormControl(initialTime, [Validators.required, (formControl: FormControl) => {
+      startTime: new UntypedFormControl(initialTime, [Validators.required, (formControl: UntypedFormControl) => {
         const time = formControl.value;
         if (time.minute % 15 !== 0) {
           return {not15Increment: true};
@@ -134,7 +134,7 @@ export class SchedulerComponent implements OnInit {
   removeWeeklyRaidTime(index: number) {
     this.weeklyRaidTimes.removeAt(index);
   }
-  atLeastOneCheckboxCheckedValidator(control: FormArray): ValidationErrors | null {
+  atLeastOneCheckboxCheckedValidator(control: UntypedFormArray): ValidationErrors | null {
     // At least one child control must be true (checked), otherwise throw 'required' error
     for (const childControl of control.controls) {
       if (childControl.value) {

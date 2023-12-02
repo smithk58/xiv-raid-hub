@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { faInfoCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -25,14 +25,14 @@ export class AddEditAlarmComponent implements OnInit {
   isEdit = false;
   // Alarm form
   isSubmitted = false;
-  alarmForm: FormGroup;
+  alarmForm: UntypedFormGroup;
   // Raid group
   raidGroups: RaidGroup[] = [];
   raidGroupsLoading = true;
   // Target
   targetTypes = [{label: 'Message Discord Channel', value: AlarmType.channel}, {label: 'Direct Message Me', value: AlarmType.user}];
   alarmSaving = false;
-  constructor(private modal: NgbActiveModal, private formBuilder: FormBuilder,
+  constructor(private modal: NgbActiveModal, private formBuilder: UntypedFormBuilder,
               private notify: PNotifyService, private raidGroupService: RaidGroupService, private alarmService: AlarmService
   ) { }
 
