@@ -11,10 +11,10 @@ export class ModalHeaderComponent {
   @Input() title: string;
   @Input() enableClose = true;
   @Input() autoDismissModal = true;
-  @Output() close = new EventEmitter<Event>();
+  @Output() modalClose = new EventEmitter<Event>();
   constructor(private activeModal: NgbActiveModal) { }
   onClose(event: Event) {
-    this.close.emit(event);
+    this.modalClose.emit(event);
     if (this.autoDismissModal) {
       this.activeModal.dismiss('Cross click');
     }

@@ -15,7 +15,7 @@ export class ModalFooterComponent {
   @Output() confirm = new EventEmitter<{result: boolean, event: Event}>();
   @Input() autoDismissModal = true;
   @Output() cancel = new EventEmitter<Event>();
-  @Output() close = new EventEmitter<Event>();
+  @Output() modalClose = new EventEmitter<Event>();
   constructor(private activeModal: NgbActiveModal) { }
   onSave(event: Event) {
     this.save.emit(event);
@@ -33,7 +33,7 @@ export class ModalFooterComponent {
     }
   }
   onClose(event: Event) {
-    this.close.emit(event);
+    this.modalClose.emit(event);
     if (this.autoDismissModal) {
       this.activeModal.dismiss('Close click');
     }

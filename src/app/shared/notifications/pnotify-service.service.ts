@@ -15,7 +15,7 @@ declare var PNotifyButtons: any;
 export class PNotifyService {
   constructor() {
     // Initialize p notify
-    // tslint:disable-next-line
+    // eslint-disable-next-line
     PNotifyButtons;
     // Set default pnotify to bootstrap 4 styling
     PNotify.defaults.styling = 'bootstrap4';

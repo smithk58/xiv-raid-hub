@@ -37,7 +37,7 @@ export function calculateDaysInWeekMask(values: boolean[]): number {
 export function daysInWeekMaskToBools(mask: number): boolean[] {
   const bools = [];
   for (const day of DaysOfWeek.values()) {
-    // tslint:disable-next-line:no-bitwise - I do what I want >:(
+    // eslint-disable-next-line no-bitwise
     bools.push(mask & day.bit ? true : false);
   }
   return bools;
@@ -51,7 +51,7 @@ export function dayToRaidTimesMap(weeklyRaidTimes: WeeklyRaidTime[]): Map<number
   const dayToTimes = new Map<number, RaidTime[]>();
   for (const weeklyRaidTime of weeklyRaidTimes) {
     for (const day of DaysOfWeek.values()) {
-      // tslint:disable-next-line:no-bitwise - I do what I want >:(
+      // eslint-disable-next-line no-bitwise
       if (weeklyRaidTime.utcWeekMask & day.bit) {
         const startTime = new Date();
         startTime.setUTCHours(weeklyRaidTime.utcHour, weeklyRaidTime.utcMinute, 0);
