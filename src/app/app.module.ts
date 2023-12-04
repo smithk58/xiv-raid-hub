@@ -30,7 +30,7 @@ export function baseAPIUrlConfig(config: AppConfigService) {
     BrowserAnimationsModule,
     RoutingModule,
     SharedModule,
-    XivapiClientModule,
+    XivapiClientModule.forRoot(),
     LoadingBarHttpClientModule
   ],
   declarations: [

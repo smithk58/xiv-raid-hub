@@ -41,7 +41,7 @@
     "ag-grid-angular": "^20.1.0",
     "ag-grid-community": "^20.1.0",
     "bootstrap": "5.2.3",
-    "bootswatch": "^4.5.2",
+    "bootswatch": "^5.3.2",
     "core-js": "^2.5.4",
     "date-fns": "^2.16.1",
     "date-fns-tz": "^1.0.10",

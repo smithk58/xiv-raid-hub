@@ -3,13 +3,13 @@
     <div class="d-flex align-items-center">
       <span class="text-capitalize">{{cardSubject}}s</span>
       <fa-icon *ngIf="tooltip"
-               [icon]="faInfoCircle" class="ml-1"
+               [icon]="faInfoCircle" class="ms-1"
                [ngbTooltip]="tooltip"
                placement="right"
       ></fa-icon>
       <!--Add raid group-->
-      <button class="btn btn-primary ml-4 text-nowrap" (click)="openRaidGroupModal()" aria-label="Add new raid group">
-        <fa-icon [icon]="faPlus" class="mr-1" aria-hidden="true"></fa-icon>Add
+      <button class="btn btn-primary ms-4 text-nowrap" (click)="openRaidGroupModal()" aria-label="Add new raid group">
+        <fa-icon [icon]="faPlus" class="me-1" aria-hidden="true"></fa-icon>Add
       </button>
     </div>
   </div>
@@ -18,18 +18,18 @@
     <p [hidden]="!isLoaded || raidGroups.length > 0" class="m-0 text-center">You haven't added any {{cardSubject}}s yet.</p>
     <ul class="list-group" *ngIf="isLoaded">
       <li *ngFor="let raidGroup of raidGroups; index as i;" class="list-group-item d-flex">
-        <div class="text-ellipsis-container pr-2">
+        <div class="text-ellipsis-container pe-2">
           <span class="wrap-flex-overflow" [ngbTooltip]="raidGroup.name">{{raidGroup.name}}</span>
-          <span class="badge badge-secondary">{{raidGroup.purpose}}</span>
-          <span *ngIf="raidGroup.share" class="badge badge-info" ngbTooltip="All your raid group members can see this group.">Shared</span>
-          <span *ngIf="!raidGroup.share" class="badge badge-info" ngbTooltip="Only you can see this raid group.">Not Shared</span>
-          <span class="badge badge-warning cursor-pointer" [hidden]="raidGroup.hasSchedule"
+          <span class="badge bg-secondary">{{raidGroup.purpose}}</span>
+          <span *ngIf="raidGroup.share" class="badge bg-info" ngbTooltip="All your raid group members can see this group.">Shared</span>
+          <span *ngIf="!raidGroup.share" class="badge bg-info" ngbTooltip="Only you can see this raid group.">Not Shared</span>
+          <span class="badge bg-warning cursor-pointer" [hidden]="raidGroup.hasSchedule"
                 [ngbPopover]="noScheduleWarning" openDelay="300" popoverTitle="No Schedule" triggers="click"
                 popoverClass="no-schedule-popover" placement="right">
             No schedule
           </span>
         </div>
-        <div class="ml-auto actions-container">
+        <div class="ms-auto actions-container">
           <button class="btn-svg" (click)="addEditScheduleModal(raidGroup)"
                   aria-label=" View/edit the schedule of the current ' + cardSubject"
                   [ngbTooltip]="(raidGroup.isOwner ? 'Edit' : 'View')+' this ' +cardSubject+'s schedule'">

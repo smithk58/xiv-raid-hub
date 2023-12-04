@@ -13,7 +13,11 @@ export class CharacterSearchService {
   constructor(private xivAPI: XivapiService, private notifyService: PNotifyService) { }
   searchCharacter(searchTerm: string, server?: string, page?: number) {
     return this.xivAPI.searchCharacter(searchTerm, server, page).pipe(
-      catchError(err => this.notifyService.error({text: err.Message}))
+      catchError((err) => {
+        const text = err.Message ? err.Message : 'There\'s an unknown error with the character search API. Please try again later.' ;
+        this.notifyService.error({text});
+        return err;
+      })
     );
   }
 }

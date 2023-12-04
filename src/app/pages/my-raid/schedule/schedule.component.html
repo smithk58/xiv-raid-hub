@@ -12,11 +12,11 @@
         <div>
           <span class="h5">{{dateDisplay.day}}</span>
         </div>
-        <div *ngFor="let timeDisplay of dateDisplay.raidTimeDisplays" class="ml-3 mt-2">
+        <div *ngFor="let timeDisplay of dateDisplay.raidTimeDisplays" class="ms-3 mt-2">
           <!--Raid time/purpose/etc.-->
           <div class="text-ellipsis-container">
             <span class="flex-shrink-0">{{timeDisplay.raidDateTime | date: 'h:mm a'}}</span>
-            <span class="font-weight-bold pl-2"> {{timeDisplay.raidGroup.purpose || 'Raiding'}}</span>
+            <span class="fw-bold ps-2"> {{timeDisplay.raidGroup.purpose || 'Raiding'}}</span>
             <span> with</span>
             <span class="wrap-flex-overflow" [ngbTooltip]="timeDisplay.raidGroup.name" placement="top">
               {{timeDisplay.raidGroup.name}}

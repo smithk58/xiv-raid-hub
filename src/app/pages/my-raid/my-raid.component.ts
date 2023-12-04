@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { dayToRaidTimesMap, RaidTime } from 'src/app/pages/configuration/modals/scheduler/WeeklyRaidTime';
 import { forkJoin } from 'rxjs';
@@ -28,7 +28,7 @@ export class MyRaidComponent implements OnInit {
       this.raidGroupService.getRaidGroups(),
       this.raidGroupService.getRaidTimes()
     ]).pipe(
-      finalize(() => {this.isLoaded = true; })
+      finalize(() => {this.isLoaded = true;})
     ).subscribe((res) => {
       this.raidGroups = res[0];
       this.dayToRaidTimes = dayToRaidTimesMap(res[1]);

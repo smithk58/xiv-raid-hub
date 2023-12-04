@@ -1,2 +1,4 @@
 // Override close color so modal close button is more visible
-$close-color: #fff;
+$btn-close-color: #fff;
+/*Overwrite checkbox/radio/etc. activated bg color, since slate default matches the primary bg for some reason*/
+$component-active-bg: #7a8288; /* match $secondary from slate\_variables.scss*/

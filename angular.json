@@ -14,6 +14,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
+            "sourceMap": true,
+            "optimization": false,
             "outputPath": "dist/xiv-raid-hub",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -39,14 +41,17 @@
             "styles": [
               {
                 "input": "src/styles/themes/default/index.scss",
+                "inject": false,
                 "bundleName": "default-theme"
               },
               {
                 "input": "src/styles/themes/slate/index.scss",
+                "inject": false,
                 "bundleName": "slate-theme"
               },
               {
                 "input": "src/styles/themes/spacelab/index.scss",
+                "inject": false,
                 "bundleName": "spacelab-theme"
               },
               "node_modules/pnotify/dist/PNotifyBrightTheme.css",
@@ -114,14 +119,17 @@
             "styles": [
               {
                 "input": "src/styles/themes/default/index.scss",
+                "inject": false,
                 "bundleName": "default-theme"
               },
               {
                 "input": "src/styles/themes/slate/index.scss",
+                "inject": false,
                 "bundleName": "slate-theme"
               },
               {
                 "input": "src/styles/themes/spacelab/index.scss",
+                "inject": false,
                 "bundleName": "spacelab-theme"
               },
               "node_modules/pnotify/dist/PNotifyBrightTheme.css",

@@ -2,51 +2,51 @@
   <a class="navbar-brand" href="#"><fa-icon [icon]="faAtom" size="lg"></fa-icon></a>
   <div class="collapse navbar-collapse">
     <!--Left aligned nav-->
-    <ul class="navbar-nav mr-auto text-uppercase">
-      <li class="nav-item sm-collapse" routerLinkActive="active" ngbTooltip="Home">
-        <a class="nav-link" routerLink="/home" aria-label="Navigate to home">
-          <fa-icon [icon]="faHome" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
+    <ul class="navbar-nav me-auto text-uppercase">
+      <li class="nav-item sm-collapse" ngbTooltip="Home">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active" aria-label="Navigate to home">
+          <fa-icon [icon]="faHome" class="me-1 nav-icon" aria-hidden="true"></fa-icon>
           <span class="d-none d-sm-inline">Home</span>
         </a>
       </li>
-      <li *ngIf="session && session.isLoggedIn" class="nav-item sm-collapse" routerLinkActive="active" ngbTooltip="My Raid">
-        <a class="nav-link" routerLink="/my-raid" aria-label="Navigate to my raid">
-          <fa-icon [icon]="faUser" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
+      <li *ngIf="session && session.isLoggedIn" class="nav-item sm-collapse" ngbTooltip="My Raid">
+        <a class="nav-link" routerLink="/my-raid" routerLinkActive="active" aria-label="Navigate to my raid">
+          <fa-icon [icon]="faUser" class="me-1 nav-icon" aria-hidden="true"></fa-icon>
           <span class="d-none d-sm-inline">My Raid</span>
         </a>
       </li>
-      <!--<li class="nav-item sm-collapse" routerLinkActive="active" ngbTooltip="Analyze">
-        <a class="nav-link" routerLink="/analyze" aria-label="Navigate to analyze">
-          <fa-icon [icon]="faChartBar" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
+      <!--<li class="nav-item sm-collapse" ngbTooltip="Analyze">
+        <a class="nav-link" routerLink="/analyze" routerLinkActive="active" aria-label="Navigate to analyze">
+          <fa-icon [icon]="faChartBar" class="me-1 nav-icon" aria-hidden="true"></fa-icon>
           <span class="d-none d-sm-inline">Analyze</span>
         </a>
       </li>-->
     </ul>
     <!--Right aligned nav-->
-    <ul *ngIf="session" class="navbar-nav ml-auto text-uppercase">
+    <ul *ngIf="session" class="navbar-nav ms-auto text-uppercase">
       <!--Login via discord if not authed-->
       <li *ngIf="!session.isLoggedIn" class="nav-item md-collapse">
         <a class="nav-link" aria-label="Login with discord" ngbTooltip="Login via Discord"
            (click)="login()" (keyup.enter)="login()" role="button" tabindex="0">
-          <fa-icon [icon]="faSignIn" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
-          <span class="d-none d-md-inline mr-1">Login via <span class="font-weight-bold">Discord</span></span>
+          <fa-icon [icon]="faSignIn" class="me-1 nav-icon" aria-hidden="true"></fa-icon>
+          <span class="d-none d-md-inline me-1">Login via <span class="fw-bold">Discord</span></span>
         </a>
       </li>
       <!--User tools if logged in-->
-      <li *ngIf="session && session.isLoggedIn" class="nav-item sm-collapse" routerLinkActive="active" ngbTooltip="Config">
-        <a class="nav-link" routerLink="/configuration/h" aria-label="Navigate to configuration">
-          <fa-icon [icon]="faCog" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
+      <li *ngIf="session && session.isLoggedIn" class="nav-item sm-collapse" ngbTooltip="Config">
+        <a class="nav-link" routerLink="/configuration/h" routerLinkActive="active" aria-label="Navigate to configuration">
+          <fa-icon [icon]="faCog" class="me-1 nav-icon" aria-hidden="true"></fa-icon>
           <span class="d-none d-sm-inline">Config</span>
         </a>
       </li>
       <li *ngIf="session.isLoggedIn" ngbDropdown #utd="ngbDropdown" id="userToolsDropdown" display="dynamic" placement="bottom-right" class="nav-item sm-collapse">
         <a ngbDropdownToggle (keyup.enter)="utd.toggle()" class="nav-link" role="button" tabindex="0">
           <img class="avatar" [src]="session.user.avatarURL" aria-hidden="true">
-          <span class="align-middle ml-2 d-none d-md-inline">{{session.user.username}}</span>
+          <span class="align-middle ms-2 d-none d-md-inline">{{session.user.username}}</span>
         </a>
         <div ngbDropdownMenu aria-labelledby="userToolsDropdown">
           <a ngbDropdownItem href="/settings">
-            <fa-icon [icon]="faUserCog" class="mr-1 nav-icon" aria-hidden="true"></fa-icon>
+            <fa-icon [icon]="faUserCog" class="me-1 nav-icon" aria-hidden="true"></fa-icon>
             User Settings
           </a>
           <div class="dropdown-divider"></div>

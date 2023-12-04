@@ -34,9 +34,7 @@ export class SchedulerService {
    * @param target - Whether you want to shift the days to local days or UTC.
    */
   getDayShiftDirection(date: Date, target: 'local' | 'utc') {
-    const dayOfWeek = date.getDay();
-    const dayOfWeekUTC = date.getUTCDay();
-    if (dayOfWeekUTC === dayOfWeek) {
+    if (date.getDay() === date.getUTCDay()) { // utc day matches local day, so no shifting necessary
       return undefined;
     }
     // Positive timezone offset means local time is earlier than UTC (i.e. local + offset = utc)

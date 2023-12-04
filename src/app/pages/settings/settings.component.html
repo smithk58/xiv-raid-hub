@@ -10,13 +10,13 @@
             <div class="form-check form-check-inline mb-3">
               <input id="allowRaidGroupAdd" class="form-check-input" type="checkbox" formControlName="allowAddToRaidGroup">
               <label class="form-check-label" for="allowRaidGroupAdd">Allow others to add me to raid groups</label>
-              <fa-icon [icon]="faInfoCircle" class="ml-1"
+              <fa-icon [icon]="faInfoCircle" class="ms-1"
                        ngbTooltip="You may want to disable this if you're popular enough for lame people to attempt to annoy you by adding you to fake groups."
                        placement="left"
               ></fa-icon>
             </div>
             <div class="d-flex justify-content-end">
-              <button type="button" [disabled]="formIsSaving" (click)="initializeSettings()" class="btn btn-link mr-3">Cancel</button>
+              <button type="button" [disabled]="formIsSaving" (click)="initializeSettings()" class="btn btn-link me-3">Cancel</button>
               <button type="button" [disabled]="formIsSaving" (click)="saveSettings()" class="btn btn-primary">Save</button>
             </div>
           </form>

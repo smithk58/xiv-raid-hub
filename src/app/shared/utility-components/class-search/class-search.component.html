@@ -6,14 +6,14 @@
 >
   <!--Custom option template-->
   <ng-template ng-option-tmp let-item="item">
-    <img class="class-icon mr-1" [alt]="item" [src]="'assets/class-icons/'+item+'.png'" aria-hidden="true"
+    <img class="class-icon me-1" [alt]="item" [src]="'assets/class-icons/'+item+'.png'" aria-hidden="true"
          [ngClass]="classToRole[item] + '-bg'"
     />
     <span class="ng-option-label">{{item}}</span>
   </ng-template>
   <!--Label when value selected-->
   <ng-template ng-label-tmp let-item="item">
-    <img class="class-icon mr-1" [alt]="item" [src]="'assets/class-icons/'+item+'.png'" aria-hidden="true"
+    <img class="class-icon me-1" [alt]="item" [src]="'assets/class-icons/'+item+'.png'" aria-hidden="true"
          [ngClass]="classToRole[item] + '-bg'"
     />
     <span class="ng-option-label">{{item}}</span>

@@ -3,7 +3,7 @@
   <!--Why-->
   <div>
     <span class="h5">Why confirm?</span>
-    <button class="btn-svg ml-2" (click)="showWhy = !showWhy"
+    <button class="btn-svg ms-2" (click)="showWhy = !showWhy"
             aria-label="Expand/collapse why confirm section"
             ngbTooltip="Expand/collapse why confirm section"
     >
@@ -17,7 +17,7 @@
   <!--How-->
   <div class="mt-2">
     <span class="h5">How does this work?</span>
-    <button class="btn-svg ml-2" (click)="showHow = !showHow"
+    <button class="btn-svg ms-2" (click)="showHow = !showHow"
             aria-label="Expand/collapse how does this work section"
             ngbTooltip="Expand/collapse how does this work section"
     >
@@ -29,8 +29,8 @@
     <p>After the character is confirmed you can safely remove the unique code.</p>
   </div>
   <div class="h5 mt-2">Steps to confirm:</div>
-  <ol class="pl-3">
-    <li>Copy the following unique code: <span class="font-weight-bold" *ngIf="session">xiv-raid-hub-{{session.user.id}}</span></li>
+  <ol class="ps-3">
+    <li>Copy the following unique code: <span class="fw-bold" *ngIf="session">xiv-raid-hub-{{session.user.id}}</span></li>
     <li>Paste the code in your character's Character Profile on the lodestone and save it.
       <ul>
         <li>You may navigate there yourself, or use the link below if you trust this website.</li>
@@ -44,11 +44,11 @@
   <!--Debugging-->
   <div *ngIf="failedToFindCode" class="mt-4">
     <span class="h5">Debugging steps</span>
-    <button class="btn-svg ml-2" (click)="showDebugging = !showDebugging"
+    <button class="btn-svg ms-2" (click)="showDebugging = !showDebugging"
             aria-label="Expand/collapse how does this work section"
             ngbTooltip="Expand/collapse how does this work section"
     >
-      <fa-icon [icon]=" showDebugging ? chevronDown : chevronUp" class="mr-1" aria-hidden="true"></fa-icon>
+      <fa-icon [icon]=" showDebugging ? chevronDown : chevronUp" class="me-1" aria-hidden="true"></fa-icon>
     </button>
   </div>
   <div [@openClose]="showDebugging ? 'open' : 'closed'" class="overflow-hidden">

@@ -45,7 +45,7 @@ export class RaidGroupCardComponent {
     });
   }
   makeCopyOfRaidGroup(raidGroup: RaidGroup) {
-    const modalText = 'Are you sure you want to create a copy of <span class="font-weight-bold">' + raidGroup.name + '</span>?'
+    const modalText = 'Are you sure you want to create a copy of <span class="fw-bold">' + raidGroup.name + '</span>?'
       + '<p class="mt-2">This will only copy the properties found in the add/edit of a raid group, except sharing will be turned off.</p>';
 
     const modal = this.modalService.open(YesNoModalComponent);

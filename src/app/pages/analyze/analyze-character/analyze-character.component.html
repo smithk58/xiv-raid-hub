@@ -2,7 +2,7 @@
   <h2 class="mt-2">Character Comparison</h2>
   <p class="lead mt-2">This workflow is meant to walk you through key differences between your parse and the parse of someone you think did better. For a much more in depth look at the report stick to FF logs.</p>
   <h3>1. Select an encounter
-    <fa-icon [icon]="faCheckmark" class="steps-icon ml-2" [class.done]="zoneEncounter"></fa-icon>
+    <fa-icon [icon]="faCheckmark" class="steps-icon ms-2" [class.done]="zoneEncounter"></fa-icon>
   </h3>
   <div class="row mx-2 mt-3">
     <!--Toolbar-->
@@ -10,10 +10,10 @@
   </div>
   <div class="row mt-4">
     <h3 class="col-6">2. Select a report to analyze
-      <fa-icon [icon]="faCheckmark"  [class.done]="atSelectedParse" class="steps-icon ml-2"></fa-icon>
+      <fa-icon [icon]="faCheckmark"  [class.done]="atSelectedParse" class="steps-icon ms-2"></fa-icon>
     </h3>
     <h3 class="col-6">3. and a report to analyze against
-      <fa-icon [icon]="faCheckmark"  [class.done]="ctSelectedParse" class="steps-icon ml-2"></fa-icon>
+      <fa-icon [icon]="faCheckmark"  [class.done]="ctSelectedParse" class="steps-icon ms-2"></fa-icon>
     </h3>
   </div>
   <div class="row">
@@ -21,7 +21,7 @@
     <div class="col-6">
       <div class="d-flex align-items-center mb-1">
         <p *ngIf="atCharacter" class="m-0 lead">{{atCharacter.name}} as</p>
-        <app-class-search *ngIf="atClassFilter" [fControl]="atClassFilter" class="classFilter d-inline-block ml-2">
+        <app-class-search *ngIf="atClassFilter" [fControl]="atClassFilter" class="classFilter d-inline-block ms-2">
         </app-class-search>
       </div>
       <app-report-list [character]="atCharacter"
@@ -33,17 +33,17 @@
     <!--Parses of analysis target-->
     <div class="col-6">
       <div class="d-flex align-items-center mb-1">
-        <fa-icon [icon]="faInfoCircle" class="mr-1"
+        <fa-icon [icon]="faInfoCircle" class="me-1"
                  ngbTooltip="This is populated from Comparison Targets in your watchlist."
                  placement="left"
         ></fa-icon>
-        <ng-select [items]="ctAvailableCharacters" class="mr-1"
+        <ng-select [items]="ctAvailableCharacters" class="me-1"
                    (change)="comparisonTargetSelected($event)"
                    bindLabel="name"
                    placeholder="Select character"
         >
         </ng-select>
-        <p class="m-0 ml-1 lead">as
+        <p class="m-0 ms-1 lead">as
           <span *ngIf="lastSelectedClass">{{lastSelectedClass}}</span><span *ngIf="!lastSelectedClass"> any class</span></p>
       </div>
       <app-report-list [character]="ctCharacter"

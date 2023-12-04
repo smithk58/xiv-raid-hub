@@ -1,8 +1,5 @@
-.navbar {
-  padding: 0;
-}
 .footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.6);
+  border-top: 1px solid $nav-tabs-border-color;
 }
 .sidebar {
   top: 65px;
@@ -10,7 +7,7 @@
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
 .scroll-shadow::after {
-  background: $modal-content-bg;
+  background: $modal-content-bg !important;
 }
 // Needed ng-selects actual input centered properly, probably an issue in ng-select
 .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {

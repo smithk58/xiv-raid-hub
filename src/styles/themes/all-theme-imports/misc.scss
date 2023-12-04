@@ -15,3 +15,11 @@
     }
   }
 }
+/*A little hacky, but ensures every themes brand matches sizing on left/right, since some themes only have sizing on right*/
+.navbar-brand {
+  padding-left: $navbar-brand-margin-end;
+}
+/*Make list group item match body color instead of Slate themes default of white*/
+.list-group-item {
+  color: var(--bs-body-color);
+}

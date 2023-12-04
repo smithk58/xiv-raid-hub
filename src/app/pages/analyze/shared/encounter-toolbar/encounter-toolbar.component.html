@@ -1,7 +1,7 @@
 <div class="d-flex align-items-start">
   <!--Expansion-->
   <div class="d-flex align-items-center">
-    <label for="bracketInput" class="m-0 mr-2 font-weight-bold">Expansion: </label>
+    <label for="bracketInput" class="m-0 me-2 fw-bold form-label">Expansion: </label>
     <ng-select [items]="expansions"
                [(ngModel)]="selectedExpansion"
                (ngModelChange)="setExpansion(selectedExpansion)"
@@ -12,8 +12,8 @@
     </ng-select>
   </div>
   <!--Zone-->
-  <div class="d-flex align-items-center ml-3">
-    <label for="zoneInput" class="m-0 mr-2 font-weight-bold">Zone: </label>
+  <div class="d-flex align-items-center ms-3">
+    <label for="zoneInput" class="m-0 me-2 fw-bold form-label">Zone: </label>
     <ng-select [items]="filteredZones" class="zone-ng-select"
                [(ngModel)]="selectedZone"
                (change)="setZone(selectedZone)"
@@ -28,8 +28,8 @@
     </ng-select>
   </div>
   <!--Encounter-->
-  <div class="d-flex align-items-center ml-3">
-    <label for="encounterInput" class="m-0 mr-2 font-weight-bold">Encounter: </label>
+  <div class="d-flex align-items-center ms-3">
+    <label for="encounterInput" class="m-0 me-2 fw-bold form-label">Encounter: </label>
     <ng-select [items]="encounters" class="encounter-ng-select"
                [(ngModel)]="selectedEncounter"
                (change)="setEncounter(selectedEncounter)"
@@ -44,8 +44,8 @@
     </ng-select>
   </div>
   <!--Partitions, only if there's more than one-->
-  <div *ngIf="partitions && partitions.length > 1" class="d-flex align-items-center ml-3">
-    <label for="partitionInput" class="m-0 mr-2 font-weight-bold">Partition: </label>
+  <div *ngIf="partitions && partitions.length > 1" class="d-flex align-items-center ms-3">
+    <label for="partitionInput" class="m-0 me-2 fw-bold form-label">Partition: </label>
     <ng-select [items]="partitions" class="encounter-ng-select"
                [(ngModel)]="selectedPartition"
                (change)="setPartition(selectedPartition)"

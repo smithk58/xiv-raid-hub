@@ -6,8 +6,8 @@
         <div class="d-flex align-items-center">
           <span class="text-capitalize">Alarms</span>
           <!--Add alarm-->
-          <button class="btn btn-primary ml-4 text-nowrap" (click)="openAlarmModal()" aria-label="Add new alarm">
-            <fa-icon [icon]="faPlus" class="mr-1" aria-hidden="true"></fa-icon>Add
+          <button class="btn btn-primary ms-4 text-nowrap" (click)="openAlarmModal()" aria-label="Add new alarm">
+            <fa-icon [icon]="faPlus" class="me-1" aria-hidden="true"></fa-icon>Add
           </button>
         </div>
       </div>
@@ -16,15 +16,15 @@
         <p [hidden]="!isLoaded || alarms.length > 0" class="m-0 text-center">You haven't added any alarms yet.</p>
         <ul class="list-group" *ngIf="isLoaded">
           <li *ngFor="let alarm of alarms; index as i;" class="list-group-item d-flex">
-            <div class="text-ellipsis-container pr-2">
-              <span class="font-weight-bold flex-shrink-0">{{alarm.offsetHour}} hrs</span>
+            <div class="text-ellipsis-container pe-2">
+              <span class="fw-bold flex-shrink-0">{{alarm.offsetHour}} hrs</span>
               <span>before</span>
               <span class="wrap-flex-overflow" [ngbTooltip]="alarm.raidGroup.name">{{alarm.raidGroup.name}}</span>
               <span class="flex-shrink-0">meets for</span>
-              <span class="font-weight-bold wrap-flex-overflow" [ngbTooltip]="alarm.raidGroup.purpose">{{alarm.raidGroup.purpose || 'raiding'}}</span>
-              <span class="badge badge-info">{{alarm.type === userAlarmType ? 'DM' : 'Channel'}}</span>
+              <span class="fw-bold wrap-flex-overflow" [ngbTooltip]="alarm.raidGroup.purpose">{{alarm.raidGroup.purpose || 'raiding'}}</span>
+              <span class="badge bg-info">{{alarm.type === userAlarmType ? 'DM' : 'Channel'}}</span>
             </div>
-            <div class="ml-auto actions-container">
+            <div class="ms-auto actions-container">
               <button class="btn-svg" (click)="openAlarmModal(alarm)"
                       aria-label="Edit the current alarm">
                 <fa-icon [icon]="faEdit" size="xl" aria-hidden="true"></fa-icon>

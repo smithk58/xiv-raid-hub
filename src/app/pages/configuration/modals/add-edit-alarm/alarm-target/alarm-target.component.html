@@ -1,14 +1,14 @@
 <form [formGroup]="targetForm" (ngSubmit)="saveTarget()" [class.ng-was-validated]="targetIsSubmitted">
   <!--Display server and/or channel target-->
-  <div class="form-group" [hidden]="!currentAlarmType">
-    <label for="channelTargetDisplay">Target</label>
-    <fa-icon [icon]="faInfoCircle" class="ml-1" [hidden]="editTargetMode"
+  <div class="form-group mb-3" [hidden]="!currentAlarmType">
+    <label class="form-label" for="channelTargetDisplay">Target</label>
+    <fa-icon [icon]="faInfoCircle" class="ms-1" [hidden]="editTargetMode"
              ngbTooltip="The server and/or channel name displayed below is saved from when you last selected them. They may appear wrong if you changed the name since then, but will still work as long as you didn't delete and recreate the server and/or channel."
              placement="left"
     ></fa-icon>
     <!--Display the alarm target server and/or channel by default, hide it when we're in target edit mode-->
     <div [hidden]="editTargetMode" [class.d-flex]="!editTargetMode">
-      <button type="button" class="btn-svg mr-2" (click)="this.toggleEditTargetMode()"
+      <button type="button" class="btn-svg me-2" (click)="this.toggleEditTargetMode()"
               aria-label="Actives edit for for the target of this alarm"
               ngbTooltip="Edit this alarms target">
         <fa-icon [icon]="faEdit" size="lg" aria-hidden="true"></fa-icon>
@@ -17,11 +17,11 @@
     </div>
   </div>
   <!--Discord server/channel, show if channel type and we're in target mode-->
-  <div [hidden]="!editTargetMode" class="ml-3">
+  <div [hidden]="!editTargetMode" class="ms-3">
     <div class="row">
-      <div class="form-group col-6">
-        <label for="alarmServer">Discord Server</label>
-        <fa-icon [icon]="faInfoCircle" class="ml-1"
+      <div class="form-group mb-3 col-6">
+        <label class="form-label" for="alarmServer">Discord Server</label>
+        <fa-icon [icon]="faInfoCircle" class="ms-1"
                  ngbTooltip="This is a list of servers the bot has been added to that you have Manage Server permission in."
                  placement="left"
         ></fa-icon>
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="form-group col-6" [hidden]="currentAlarmType !== channelAlarmType">
-        <label for="alarmChannel">Channel</label>
+        <label class="form-label" for="alarmChannel">Channel</label>
         <ng-select [items]="discordChannels"
                    [formControl]="f.targetChannel | formControl"
                    [clearable]="false"
@@ -55,7 +55,7 @@
         </div>
       </div>
     </div>
-    <button type="button" (click)="this.toggleEditTargetMode()" class="btn btn-link mr-3">Cancel</button>
+    <button type="button" (click)="this.toggleEditTargetMode()" class="btn btn-link me-3">Cancel</button>
     <button class="btn btn-primary" type="submit">Save</button>
   </div>
 </form>

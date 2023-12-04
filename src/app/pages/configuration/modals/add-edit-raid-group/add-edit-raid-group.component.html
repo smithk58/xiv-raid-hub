@@ -7,7 +7,7 @@
     <div class="row">
       <!--Raid group name-->
       <div class="form-group col">
-        <label for="raidGroupName">Name</label>
+        <label class="form-label" for="raidGroupName">Name</label>
         <input id="raidGroupName" type="text" formControlName="name" class="form-control">
         <div *ngIf="f.name.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
           <div *ngIf="f.name.errors.required">A raid group name is required.</div>
@@ -15,32 +15,32 @@
       </div>
       <!--Raid group tag-->
       <div class="form-group col">
-        <label for="raidGroupPurpose">Purpose</label>
+        <label class="form-label" for="raidGroupPurpose">Purpose</label>
         <input id="raidGroupPurpose" type="text" formControlName="purpose" class="form-control" placeholder="e.g. Savage, UWU">
         <div *ngIf="f.purpose.errors" class="invalid-feedback" [class.d-block]="isSubmitted">
           <div *ngIf="f.purpose.errors.maxlength">Max length of 12 characters.</div>
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row py-3">
       <div class="form-group col">
         <div class="form-check form-check-inline">
           <input id="hasCharsCb" class="form-check-input" type="checkbox" formControlName="hasCharacters">
           <label class="form-check-label" for="hasCharsCb">Add Members</label>
-          <fa-icon [icon]="faInfoCircle" class="ml-1"
+          <fa-icon [icon]="faInfoCircle" class="ms-1"
                    [ngbPopover]="addMembersPopover" popoverClass="md-popover" placement="bottom"
           ></fa-icon>
         </div>
       </div>
     </div>
     <div class="members-container scroll-shadow position-relative" [hidden]="getAddMemberCheckbox.value === false">
-      <div class="row mr-1">
+      <div class="row me-1">
         <!--Repeat the member fields-->
-        <div *ngFor="let ctrlGrp of getCharacterControls; let i = index;" class="form-group col-6">
+        <div *ngFor="let ctrlGrp of getCharacterControls; let i = index;" class="form-group mb-3 col-6">
           <h5>Member {{i+1}}</h5>
-          <div class="ml-4">
-            <label [for]="'character_'+i">Character</label>
-            <app-character-search class="ml-2"
+          <div class="ms-4">
+            <label class="form-label" [for]="'character_'+i">Character</label>
+            <app-character-search class="ms-2"
                                   [labelForId]="'character_'+i"
                                   [fControl]="ctrlGrp.controls.character"
                                   (selected)="characterSelected(i, $event)"
@@ -50,7 +50,7 @@
               <div *ngIf="ctrlGrp.controls.character.errors.required">A character is required.</div>
               <div *ngIf="ctrlGrp.controls.character.errors.notUnique">You can't add a character that you have already added.</div>
             </div>
-            <label [for]="'class_'+i" class="mt-3">Job</label>
+            <label class="form-label" [for]="'class_'+i" class="mt-3">Job</label>
             <app-class-search [fControl]="ctrlGrp.controls.comparisonClass"
                               [labelForId]="'class_'+i"
                               appendTo=".modal-body">
@@ -65,11 +65,11 @@
   </form>
 </div>
 <app-modal-footer [mode]="canEdit ? 'save' : 'close'" (save)="form.ngSubmit.emit()">
-  <div pre-content class="mr-auto mb-0" *ngIf="getAddMemberCheckbox.value === true">
+  <div pre-content class="me-auto mb-0" *ngIf="getAddMemberCheckbox.value === true">
     <div class="form-check form-check-inline">
       <input id="sharedCb" class="form-check-input" type="checkbox" [formControl]="getShareCheckbox">
       <label class="form-check-label" for="sharedCb">Share with other members</label>
-      <fa-icon [icon]="faInfoCircle" class="ml-1"
+      <fa-icon [icon]="faInfoCircle" class="ms-1"
                [ngbPopover]="sharingPopover" popoverClass="md-popover" placement="top"
       ></fa-icon>
     </div>
@@ -77,8 +77,8 @@
 </app-modal-footer>
 <ng-template #sharingPopover>
   <p>If enabled this raid groups information will show up to other raid group members, so they don't have to add it themselves.</p>
-  <p>They must have added their character in the <span class="font-weight-bold">Characters</span> list and have <span class="font-weight-bold">claimed</span> it as their character.</p>
-  <p>They will <span class="font-weight-bold">NOT</span> be able to edit this group, but they can see all of the information.</p>
+  <p>They must have added their character in the <span class="fw-bold">Characters</span> list and have <span class="fw-bold">claimed</span> it as their character.</p>
+  <p>They will <span class="fw-bold">NOT</span> be able to edit this group, but they can see all of the information.</p>
 </ng-template>
 <ng-template #addMembersPopover>
   <p>Let's you specify the exact players in your raid group.</p>

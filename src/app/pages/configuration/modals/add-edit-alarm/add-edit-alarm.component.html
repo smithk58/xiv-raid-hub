@@ -7,10 +7,10 @@
       <label class="form-check-label" for="alarmEnabled">Alarm Enabled</label>
     </div>
     <!--hours section-->
-    <div class="form-group">
-      <span class="pr-2">Send alert</span>
+    <div class="form-group mb-3">
+      <span class="pe-2">Send alert</span>
       <div class="d-inline-block">
-        <label for="alarmHours" class="sr-only">Number of hours before raid</label>
+        <label class="form-label" for="alarmHours" class="sr-only">Number of hours before raid</label>
         <input id="alarmHours" type="number" formControlName="hours" class="form-control hours-input">
       </div>
       <span class="px-2">hours before raid.</span>
@@ -20,8 +20,8 @@
       </div>
     </div>
     <!--raid group section-->
-    <div class="form-group">
-      <label for="alarmRaidGroup">Raid Group</label>
+    <div class="form-group mb-3">
+      <label class="form-label" for="alarmRaidGroup">Raid Group</label>
       <ng-select [items]="raidGroups"
                  [formControl]="f.raidGroup | formControl"
                  [clearable]="false"
@@ -33,13 +33,13 @@
         <ng-template ng-option-tmp let-item="item">
           <span [title]="item.name" class="ng-option-label">
             {{item.name}}
-            <span class="badge badge-secondary">{{item.purpose}}</span>
+            <span class="badge bg-secondary">{{item.purpose}}</span>
           </span>
         </ng-template>
         <ng-template ng-label-tmp let-item="item">
           <span [title]="item.name" class="ng-option-label">
             {{item.name}}
-            <span class="badge badge-secondary">{{item.purpose}}</span>
+            <span class="badge bg-secondary">{{item.purpose}}</span>
           </span>
         </ng-template>
       </ng-select>
@@ -48,8 +48,8 @@
       </div>
     </div>
     <!--alert type-->
-    <div class="form-group">
-      <label for="targetType">Type</label>
+    <div class="form-group mb-3">
+      <label class="form-label" for="targetType">Type</label>
       <ng-select [items]="targetTypes"
                  [formControl]="f.type | formControl"
                  [clearable]="false"
@@ -79,9 +79,9 @@
   ></app-alarm-target-role>
 </div>
 <app-modal-footer mode="save" (save)="form.ngSubmit.emit()" [disabled]="">
-  <div pre-content class="mr-auto">
+  <div pre-content class="me-auto">
     <button class="btn btn-secondary" (click)="inviteBot()" container="body">
-      <fa-icon [icon]="faPlus" class="mr-1" aria-hidden="true"></fa-icon>Invite Bot
+      <fa-icon [icon]="faPlus" class="me-1" aria-hidden="true"></fa-icon>Invite Bot
     </button>
   </div>
 </app-modal-footer>

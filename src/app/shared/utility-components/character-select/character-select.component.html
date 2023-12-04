@@ -7,7 +7,7 @@
 >
   <!--Custom option template-->
   <ng-template ng-option-tmp let-item="item">
-    <img class="class-icon mr-1" aria-hidden="true"
+    <img class="class-icon me-1" aria-hidden="true"
          [alt]="item.defaultClass" [src]="'assets/class-icons/'+item.defaultClass+'.png'"
          [ngClass]="classToRole[item.defaultClass] + '-bg'"
     />
@@ -15,7 +15,7 @@
   </ng-template>
   <!--Label when value selected-->
   <ng-template ng-label-tmp let-item="item">
-    <img class="class-icon mr-1" aria-hidden="true"
+    <img class="class-icon me-1" aria-hidden="true"
          [alt]="item.defaultClass"[src]="'assets/class-icons/'+item.defaultClass+'.png'"
          [ngClass]="classToRole[item.defaultClass] + '-bg'"
     />

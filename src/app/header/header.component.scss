@@ -1,14 +1,18 @@
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+
 .nav-link {
   padding-left: 1rem !important;
   padding-right: 1rem !important;
   white-space: nowrap;
 }
+/* Scale nav icons according to text if there is text, otherwise default them to being much larger*/
 .nav-icon {
   font-size: 1.5rem;
   line-height: 2rem; /*Keeps large icons from stretching smaller nav items*/
 }
-@media (min-width: 576px) { /* TODO Should use bootstrap variable, but too lazy atm */
-  /*When width is above sm we include the padding on sm-collapsed nav items*/
+@media (min-width: map-get($grid-breakpoints, "sm")) {
   .nav-item.sm-collapse {
     .nav-icon {
       font-size: inherit;
@@ -16,7 +20,7 @@
   }
 }
 /*Nav items that collapse a medium size*/
-@media (min-width: 768px) { /* TODO Should use bootstrap variable, but too lazy atm */
+@media (min-width: map-get($grid-breakpoints, "md")) {
   .nav-item.md-collapse {
     .nav-icon {
       font-size: inherit;
