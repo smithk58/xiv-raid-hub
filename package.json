@@ -4,13 +4,13 @@
   "homepage": "https://www.xivraidhub.com",
   "license": "SEE LICENSE IN license.md",
   "engines": {
-    "node": "16.x",
+    "node": "18.x",
     "npm": "8.x"
   },
   "scripts": {
     "ng": "ng",
     "start": "node dist/xiv-raid-hub/server.js",
-    "build": "ng build --prod",
+    "build": "ng build --configuration production",
     "build-dev": "ng build",
     "test": "ng test --watch=false --browsers=ChromeHeadless --source-map=false --code-coverage",
     "lint": "ng lint",
